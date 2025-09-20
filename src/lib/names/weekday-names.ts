@@ -6,7 +6,7 @@ const weekdayNamesRegistry = new Map<string, WeekdayNames>();
 
 export class WeekdayNames extends Names {
   public readonly standalone: boolean;
-  
+
   private _long?: readonly string[];
   private _short?: readonly string[];
   private _narrow?: readonly string[];
@@ -25,7 +25,7 @@ export class WeekdayNames extends Names {
       const defaultInstance = WeekdayNames.get({ locale: this.locale, standalone: this.standalone, case: 'default' });
       this._long = this.applyCase(defaultInstance.long);
     }
-    
+
     return this._long;
   }
 
@@ -38,7 +38,7 @@ export class WeekdayNames extends Names {
       const defaultInstance = WeekdayNames.get({ locale: this.locale, standalone: this.standalone, case: 'default' });
       this._short = this.applyCase(defaultInstance.short);
     }
-    
+
     return this._short;
   }
 
@@ -51,16 +51,17 @@ export class WeekdayNames extends Names {
       const defaultInstance = WeekdayNames.get({ locale: this.locale, standalone: this.standalone, case: 'default' });
       this._narrow = this.applyCase(defaultInstance.narrow);
     }
-    
+
     return this._narrow;
   }
 
   private getWeekdayNames(variation: 'long' | 'short' | 'narrow'): readonly string[] {
-    const intlFormat = new Intl.DateTimeFormat(this.locale, { 
+    const intlFormat = new Intl.DateTimeFormat(this.locale, {
       weekday: variation,
-      ...(this.standalone && { calendar: 'gregory' })
+      ...(this.standalone && { calendar: 'gregory' }),
+      timeZone: 'utc'
     });
-    
+
     const names: string[] = [];
     for (let i = 0; i < 7; i++) {
       const date = new Date(`2025-01-${String(5 + i).padStart(2, '0')}T00:00:00.000Z`);
@@ -68,7 +69,7 @@ export class WeekdayNames extends Names {
       const name = parts.find(part => part.type === 'weekday')?.value;
       if (name) names.push(name);
     }
-    
+
     return names;
   }
 
@@ -77,7 +78,7 @@ export class WeekdayNames extends Names {
     const caseType = params.case ?? 'default';
     const standalone = params.standalone ?? false;
     const key = `${locale}-${standalone}-${caseType}`;
-    
+
     const cached = weekdayNamesRegistry.get(key);
     if (cached) return cached;
 

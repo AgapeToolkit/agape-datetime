@@ -18,7 +18,7 @@ export class EraNames extends Names {
       const defaultInstance = EraNames.get({ locale: this.locale, case: 'default' });
       this._long = this.applyCase(defaultInstance.long);
     }
-    
+
     return this._long;
   }
 
@@ -31,7 +31,7 @@ export class EraNames extends Names {
       const defaultInstance = EraNames.get({ locale: this.locale, case: 'default' });
       this._short = this.applyCase(defaultInstance.short);
     }
-    
+
     return this._short;
   }
 
@@ -44,12 +44,12 @@ export class EraNames extends Names {
       const defaultInstance = EraNames.get({ locale: this.locale, case: 'default' });
       this._narrow = this.applyCase(defaultInstance.narrow);
     }
-    
+
     return this._narrow;
   }
 
   private getEraNames(variation: 'long' | 'short' | 'narrow'): readonly string[] {
-    const intlFormat = new Intl.DateTimeFormat(this.locale, { era: variation });
+    const intlFormat = new Intl.DateTimeFormat(this.locale, { era: variation, timeZone: 'utc' });
     const past = this.getEraName(new Date(`-002025-01-01T00:00:00.000Z`), intlFormat);
     const present = this.getEraName(new Date(`+002025-01-01T00:00:00.000Z`), intlFormat);
     return [past, present];
@@ -64,7 +64,7 @@ export class EraNames extends Names {
     const locale = params.locale ?? getLocale();
     const caseType = params.case ?? 'default';
     const key = `${locale}-${caseType}`;
-    
+
     const cached = eraNamesRegistry.get(key);
     if (cached) return cached;
 

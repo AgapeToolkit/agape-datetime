@@ -110,7 +110,7 @@ export class TimeZoneNames extends Names {
       const winter = Temporal.Instant.from('2025-01-01T00:00:00.000Z');
       const summer = Temporal.Instant.from('2025-01-01T00:00:00.000Z');
 
-      for (const timeZone of Intl.supportedValuesOf('timeZone')) {
+      for (const timeZone of (Intl as any).supportedValuesOf('timeZone')) {
         const intlFormat = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: variation });
         const winterTimeZoneNameDetails = this.getTimeZoneNameDetailInstant(intlFormat, timeZone, winter);
         const summerTimeZoneNameDetails = this.getTimeZoneNameDetailInstant(intlFormat, timeZone, summer);
@@ -126,7 +126,7 @@ export class TimeZoneNames extends Names {
       const winter = new Date('2025-01-01T00:00:00.000Z');
       const summer =  new Date('2025-07-15T00:00:00.000Z');
 
-      for (const timeZone of Intl.supportedValuesOf('timeZone')) {
+      for (const timeZone of (Intl as any).supportedValuesOf('timeZone')) {
         const intlFormat = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: variation });
         const winterTimeZoneNameDetails = this.getTimeZoneNameDetailLegacy(intlFormat, timeZone, winter);
         const summerTimeZoneNameDetails = this.getTimeZoneNameDetailLegacy(intlFormat, timeZone, summer);
