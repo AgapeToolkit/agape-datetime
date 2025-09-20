@@ -1,5 +1,6 @@
+import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { NamesParams, createCacheKey } from './types';
+import { DayPeriodNamesParams } from './types/day-period-names';
 
 const dayPeriodNamesRegistry = new Map<string, DayPeriodNames>();
 
@@ -11,7 +12,7 @@ export class DayPeriodNames extends Names {
   private _narrow?: readonly string[];
   private _default?: readonly string[];
 
-  constructor(params: NamesParams = {}) {
+  constructor(params: DayPeriodNamesParams = {}) {
     super(params);
     this.standalone = params.standalone ?? false;
   }
@@ -89,12 +90,16 @@ export class DayPeriodNames extends Names {
     return names[0] === 'AM' && names[1] === 'PM';
   }
 
-  static get(params: NamesParams = {}): DayPeriodNames {
-    const key = createCacheKey(params);
+  static get(params: DayPeriodNamesParams = {}): DayPeriodNames {
+    const locale = params.locale ?? getLocale();
+    const caseType = params.case ?? 'default';
+    const standalone = params.standalone ?? false;
+    const key = `${locale}-${standalone}-${caseType}`;
+    
     const cached = dayPeriodNamesRegistry.get(key);
     if (cached) return cached;
 
-    const created = new DayPeriodNames(params);
+    const created = new DayPeriodNames({ locale, case: caseType, standalone });
     dayPeriodNamesRegistry.set(key, created);
     return created;
   }

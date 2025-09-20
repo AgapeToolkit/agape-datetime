@@ -1,13 +1,12 @@
-import { NamesParams, normalizeParams } from './types';
+import { getLocale } from '@agape/locale';
 
 export abstract class Names {
   public readonly locale: string;
   public readonly case: 'uppercase' | 'lowercase' | 'default';
 
-  constructor(params: NamesParams = {}) {
-    const normalized = normalizeParams(params);
-    this.locale = normalized.locale;
-    this.case = normalized.case;
+  constructor(params: { locale?: string; case?: 'uppercase' | 'lowercase' | 'default' } = {}) {
+    this.locale = params.locale ?? getLocale();
+    this.case = params.case ?? 'default';
   }
 
   protected applyCase(names: readonly string[]): readonly string[] {

@@ -6,4 +6,12 @@ export { TimeZoneNames } from './timezone-names';
 export { WeekdayNames } from './weekday-names';
 export { MonthNumbers } from './month-numbers';
 export { WeekdayNumbers } from './weekday-numbers';
-export { NamesParams, CaseType, createCacheKey, normalizeParams } from './types';
+export { 
+  CommonEraNamesParams, 
+  DayPeriodNamesParams, 
+  EraNamesParams, 
+  MonthNamesParams, 
+  TimeZoneNamesParams, 
+  WeekdayNamesParams, 
+  Case
+} from './types';

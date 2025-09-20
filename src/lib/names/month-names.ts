@@ -1,5 +1,6 @@
+import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { NamesParams, createCacheKey } from './types';
+import { MonthNamesParams } from './types/month-names';
 
 const monthNamesRegistry = new Map<string, MonthNames>();
 
@@ -10,7 +11,7 @@ export class MonthNames extends Names {
   private _short?: readonly string[];
   private _narrow?: readonly string[];
 
-  constructor(params: NamesParams = {}) {
+  constructor(params: MonthNamesParams = {}) {
     super(params);
     this.standalone = params.standalone ?? false;
   }
@@ -71,12 +72,16 @@ export class MonthNames extends Names {
     return names;
   }
 
-  static get(params: NamesParams = {}): MonthNames {
-    const key = createCacheKey(params);
+  static get(params: MonthNamesParams = {}): MonthNames {
+    const locale = params.locale ?? getLocale();
+    const caseType = params.case ?? 'default';
+    const standalone = params.standalone ?? false;
+    const key = `${locale}-${standalone}-${caseType}`;
+    
     const cached = monthNamesRegistry.get(key);
     if (cached) return cached;
 
-    const created = new MonthNames(params);
+    const created = new MonthNames({ locale, case: caseType, standalone });
     monthNamesRegistry.set(key, created);
     return created;
   }

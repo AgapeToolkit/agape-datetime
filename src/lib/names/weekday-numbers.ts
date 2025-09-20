@@ -13,7 +13,7 @@ export class WeekdayNumbers {
   private _narrow?: Record<string, number>;
 
   constructor(public locale: string) {
-    this.weekdayNames = WeekdayNames.forLocale(locale);
+    this.weekdayNames = WeekdayNames.get({ locale });
   }
 
   static forLocale(locale: string): WeekdayNumbers {

@@ -1,5 +1,6 @@
+import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { NamesParams, createCacheKey } from './types';
+import { CommonEraNamesParams } from './types/common-era-names';
 
 const commonEraNamesRegistry = new Map<string, CommonEraNames>();
 
@@ -47,12 +48,15 @@ export class CommonEraNames extends Names {
     return this._narrow;
   }
 
-  static get(params: NamesParams = {}): CommonEraNames {
-    const key = createCacheKey(params);
+  static get(params: CommonEraNamesParams = {}): CommonEraNames {
+    const locale = params.locale ?? getLocale();
+    const caseType = params.case ?? 'default';
+    const key = `${locale}-${caseType}`;
+    
     const cached = commonEraNamesRegistry.get(key);
     if (cached) return cached;
 
-    const created = new CommonEraNames(params);
+    const created = new CommonEraNames({ locale, case: caseType });
     commonEraNamesRegistry.set(key, created);
     return created;
   }

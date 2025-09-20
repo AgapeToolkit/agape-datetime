@@ -1,8 +1,9 @@
 import { hasTemporal, getTemporal, TemporalLike } from '@agape/temporal';
-import { TimeZoneNameRecord } from '../interfaces/timezone-name-record';
 import { getOffsetLegacyDate, getOffsetTemporal } from '../util';
+import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { NamesParams, createCacheKey } from './types';
+import { TimeZoneNamesParams } from './types/timezone-names';
+import { TimeZoneNameRecord } from './types/timezone-name-record';
 
 const timeZoneNamesRegistry = new Map<string, TimeZoneNames>();
 
@@ -91,6 +92,7 @@ export class TimeZoneNames extends Names {
     const timeZoneNames: Record<string, TimeZoneNameRecord> = {};
     for (const timeZoneNameDetail of timeZoneNameDetails) {
       const nameRecord: TimeZoneNameRecord = timeZoneNames[timeZoneNameDetail.timeZoneName] ??= {
+        timeZoneName: timeZoneNameDetail.timeZoneName,
         offset: timeZoneNameDetail.offset,
         timeZoneIds: []
       };
@@ -148,7 +150,7 @@ export class TimeZoneNames extends Names {
     }
   }
 
-  private getTimeZoneNameDetailInstant(intlFormat: Intl.DateTimeFormat, timeZoneId: string, instant: TemporalStub.Instant): TimeZoneNameDetail {
+  private getTimeZoneNameDetailInstant(intlFormat: Intl.DateTimeFormat, timeZoneId: string, instant: any): TimeZoneNameDetail {
     return {
       timeZoneId,
       timeZoneName: this.getTimeZoneName(intlFormat, instant),
@@ -161,12 +163,15 @@ export class TimeZoneNames extends Names {
     return parts.find(part => part.type === 'timeZoneName')?.value || '';
   }
 
-  static get(params: NamesParams = {}): TimeZoneNames {
-    const key = createCacheKey(params);
+  static get(params: TimeZoneNamesParams = {}): TimeZoneNames {
+    const locale = params.locale ?? getLocale();
+    const caseType = params.case ?? 'default';
+    const key = `${locale}-${caseType}`;
+    
     const cached = timeZoneNamesRegistry.get(key);
     if (cached) return cached;
 
-    const created = new TimeZoneNames(params);
+    const created = new TimeZoneNames({ locale, case: caseType });
     timeZoneNamesRegistry.set(key, created);
     return created;
   }

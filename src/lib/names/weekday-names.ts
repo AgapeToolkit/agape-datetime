@@ -1,5 +1,6 @@
+import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { NamesParams, createCacheKey } from './types';
+import { WeekdayNamesParams } from './types/weekday-names';
 
 const weekdayNamesRegistry = new Map<string, WeekdayNames>();
 
@@ -10,7 +11,7 @@ export class WeekdayNames extends Names {
   private _short?: readonly string[];
   private _narrow?: readonly string[];
 
-  constructor(params: NamesParams = {}) {
+  constructor(params: WeekdayNamesParams = {}) {
     super(params);
     this.standalone = params.standalone ?? false;
   }
@@ -71,12 +72,16 @@ export class WeekdayNames extends Names {
     return names;
   }
 
-  static get(params: NamesParams = {}): WeekdayNames {
-    const key = createCacheKey(params);
+  static get(params: WeekdayNamesParams = {}): WeekdayNames {
+    const locale = params.locale ?? getLocale();
+    const caseType = params.case ?? 'default';
+    const standalone = params.standalone ?? false;
+    const key = `${locale}-${standalone}-${caseType}`;
+    
     const cached = weekdayNamesRegistry.get(key);
     if (cached) return cached;
 
-    const created = new WeekdayNames(params);
+    const created = new WeekdayNames({ locale, case: caseType, standalone });
     weekdayNamesRegistry.set(key, created);
     return created;
   }

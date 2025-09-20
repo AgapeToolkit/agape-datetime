@@ -15,7 +15,7 @@ export class MonthNumbers {
   private _narrow?: Record<string, number>;
 
   constructor(public locale: string, public standalone: boolean = false) {
-    this.monthNames = MonthNames.forLocale(locale, standalone);
+    this.monthNames = MonthNames.get({ locale, standalone });
   }
 
   static forLocale(locale: string, standalone: boolean = false): MonthNumbers {

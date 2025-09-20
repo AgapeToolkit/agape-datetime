@@ -1,5 +1,6 @@
+import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { NamesParams, createCacheKey } from './types';
+import { EraNamesParams } from './types/era-names';
 
 const eraNamesRegistry = new Map<string, EraNames>();
 
@@ -59,12 +60,15 @@ export class EraNames extends Names {
     return parts.find(part => part.type === 'era')?.value || '';
   }
 
-  static get(params: NamesParams = {}): EraNames {
-    const key = createCacheKey(params);
+  static get(params: EraNamesParams = {}): EraNames {
+    const locale = params.locale ?? getLocale();
+    const caseType = params.case ?? 'default';
+    const key = `${locale}-${caseType}`;
+    
     const cached = eraNamesRegistry.get(key);
     if (cached) return cached;
 
-    const created = new EraNames(params);
+    const created = new EraNames({ locale, case: caseType });
     eraNamesRegistry.set(key, created);
     return created;
   }
