@@ -1,7 +1,8 @@
-import { hasTemporal, TemporalStub } from '@agape/model/temporal';
+import { hasTemporal, getTemporal, TemporalLike } from '@agape/temporal';
 import { TimeZoneNameRecord } from '../interfaces/timezone-name-record';
 import { getOffsetLegacyDate, getOffsetTemporal } from '../util';
 import { Names } from './names';
+import { NamesParams, createCacheKey } from './types';
 
 const timeZoneNamesRegistry = new Map<string, TimeZoneNames>();
 
@@ -10,35 +11,23 @@ interface TimeZoneNameDetail {
   timeZoneId: string;
   offset: string;
 }
-
 export class TimeZoneNames extends Names {
-
-  protected _long?: readonly string[];
-
-  protected _longNamesMap?: Record<string, TimeZoneNameRecord>;
-
-  protected _short?: readonly string[];
-
-  protected _shortNamesMap?: Record<string, TimeZoneNameRecord>;
-
-  protected _narrow?: readonly string[];
-
-  constructor(public locale: string) {
-    super();
-  }
-
-  static forLocale(locale: string): TimeZoneNames {
-    const cached = timeZoneNamesRegistry.get(locale);
-    if (cached) return cached;
-
-    const monthNames = new TimeZoneNames(locale);
-    timeZoneNamesRegistry.set(locale, monthNames);
-    return monthNames;
-  }
+  private _long?: readonly string[];
+  private _longNamesMap?: Record<string, TimeZoneNameRecord>;
+  private _short?: readonly string[];
+  private _shortNamesMap?: Record<string, TimeZoneNameRecord>;
+  private _narrow?: readonly string[];
 
   get long(): readonly string[] {
     if (this._long) return this._long;
-    this._long = Object.keys(this.longNamesMap);
+
+    if (this.case === 'default') {
+      this._long = Object.keys(this.longNamesMap);
+    } else {
+      const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
+      this._long = this.applyCase(defaultInstance.long);
+    }
+    
     return this._long;
   }
 
@@ -50,7 +39,14 @@ export class TimeZoneNames extends Names {
 
   get short(): readonly string[] {
     if (this._short) return this._short;
-    this._short = Object.keys(this.shortNamesMap);
+
+    if (this.case === 'default') {
+      this._short = Object.keys(this.shortNamesMap);
+    } else {
+      const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
+      this._short = this.applyCase(defaultInstance.short);
+    }
+    
     return this._short;
   }
 
@@ -62,7 +58,14 @@ export class TimeZoneNames extends Names {
 
   get narrow(): readonly string[] {
     if (this._narrow) return this._narrow;
-    this._narrow = this._short;
+
+    if (this.case === 'default') {
+      this._narrow = this._short || [];
+    } else {
+      const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
+      this._narrow = this.applyCase(defaultInstance.narrow);
+    }
+    
     return this._narrow;
   }
 
@@ -71,13 +74,13 @@ export class TimeZoneNames extends Names {
     return set[timeZoneName]?.offset;
   }
 
-  getTimeZoneId(variation: 'long' | 'short' | 'narrow', timeZoneName: string, date: Date | TemporalStub.Instant): string | undefined {
+  getTimeZoneId(variation: 'long' | 'short' | 'narrow', timeZoneName: string, date: Date): string | undefined {
     const map = variation === 'long' ? this.longNamesMap : this.shortNamesMap;
     const record: TimeZoneNameRecord = map[timeZoneName];
     const intlVariation = variation === 'long' ? 'long': 'short';
     for (const timeZone of record.timeZoneIds) {
       const intl = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: intlVariation });
-      const name = intl.formatToParts(date as any).find(part => part.type === 'timeZoneName')?.value;
+      const name = intl.formatToParts(date).find(part => part.type === 'timeZoneName')?.value;
       if (name === timeZoneName) return timeZone;
     }
     return undefined;
@@ -101,8 +104,9 @@ export class TimeZoneNames extends Names {
     const timeZoneNameDetails: TimeZoneNameDetail[] = [];
 
     if (hasTemporal()) {
-      const winter = TemporalStub.Instant.from('2025-01-01T00:00:00.000Z');
-      const summer = TemporalStub.Instant.from('2025-01-01T00:00:00.000Z');
+      const Temporal = getTemporal();
+      const winter = Temporal.Instant.from('2025-01-01T00:00:00.000Z');
+      const summer = Temporal.Instant.from('2025-01-01T00:00:00.000Z');
 
       for (const timeZone of Intl.supportedValuesOf('timeZone')) {
         const intlFormat = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: variation });
@@ -152,9 +156,19 @@ export class TimeZoneNames extends Names {
     }
   }
 
-  private getTimeZoneName(intlFormat: Intl.DateTimeFormat, date: Date | TemporalStub.Instant) {
-    const parts = intlFormat.formatToParts(date as any);
-    return parts.find(part => part.type === 'timeZoneName').value;
+  private getTimeZoneName(intlFormat: Intl.DateTimeFormat, date: Date) {
+    const parts = intlFormat.formatToParts(date);
+    return parts.find(part => part.type === 'timeZoneName')?.value || '';
+  }
+
+  static get(params: NamesParams = {}): TimeZoneNames {
+    const key = createCacheKey(params);
+    const cached = timeZoneNamesRegistry.get(key);
+    if (cached) return cached;
+
+    const created = new TimeZoneNames(params);
+    timeZoneNamesRegistry.set(key, created);
+    return created;
   }
 
 }

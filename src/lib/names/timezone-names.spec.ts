@@ -2,13 +2,13 @@ import { TimeZoneNames } from './timezone-names';
 
 describe('TimeZoneNames', () => {
   it('should instantiate', () => {
-    expect(new TimeZoneNames('en-US')).toBeTruthy();
+    expect(new TimeZoneNames({ locale: 'en-US' })).toBeTruthy();
   })
 
   describe('en-US', () => {
-    let names = new TimeZoneNames('en-US');
+    let names = new TimeZoneNames({ locale: 'en-US' });
     beforeEach(() => {
-      names = new TimeZoneNames('en-US');
+      names = new TimeZoneNames({ locale: 'en-US' });
     })
     describe('short', () => {
       it('should include the list of local timezone names', () => {
@@ -49,9 +49,9 @@ describe('TimeZoneNames', () => {
   })
 
   describe('ru-RU', () => {
-    let names = new TimeZoneNames('ru-RU');
+    let names = new TimeZoneNames({ locale: 'ru-RU' });
     beforeEach(() => {
-      names = new TimeZoneNames('ru-RU');
+      names = new TimeZoneNames({ locale: 'ru-RU' });
     });
 
     describe('short', () => {

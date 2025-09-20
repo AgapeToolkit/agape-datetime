@@ -1,13 +1,13 @@
-import { getLocale } from '../../../date-locale';
+import { getLocale } from '@agape/locale';
 import { EraNames } from './era-names';
 
 describe('EraNames', () => {
   it('should instantiate', () => {
-    expect(new EraNames(getLocale())).toBeInstanceOf(EraNames);
+    expect(new EraNames({ locale: getLocale() })).toBeInstanceOf(EraNames);
   })
   describe('en-US', () => {
     const locale = 'en-US';
-    const eraNames = new EraNames(locale);
+    const eraNames = new EraNames({ locale });
 
     it('should create the short names', () => {
       const eras = eraNames.short;
@@ -27,7 +27,7 @@ describe('EraNames', () => {
   })
   describe('ja-JP', () => {
     const locale = 'ja-JP';
-    const eraNames = new EraNames(locale);
+    const eraNames = new EraNames({ locale });
 
     it('should create the short names', () => {
       const eras = eraNames.short;
@@ -47,7 +47,7 @@ describe('EraNames', () => {
   })
   describe('ru-RU', () => {
     const locale = 'ru-RU';
-    const eraNames = new EraNames(locale);
+    const eraNames = new EraNames({ locale });
 
     it('should create the short names', () => {
       const eras = eraNames.short;
@@ -67,7 +67,7 @@ describe('EraNames', () => {
   })
   describe('de-DE', () => {
     const locale = 'de-DE';
-    const eraNames = new EraNames(locale);
+    const eraNames = new EraNames({ locale });
 
     it('should create the short names', () => {
       const eras = eraNames.short;
@@ -87,7 +87,7 @@ describe('EraNames', () => {
   })
   describe('es-US', () => {
     const locale = 'es-US';
-    const eraNames = new EraNames(locale);
+    const eraNames = new EraNames({ locale });
 
     it('should create the short names', () => {
       const eras = eraNames.short;

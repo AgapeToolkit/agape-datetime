@@ -1,93 +1,83 @@
 import { Names } from './names';
+import { NamesParams, createCacheKey } from './types';
 
 const monthNamesRegistry = new Map<string, MonthNames>();
 
-const standaloneMonthNamesRegistry = new Map<string, MonthNames>();
-
 export class MonthNames extends Names {
+  public readonly standalone: boolean;
+  
+  private _long?: readonly string[];
+  private _short?: readonly string[];
+  private _narrow?: readonly string[];
 
-  protected _long?: readonly string[];
-
-  protected _short?: readonly string[];
-
-  protected _narrow?: readonly string[];
-
-  constructor(public locale: string, public standalone: boolean = false) {
-    super();
-  }
-
-  static forLocale(locale: string, standalone: boolean = false): MonthNames {
-    if (standalone) {
-      const cached = standaloneMonthNamesRegistry.get(locale);
-      if (cached) return cached;
-
-      const monthNames = new MonthNames(locale, standalone);
-      standaloneMonthNamesRegistry.set(locale, monthNames);
-      return monthNames;
-    }
-
-    const cached = monthNamesRegistry.get(locale);
-    if (cached) return cached;
-
-    const monthNames = new MonthNames(locale);
-    monthNamesRegistry.set(locale, monthNames);
-    return monthNames;
+  constructor(params: NamesParams = {}) {
+    super(params);
+    this.standalone = params.standalone ?? false;
   }
 
   get long(): readonly string[] {
     if (this._long) return this._long;
 
-    const names = this.standalone
-      ? this.getStandaloneMonthNames('long')
-      : this.getMonthNames('long');
-
-    this._long = names;
-    return names;
+    if (this.case === 'default') {
+      this._long = this.getMonthNames('long');
+    } else {
+      const defaultInstance = MonthNames.get({ locale: this.locale, standalone: this.standalone, case: 'default' });
+      this._long = this.applyCase(defaultInstance.long);
+    }
+    
+    return this._long;
   }
 
   get short(): readonly string[] {
     if (this._short) return this._short;
 
-    const names = this.standalone
-      ? this.getStandaloneMonthNames('short')
-      : this.getMonthNames('short');
-
-    console.log("Month names", names);
-
-    this._short = names;
-    return names;
+    if (this.case === 'default') {
+      this._short = this.getMonthNames('short');
+    } else {
+      const defaultInstance = MonthNames.get({ locale: this.locale, standalone: this.standalone, case: 'default' });
+      this._short = this.applyCase(defaultInstance.short);
+    }
+    
+    return this._short;
   }
 
   get narrow(): readonly string[] {
     if (this._narrow) return this._narrow;
 
-    const names = this.standalone
-      ? this.getStandaloneMonthNames('narrow')
-      : this.getMonthNames('narrow');
-
-    this._narrow = names;
-    return names;
-  }
-
-  private getStandaloneMonthNames(variation: 'long' | 'short' | 'narrow'): string[] {
-    const intlFormat = new Intl.DateTimeFormat(this.locale, { month: variation, timeZone: 'UTC' });
-    return this.getNamesUsingIntlFormat(intlFormat);
-  }
-
-  private getMonthNames(variation: 'long' | 'short' | 'narrow'): string[] {
-    const intlFormat = new Intl.DateTimeFormat(this.locale, { year: 'numeric', month: variation, day: 'numeric', timeZone: 'UTC' });
-    return this.getNamesUsingIntlFormat(intlFormat);
-  }
-
-  private getNamesUsingIntlFormat(intlFormat: Intl.DateTimeFormat): string[] {
-    const names: string[] = [];
-    for (let m = 0; m < 12; m++) {
-      const date = new Date(`2025-${String(m+1).padStart(2, '0')}-01T00:00:00.000Z`);
-      const parts = intlFormat.formatToParts(date);
-      const name = parts.find(part => part.type === 'month').value;
-      names.push(name);
+    if (this.case === 'default') {
+      this._narrow = this.getMonthNames('narrow');
+    } else {
+      const defaultInstance = MonthNames.get({ locale: this.locale, standalone: this.standalone, case: 'default' });
+      this._narrow = this.applyCase(defaultInstance.narrow);
     }
+    
+    return this._narrow;
+  }
+
+  private getMonthNames(variation: 'long' | 'short' | 'narrow'): readonly string[] {
+    const intlFormat = new Intl.DateTimeFormat(this.locale, { 
+      month: variation,
+      ...(this.standalone && { calendar: 'gregory' })
+    });
+    
+    const names: string[] = [];
+    for (let i = 0; i < 12; i++) {
+      const date = new Date(`2025-${String(i + 1).padStart(2, '0')}-01T00:00:00.000Z`);
+      const parts = intlFormat.formatToParts(date);
+      const name = parts.find(part => part.type === 'month')?.value;
+      if (name) names.push(name);
+    }
+    
     return names;
   }
 
+  static get(params: NamesParams = {}): MonthNames {
+    const key = createCacheKey(params);
+    const cached = monthNamesRegistry.get(key);
+    if (cached) return cached;
+
+    const created = new MonthNames(params);
+    monthNamesRegistry.set(key, created);
+    return created;
+  }
 }
