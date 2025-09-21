@@ -3,14 +3,14 @@ import { DateTimePatternParser } from './datetime-pattern-parser';
 
 export class DateTimePatternIntlParser extends DateTimePatternParser {
 
-  public readonly parts: DestructuredDateTimePatternPart[];
+  public readonly parts!: DestructuredDateTimePatternPart[];
 
   constructor(private readonly intlFormat: Intl.DateTimeFormat) {
     super();
-    this.parts = this.formatToParts(intlFormat);
+    // this.parts = this.formatToParts(intlFormat);
   }
 
-  private formatToParts(intlFormat: Intl.DateTimeFormat): DestructuredDateTimePatternPart[] {
-
-  }
+  // private formatToParts(intlFormat: Intl.DateTimeFormat): DestructuredDateTimePatternPart[] {
+  //
+  // }
 }

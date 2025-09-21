@@ -38,7 +38,6 @@ export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
   getTokenLength(tokenString: string): number {
     const regex = new RegExp(`^[+\\-±]`, 'u')
     const testString = tokenString.match(regex) ? tokenString.slice(1) : tokenString;
-    console.log("1", tokenString, "2", testString, "3", this.char);
     return testString.length;
   }
 

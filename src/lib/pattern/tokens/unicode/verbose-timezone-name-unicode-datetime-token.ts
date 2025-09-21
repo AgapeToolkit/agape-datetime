@@ -7,7 +7,7 @@ import { InvalidTimeZoneNameError } from '../../errors/invalid-timezone-name-err
 
 
 export class VerboseTimeZoneNameUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken {
-  readonly id!: string;
+  declare readonly id: string;
 
   readonly name?: string;
 

@@ -6,7 +6,7 @@ import { buildRegexFromNames } from '../util';
 import { MonthNames } from '../../../names';
 
 export class VerboseMonthUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken {
-  readonly id!: string;
+  declare readonly id: string;
 
   readonly name?: string;
 

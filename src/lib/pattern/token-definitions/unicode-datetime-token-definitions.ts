@@ -8,11 +8,11 @@ import { VerboseMonthUnicodeDateTimeToken } from '../tokens/unicode/verbose-mont
 import { VerboseWeekdayUnicodeDateTimeToken } from '../tokens/unicode/verbose-weekday-unicode-datetime-token';
 import { DayPeriodUnicodeDateTimeToken } from '../tokens/unicode/day-period-unicode-datetime-token';
 import { FractionalSecondUnicodeDateTimeToken } from '../tokens/unicode/fractional-second-unicode-datetime-token';
-import { TimeZoneOffsetUnicodeDateTimeToken } from '../tokens/unicode/timezone-offset-unicode-datetime-token';
-import { TimeZoneIdUnicodeDateTimeToken } from '../tokens/unicode/timezone-id-unicode-datetime-token';
+import { TimeZoneOffsetUnicodeDateTimeToken } from '../tokens/unicode/timeZone-offset-unicode-datetime-token';
+import { TimeZoneIdUnicodeDateTimeToken } from '../tokens/unicode/timeZone-id-unicode-datetime-token';
 import {
   VerboseTimeZoneNameUnicodeDateTimeToken
-} from '../tokens/unicode/verbose-timezone-name-unicode-datetime-token';
+} from '../tokens/unicode/verbose-timeZone-name-unicode-datetime-token';
 
 export const unicodeDateTimeTokenDefinitions = {
   eraShort: new VerboseEraUnicodeDateTimeToken({
@@ -255,75 +255,75 @@ export const unicodeDateTimeTokenDefinitions = {
     id: 'fractionalSecond',
     char: 'S',
   }),
-  timezoneOffsetZ: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetZ',
+  timeZoneOffsetZ: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetZ',
     symbol: 'Z',
     regex: 'Z'
   }),
-  timezoneOffsetWithZ_X: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithZ_X',
+  timeZoneOffsetWithZ_X: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithZ_X',
     symbol: 'X', // “Z” or ±HH or ±HHMM  (e.g., Z, -08, +0530)
     regex: `(?:Z|[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9])?)`
   }),
-  timezoneOffsetWithZ_XX: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithZ_XX',
+  timeZoneOffsetWithZ_XX: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithZ_XX',
     symbol: 'XX', // “Z” or ±HHMM  (e.g., Z, -0800, +0530)
     regex: `(?:Z|[+-](?:0[0-9]|1[0-4])[0-5][0-9])`
   }),
-  timezoneOffsetWithZ_XXX: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithZ_XXX',
+  timeZoneOffsetWithZ_XXX: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithZ_XXX',
     symbol: 'XXX', // “Z” or ±HH:MM  (e.g., Z, -08:00, +05:30)
     regex: `(?:Z|[+-](?:0[0-9]|1[0-4]):[0-5][0-9])`
   }),
-  timezoneOffsetWithZ_XXXX: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithZ_XXXX',
+  timeZoneOffsetWithZ_XXXX: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithZ_XXXX',
     symbol: 'XXXX', // “Z” or ±HHMM or ±HHMMSS  (e.g., Z, -0800, +0530, +123456)
     regex: `(?:Z|[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9]){1,2})`
   }),
-  timezoneOffsetWithZ_XXXXX: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithZ_XXXXX',
+  timeZoneOffsetWithZ_XXXXX: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithZ_XXXXX',
     symbol: 'XXXXX', // “Z” or ±HH:MM or ±HH:MM:SS  (e.g., Z, -08:00, +05:30, +12:34:56)
     regex: `(?:Z|[+-](?:0[0-9]|1[0-4]):[0-5][0-9](?::[0-5][0-9])?)`
   }),
-  timezoneOffsetWithoutZ_x: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithoutZ_x',
+  timeZoneOffsetWithoutZ_x: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithoutZ_x',
     symbol: 'x', //±HH or ±HHMM  (e.g., -08, +0530, +00)
     regex: `[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9])?`
   }),
-  timezoneOffsetWithoutZ_xx: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithoutZ_xx',
+  timeZoneOffsetWithoutZ_xx: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithoutZ_xx',
     symbol: 'xx', // “±HHMM  (e.g., -0800, +0530, +0000)
     regex: `[+-](?:0[0-9]|1[0-4])[0-5][0-9]`
   }),
-  timezoneOffsetWithoutZ_xxx: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithoutZ_xxx',
+  timeZoneOffsetWithoutZ_xxx: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithoutZ_xxx',
     symbol: 'xxx', // ±HH:MM  (e.g., -08:00, +05:30, +00:00)
     regex: `[+-](?:0[0-9]|1[0-4]):[0-5][0-9]`
   }),
-  timezoneOffsetWithoutZ_xxxx: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithoutZ_xxxx',
+  timeZoneOffsetWithoutZ_xxxx: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithoutZ_xxxx',
     symbol: 'xxxx', // ±HHMM or ±HHMMSS  (e.g., -0800, +0530, +0000, +123456)
     regex: `[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9]){1,2}`
   }),
-  timezoneOffsetWithoutZ_xxxxx: new TimeZoneOffsetUnicodeDateTimeToken({
-    id: 'timezoneOffsetWithoutZ_xxxxx',
+  timeZoneOffsetWithoutZ_xxxxx: new TimeZoneOffsetUnicodeDateTimeToken({
+    id: 'timeZoneOffsetWithoutZ_xxxxx',
     symbol: 'xxxxx', // ±HH:MM or ±HH:MM:SS  (e.g., -08:00, +05:30, +00:00, +12:34:56)
     regex: `[+-](?:0[0-9]|1[0-4]):[0-5][0-9](?::[0-5][0-9])?`
   }),
-  timezoneId: new TimeZoneIdUnicodeDateTimeToken({
-    id: 'timezoneId',
+  timeZoneId: new TimeZoneIdUnicodeDateTimeToken({
+    id: 'timeZoneId',
     symbol: 'V',
     regex: `(?:UTC|GMT|[A-Za-z][A-Za-z0-9._+-]*(?:\\/[A-Za-z0-9._+-]+)+)`,
   }),
-  timezoneNameShort: new VerboseTimeZoneNameUnicodeDateTimeToken({
-    id: 'timezoneNameShort',
-    name: 'timezoneNameShort',
+  timeZoneNameShort: new VerboseTimeZoneNameUnicodeDateTimeToken({
+    id: 'timeZoneNameShort',
+    name: 'timeZoneNameShort',
     symbol: /z{1,3}/,
     variation: 'short',
     regex: `(?:[A-Z]{2,5}|(?:UTC|GMT)(?:[+\\u2212-](?:(?:0[0-9]|1[0-4])(?::?[0-5][0-9])?))?)`,
   }),
-  timezoneNameLong: new VerboseTimeZoneNameUnicodeDateTimeToken({
-    id: 'timezoneNameLong',
+  timeZoneNameLong: new VerboseTimeZoneNameUnicodeDateTimeToken({
+    id: 'timeZoneNameLong',
     symbol: 'zzzz',
     variation: 'long',
     regex: `(?:(?:UTC|GMT)(?:[+\\u2212-](?:1[0-4]|0?\\d)(?::[0-5]\\d)?)?|[\\p{L}\\p{M}\\p{N}\\p{Pc}\\p{Pd}\\p{Po} ]{3,})`,
@@ -410,20 +410,20 @@ export const unicodeTokensToUseInStandardPatterns = [
   'second',
   'secondPadded',
   'fractionalSecond',
-  'timezoneOffsetZ',
-  'timezoneOffsetWithZ_X',
-  'timezoneOffsetWithZ_XX',
-  'timezoneOffsetWithZ_XXX',
-  'timezoneOffsetWithZ_XXXX',
-  'timezoneOffsetWithZ_XXXXX',
-  'timezoneOffsetWithoutZ_x',
-  'timezoneOffsetWithoutZ_xx',
-  'timezoneOffsetWithoutZ_xxx',
-  'timezoneOffsetWithoutZ_xxxx',
-  'timezoneOffsetWithoutZ_xxxxx',
-  'timezoneId',
-  'timezoneNameShort',
-  'timezoneNameLong',
+  'timeZoneOffsetZ',
+  'timeZoneOffsetWithZ_X',
+  'timeZoneOffsetWithZ_XX',
+  'timeZoneOffsetWithZ_XXX',
+  'timeZoneOffsetWithZ_XXXX',
+  'timeZoneOffsetWithZ_XXXXX',
+  'timeZoneOffsetWithoutZ_x',
+  'timeZoneOffsetWithoutZ_xx',
+  'timeZoneOffsetWithoutZ_xxx',
+  'timeZoneOffsetWithoutZ_xxxx',
+  'timeZoneOffsetWithoutZ_xxxxx',
+  'timeZoneId',
+  'timeZoneNameShort',
+  'timeZoneNameLong',
   'secondsTimestamp',
   'signedSecondsTimestamp',
   'negativeSignedSecondsTimestamp',

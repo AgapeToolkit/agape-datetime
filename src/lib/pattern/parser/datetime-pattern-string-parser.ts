@@ -3,7 +3,7 @@ import { DestructuredDateTimePatternPart } from '../types/destructured-datetime-
 import { LiteralDateTimeToken } from '../tokens/literal-datetime-token';
 import { unicodeDateTimeTokenIndex } from '../token-definitions/unicode-datetime-token-index';
 import { standardDateTimeTokenIndex } from '../token-definitions/standard-datetime-token-index';
-import { TokenIndexElasticEntry, TokenIndexRegexEntry, TokenIndexStringEntry } from './types';
+import { TokenIndexElasticEntry, TokenIndexRegexEntry, TokenIndexStringEntry } from '../token-definitions/types';
 
 export class DateTimePatternStringParser extends DateTimePatternParser {
 

@@ -23,7 +23,7 @@ export class DateTimePattern {
       this.implementation = new DateTimePatternImplementation(parser.parts, implementationOptions);
     }
     else if (typeof pattern === 'string') {
-      const parser = new DateTimePatternStringParser(pattern);
+      const parser = new DateTimePatternStringParser(pattern, options.unicode ?? false);
       this.implementation = new DateTimePatternImplementation(parser.parts, implementationOptions);
     }
     else {

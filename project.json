@@ -10,8 +10,8 @@
       "options": {
         "outputPath": "dist/libs/datetime",
         "main": "libs/datetime/src/index.ts",
-        "tsConfig": "libs/agape/tsconfig.lib.json",
-        "assets": ["libs/agape/*.md"]
+        "tsConfig": "libs/datetime/tsconfig.lib.json",
+        "assets": ["libs/datetime/*.md"]
       }
     },
     "publish": {

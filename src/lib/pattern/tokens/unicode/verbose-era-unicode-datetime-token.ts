@@ -6,7 +6,7 @@ import { DateTimePatternImplementationOptions } from '../../types/datetime-patte
 import { buildRegexFromNames } from '../util';
 
 export class VerboseEraUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken {
-  readonly id!: string;
+  declare readonly id: string;
 
   readonly name?: string;
 

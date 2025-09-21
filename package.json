@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Date and time utilities",
   "main": "./cjs/index.js",
-  "module": "./es2020/index.js",
+  "module": "./es2022/index.js",
   "author": {
     "name": "Maverik Minett",
     "email": "maverik.minett@gmail.com"
@@ -23,17 +23,17 @@
     "date",
     "time"
   ],
-  "es2020": "./es2020/index.js",
+  "es2022": "./es2022/index.js",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "es2020": "./es2020/index.js",
+      "es2022": "./es2022/index.js",
       "node": "./cjs/index.js",
-      "default": "./es2020/index.js",
+      "default": "./es2022/index.js",
       "require": "./cjs/index.js",
-      "import": "./es2020/index.js"
+      "import": "./es2022/index.js"
     }
   }
 }

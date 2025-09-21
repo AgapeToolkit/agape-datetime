@@ -4,11 +4,11 @@ import { DateTimePatternImplementationOptions } from '../../types/datetime-patte
 
 export class FractionalSecondUnicodeDateTimeToken extends ElasticNumberUnicodeDateTimeToken {
 
-  readonly id!: string;
+  declare readonly id: string;
 
-  readonly name?: string;
+  declare readonly name?: string;
 
-  readonly char!: string;
+  declare readonly char: string;
 
   constructor(params: Properties<FractionalSecondUnicodeDateTimeToken>) {
     super(params);

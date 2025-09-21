@@ -5,11 +5,10 @@ import { WeekdayNames } from '../../../names';
 import { buildRegexFromNames } from '../util';
 import { VerboseDateTimePartVariation } from '../../types/verbose-datetime-part-variaion';
 import { ResolvedDateTimeParts } from '../../types/resolved-datetime-parts';
-import { getLocale } from '@agape/locale';
 
 export class VerboseWeekdayUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken {
 
-  readonly id!: string;
+  declare readonly id: string;
 
   readonly name?: string;
 

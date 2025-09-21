@@ -3,6 +3,7 @@ import { ElasticNumberUnicodeDateTimeToken } from '../tokens/unicode/elastic-num
 import { SymbolUnicodeDateTimeToken } from '../tokens/unicode/symbol-unicode-datetime-token';
 import { sortDateTimeTokenIndex } from './util';
 import { unicodeDateTimeTokenDefinitions } from './unicode-datetime-token-definitions';
+import { TokenIndexElasticEntry, TokenIndexEntry, TokenIndexRegexEntry, TokenIndexStringEntry } from './types';
 
 function buildUnicodeDateTimeTokenIndex(definitions: Record<string, DateTimeToken>): TokenIndexEntry[] {
   const index: TokenIndexEntry[] = [];

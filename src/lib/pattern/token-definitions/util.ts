@@ -1,3 +1,4 @@
+import { TokenIndexEntry } from './types';
 
 export function sortDateTimeTokenIndex(index: TokenIndexEntry[]) {
   return index.sort(

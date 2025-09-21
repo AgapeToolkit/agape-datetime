@@ -124,7 +124,7 @@ export class DateTimePatternImplementation {
     }
 
     if (parts.weekday) {
-      const { valid, correctDayOfWeek } = isValidDayOfWeek(parts);
+      const { valid, correctDayOfWeek = 1 } = isValidDayOfWeek(parts);
 
       if (!valid) {
         const verboseWeekdayTokens = this.parts.filter(part => part.token instanceof VerboseWeekdayUnicodeDateTimeToken) as Array<{ token: VerboseWeekdayUnicodeDateTimeToken}>;

@@ -10,4 +10,6 @@ export interface DateTimePatternImplementationOptions {
   flexible: boolean;
 
   limitRange: boolean;
+
+  unicode: boolean;
 }

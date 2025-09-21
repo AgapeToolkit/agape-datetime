@@ -41,9 +41,9 @@ function getIsoDayOfWeek(date: Date) {
   return date.getDay() === 0 ? 7 : date.getDay();
 }
 
-export function isValidDayOfWeek<T extends {year?: number, month?: number, day?: number, weekday?: number}>(dateParts: T): { valid: boolean, correctDayOfWeek: number } {
+export function isValidDayOfWeek<T extends {year?: number, month?: number, day?: number, weekday?: number}>(dateParts: T): { valid: boolean, correctDayOfWeek?: number } {
   const {year, month, day, weekday} = dateParts;
-  if (year === undefined || month === undefined || day === undefined || weekday === undefined) return false;
+  if (year === undefined || month === undefined || day === undefined || weekday === undefined) return { valid: true };
 
   const date = new Date(year, month - 1, day);
   const dow = getIsoDayOfWeek(date);
