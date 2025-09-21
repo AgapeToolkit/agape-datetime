@@ -1,8 +1,9 @@
 import { getLocale } from '@agape/locale';
+import { Case } from './types';
 
 export abstract class Names {
   public readonly locale: string;
-  public readonly case: 'uppercase' | 'lowercase' | 'default';
+  public readonly case: Case;
 
   constructor(params: { locale?: string; case?: 'uppercase' | 'lowercase' | 'default' } = {}) {
     this.locale = params.locale ?? getLocale();

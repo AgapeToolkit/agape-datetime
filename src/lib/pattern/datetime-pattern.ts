@@ -1,0 +1,38 @@
+import { DateTimePatternImplementation } from './implementation/datetime-pattern-implementation';
+import { DateTimePatternStringParser } from './parser/datetime-pattern-string-parser';
+import { DateTimePatternIntlParser } from './parser/datetime-pattern-intl-parser';
+import { DateTimePatternObjectParser } from './parser/datetime-pattern-object-parser';
+import { DateTimeValue } from './types/datetime-value';
+import { DateTimePatternOptions } from './types/datetime-pattern-options';
+import { DateTimePatternImplementationOptions } from './types/datetime-pattern-implementation-options';
+import { DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS } from './constants';
+import { getLocale } from '@agape/locale';
+
+export class DateTimePattern {
+
+  private implementation!: DateTimePatternImplementation;
+
+  constructor(pattern: string | Intl.DateTimeFormat | object, options: Partial<DateTimePatternOptions> = {}) {
+    const implementationOptions: DateTimePatternImplementationOptions = {
+      ...DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS as DateTimePatternImplementationOptions,
+      ...options as DateTimePatternImplementationOptions,
+      locale: options?.locale ?? getLocale()
+    }
+    if (pattern instanceof Intl.DateTimeFormat) {
+      const parser = new DateTimePatternIntlParser(pattern);
+      this.implementation = new DateTimePatternImplementation(parser.parts, implementationOptions);
+    }
+    else if (typeof pattern === 'string') {
+      const parser = new DateTimePatternStringParser(pattern);
+      this.implementation = new DateTimePatternImplementation(parser.parts, implementationOptions);
+    }
+    else {
+      const parser = new DateTimePatternObjectParser(pattern);
+      this.implementation = new DateTimePatternImplementation(parser.parts, implementationOptions);
+    }
+  }
+
+  parse(value: string): DateTimeValue {
+    return this.implementation.parse(value);
+  }
+}

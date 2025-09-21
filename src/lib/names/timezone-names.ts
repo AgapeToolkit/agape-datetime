@@ -1,6 +1,6 @@
-import { hasTemporal, getTemporal, TemporalLike } from '@agape/temporal';
-import { getOffsetLegacyDate, getOffsetTemporal } from '../util';
+import { getOffsetLegacyDate, getOffsetTemporal } from '../util/private/offsets';
 import { getLocale } from '@agape/locale';
+import { hasTemporal, Temporal } from '@agape/temporal';
 import { Names } from './names';
 import { TimeZoneNamesParams } from './types/timezone-names';
 import { TimeZoneNameRecord } from './types/timezone-name-record';
@@ -28,7 +28,7 @@ export class TimeZoneNames extends Names {
       const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
       this._long = this.applyCase(defaultInstance.long);
     }
-    
+
     return this._long;
   }
 
@@ -47,7 +47,7 @@ export class TimeZoneNames extends Names {
       const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
       this._short = this.applyCase(defaultInstance.short);
     }
-    
+
     return this._short;
   }
 
@@ -66,7 +66,7 @@ export class TimeZoneNames extends Names {
       const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
       this._narrow = this.applyCase(defaultInstance.narrow);
     }
-    
+
     return this._narrow;
   }
 
@@ -106,7 +106,6 @@ export class TimeZoneNames extends Names {
     const timeZoneNameDetails: TimeZoneNameDetail[] = [];
 
     if (hasTemporal()) {
-      const Temporal = getTemporal();
       const winter = Temporal.Instant.from('2025-01-01T00:00:00.000Z');
       const summer = Temporal.Instant.from('2025-01-01T00:00:00.000Z');
 
@@ -167,7 +166,7 @@ export class TimeZoneNames extends Names {
     const locale = params.locale ?? getLocale();
     const caseType = params.case ?? 'default';
     const key = `${locale}-${caseType}`;
-    
+
     const cached = timeZoneNamesRegistry.get(key);
     if (cached) return cached;
 

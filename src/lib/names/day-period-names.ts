@@ -19,7 +19,14 @@ export class DayPeriodNames extends Names {
 
   get default(): readonly string[] {
     if (this._default) return this._default;
-    this._default = this.getDayPeriodNames();
+
+    if (this.case === 'default') {
+      this._default = this.getDayPeriodNames();
+    } else {
+      const defaultInstance = DayPeriodNames.get({ locale: this.locale, standalone: this.standalone, case: 'default' });
+      this._default = this.applyCase(defaultInstance.default);
+    }
+    
     return this._default;
   }
 
