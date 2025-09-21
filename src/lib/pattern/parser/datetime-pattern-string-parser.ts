@@ -4,6 +4,7 @@ import { LiteralDateTimeToken } from '../tokens/literal-datetime-token';
 import { unicodeDateTimeTokenIndex } from '../token-definitions/unicode-datetime-token-index';
 import { standardDateTimeTokenIndex } from '../token-definitions/standard-datetime-token-index';
 import { TokenIndexElasticEntry, TokenIndexRegexEntry, TokenIndexStringEntry } from '../token-definitions/types';
+import { ElasticNumberUnicodeDateTimeToken } from '../tokens/unicode/elastic-number-unicode-datetime-token';
 
 export class DateTimePatternStringParser extends DateTimePatternParser {
 
@@ -86,16 +87,20 @@ export class DateTimePatternStringParser extends DateTimePatternParser {
       for (const entry of regexEntries) {
         const match = entry.regex.exec(slice);
         if (match) {
-          if (entry.kind === 'elastic') {
-            const length = entry.token.getTokenLength(match[0]);
-            parts.push({ token: entry.token, length });
+          if (entry.token instanceof ElasticNumberUnicodeDateTimeToken && !entry.token.getTokenQualifier(pattern, i)) {
+            continue;
           }
           else {
-            parts.push({ token: entry.token });
-          }
-          i += match[0].length;
-          matched = true;
-          break;
+            if (entry.kind === 'elastic') {
+              const length = entry.token.getTokenLength(match[0]);
+              parts.push({ token: entry.token, length });
+            }
+            else {
+              parts.push({ token: entry.token });
+            }
+            i += match[0].length;
+            matched = true;
+            break;          }
         }
       }
       if (matched) continue;

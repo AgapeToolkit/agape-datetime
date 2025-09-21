@@ -49,4 +49,11 @@ export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
       : '-';
     return `${prefix}${this.char}+`;
   }
+
+  getTokenQualifier(pattern: string, char: number) {
+    if (this.prefix === '-') {
+      return char == 0;
+    }
+    return true;
+  }
 }

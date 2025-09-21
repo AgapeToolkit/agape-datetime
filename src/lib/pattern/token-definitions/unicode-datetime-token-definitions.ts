@@ -8,11 +8,11 @@ import { VerboseMonthUnicodeDateTimeToken } from '../tokens/unicode/verbose-mont
 import { VerboseWeekdayUnicodeDateTimeToken } from '../tokens/unicode/verbose-weekday-unicode-datetime-token';
 import { DayPeriodUnicodeDateTimeToken } from '../tokens/unicode/day-period-unicode-datetime-token';
 import { FractionalSecondUnicodeDateTimeToken } from '../tokens/unicode/fractional-second-unicode-datetime-token';
-import { TimeZoneOffsetUnicodeDateTimeToken } from '../tokens/unicode/timeZone-offset-unicode-datetime-token';
-import { TimeZoneIdUnicodeDateTimeToken } from '../tokens/unicode/timeZone-id-unicode-datetime-token';
+import { TimeZoneOffsetUnicodeDateTimeToken } from '../tokens/unicode/timezone-offset-unicode-datetime-token';
+import { TimeZoneIdUnicodeDateTimeToken } from '../tokens/unicode/timezone-id-unicode-datetime-token';
 import {
   VerboseTimeZoneNameUnicodeDateTimeToken
-} from '../tokens/unicode/verbose-timeZone-name-unicode-datetime-token';
+} from '../tokens/unicode/verbose-timezone-name-unicode-datetime-token';
 
 export const unicodeDateTimeTokenDefinitions = {
   eraShort: new VerboseEraUnicodeDateTimeToken({
@@ -67,7 +67,7 @@ export const unicodeDateTimeTokenDefinitions = {
     id: 'signedIsoYear',
     name: 'year',
     char: 'u',
-    prefix: '-',
+    prefix: '-'
   }),
   month: new NumberUnicodeDateTimeToken({
     id: 'month',
