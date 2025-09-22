@@ -10,7 +10,7 @@ export const DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS: DateTimePatternImp
 
   flexible: true,
 
-  limitRange: true,
+  limitRange: false,
 
   unicode: false
 } as const;

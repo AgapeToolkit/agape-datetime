@@ -39,6 +39,6 @@ export class VerboseMonthUnicodeDateTimeToken extends VerboseUnicodeDateTimeToke
 
     const index = months.indexOf(testValue);
     if (index < 0) throw new Error(`Error resolving month, value "${value}" is not one of ${months.map(m => '"' + m + '"').join(', ')}`)
-    return { month: index };
+    return { month: index + 1 };
   }
 }

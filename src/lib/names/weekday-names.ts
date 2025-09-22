@@ -64,7 +64,7 @@ export class WeekdayNames extends Names {
 
     const names: string[] = [];
     for (let i = 0; i < 7; i++) {
-      const date = new Date(`2025-01-${String(5 + i).padStart(2, '0')}T00:00:00.000Z`);
+      const date = new Date(`2025-01-${String(6 + i).padStart(2, '0')}T00:00:00.000Z`);
       const parts = intlFormat.formatToParts(date);
       const name = parts.find(part => part.type === 'weekday')?.value;
       if (name) names.push(name);

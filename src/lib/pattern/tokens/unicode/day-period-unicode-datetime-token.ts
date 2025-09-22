@@ -27,7 +27,7 @@ export class DayPeriodUnicodeDateTimeToken extends SymbolUnicodeDateTimeToken {
     return buildRegexFromNames(dayPeriods);
   }
 
-  resolve(value: string, options: DateTimePatternImplementationOptions): { month: number } {
+  resolve(value: string, options: DateTimePatternImplementationOptions): { dayPeriod: number } {
     const namesCase = options.case === 'insensitive' ? 'default' : options.case;
     const dayPeriodNames = DayPeriodNames.get({locale: options.locale, case: namesCase});
     const dayPeriods = dayPeriodNames[this.variation];
@@ -38,7 +38,7 @@ export class DayPeriodUnicodeDateTimeToken extends SymbolUnicodeDateTimeToken {
 
     const index = dayPeriods.indexOf(testValue);
     if (index && index < 0) throw new Error(`Error resolving day period, value "${value}" is not one of ${dayPeriods.map(m => '"' + m + '"').join(', ')}`)
-    return { month: index };
+    return { dayPeriod: index };
   }
 
 }

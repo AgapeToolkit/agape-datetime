@@ -37,7 +37,10 @@ export class DateTimePatternImplementation {
   parse(value: string): DateTimeValue {
     const parsedDateTimeParts: ParsedDateTimeParts = this.parseValue(value);
     const resolvedDateTimeParts: ResolvedDateTimeParts = this.resolveDateTimeParts(parsedDateTimeParts);
-    const normalizedDateTimeParts: ResolvedDateTimeParts = this.resolveDateTimeParts(parsedDateTimeParts);
+    const normalizedDateTimeParts: ResolvedDateTimeParts = this.normalizeDateTimeParts(resolvedDateTimeParts, this.options);
+
+    console.log("Normalized Parts", normalizedDateTimeParts);
+    this.validateNormalizedValue(normalizedDateTimeParts);
 
     const datetime = Object.create(DateTimeValue.prototype)
     Object.assign(datetime, {
@@ -87,20 +90,19 @@ export class DateTimePatternImplementation {
       const era = resolvedDateTimeParts.era ?? 1;
       if (era) normalizedParts.year = resolvedDateTimeParts.calendarYear;
       else normalizedParts.year = ( (resolvedDateTimeParts.calendarYear as number) - 1) * -1;
-      delete incoming['calendarYear'];
-      delete incoming['era'];
     }
+    delete incoming['calendarYear'];
+    delete incoming['era'];
 
     if ('twelveHour' in resolvedDateTimeParts && !('hour' in resolvedDateTimeParts)) {
       const dayPeriod = resolvedDateTimeParts.dayPeriod ?? 0;
       normalizedParts.hour = dayPeriod ? (resolvedDateTimeParts.twelveHour as number) + 12 : resolvedDateTimeParts.twelveHour;
-      delete incoming['twelveHour'];
-      delete incoming['dayPeriod'];
     }
+    delete incoming['twelveHour'];
+    delete incoming['dayPeriod'];
 
     if('weekdayLocal' in resolvedDateTimeParts && !('weekday' in resolvedDateTimeParts)) {
-      const locale = options?.locale ?? getLocale();
-      normalizedParts.weekday =  localWeekdayToIsoWeekday((resolvedDateTimeParts.weekdayLocal as number), locale)
+      normalizedParts.weekday =  localWeekdayToIsoWeekday((resolvedDateTimeParts.weekdayLocal as number), options.locale)
       delete incoming['weekdayLocal'];
     }
 
@@ -112,14 +114,12 @@ export class DateTimePatternImplementation {
 
   private validateNormalizedValue(parts: DateTimeParts) {
 
-    const limitRange = this.options?.limitRange ?? true;
-
     if(!isValidDayOfMonth(parts)) {
       throw new InvalidDayOfMonth();
     }
 
     const outOfRange = !isYearInRange(parts);
-    if(limitRange && outOfRange) {
+    if(this.options.limitRange && outOfRange) {
       throw new DateOutOfRangeError();
     }
 
