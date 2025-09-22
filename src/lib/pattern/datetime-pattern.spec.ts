@@ -662,6 +662,236 @@ describe('DateTimePattern', () => {
 
   describe('parsing', () => {
     // EDIT HERE
+
+    // Test stubs for all unicodeDateTimeTokenDefinitions tokens
+    describe('eraShort', () => {
+      // TODO: Add tests for eraShort token
+    });
+
+    describe('eraLong', () => {
+      // TODO: Add tests for eraLong token
+    });
+
+    describe('eraNarrow', () => {
+      // TODO: Add tests for eraNarrow token
+    });
+
+    describe('commonEraShort', () => {
+      // TODO: Add tests for commonEraShort token
+    });
+
+    describe('commonEraLong', () => {
+      // TODO: Add tests for commonEraLong token
+    });
+
+    describe('commonEraNarrow', () => {
+      // TODO: Add tests for commonEraNarrow token
+    });
+
+    describe('calendarYear', () => {
+      // TODO: Add tests for calendarYear token
+    });
+
+    describe('isoYear', () => {
+      // TODO: Add tests for isoYear token
+    });
+
+    describe('signedIsoYear', () => {
+      // TODO: Add tests for signedIsoYear token
+    });
+
+    describe('negativeSignedIsoYear', () => {
+      // TODO: Add tests for negativeSignedIsoYear token
+    });
+
+    describe('month', () => {
+      // TODO: Add tests for month token
+    });
+
+    describe('monthPadded', () => {
+      // TODO: Add tests for monthPadded token
+    });
+
+    describe('monthShort', () => {
+      // TODO: Add tests for monthShort token
+    });
+
+    describe('monthLong', () => {
+      // TODO: Add tests for monthLong token
+    });
+
+    describe('monthNarrow', () => {
+      // TODO: Add tests for monthNarrow token
+    });
+
+    describe('monthStandaloneShort', () => {
+      // TODO: Add tests for monthStandaloneShort token
+    });
+
+    describe('monthStandaloneLong', () => {
+      // TODO: Add tests for monthStandaloneLong token
+    });
+
+    describe('monthStandaloneNarrow', () => {
+      // TODO: Add tests for monthStandaloneNarrow token
+    });
+
+    describe('day', () => {
+      // TODO: Add tests for day token
+    });
+
+    describe('dayPadded', () => {
+      // TODO: Add tests for dayPadded token
+    });
+
+    describe('weekdayShort', () => {
+      // TODO: Add tests for weekdayShort token
+    });
+
+    describe('weekdayLong', () => {
+      // TODO: Add tests for weekdayLong token
+    });
+
+    describe('weekdayNarrow', () => {
+      // TODO: Add tests for weekdayNarrow token
+    });
+
+    describe('weekdayStandaloneShort', () => {
+      // TODO: Add tests for weekdayStandaloneShort token
+    });
+
+    describe('weekdayStandaloneLong', () => {
+      // TODO: Add tests for weekdayStandaloneLong token
+    });
+
+    describe('weekdayStandaloneNarrow', () => {
+      // TODO: Add tests for weekdayStandaloneNarrow token
+    });
+
+    describe('weekday', () => {
+      // TODO: Add tests for weekday token
+    });
+
+    describe('weekdayPadded', () => {
+      // TODO: Add tests for weekdayPadded token
+    });
+
+    describe('weekdayLocal', () => {
+      // TODO: Add tests for weekdayLocal token
+    });
+
+    describe('weekdayLocalPadded', () => {
+      // TODO: Add tests for weekdayLocalPadded token
+    });
+
+    describe('dayPeriod', () => {
+      // TODO: Add tests for dayPeriod token
+    });
+
+    describe('dayPeriodShort', () => {
+      // TODO: Add tests for dayPeriodShort token
+    });
+
+    describe('dayPeriodLong', () => {
+      // TODO: Add tests for dayPeriodLong token
+    });
+
+    describe('dayPeriodNarrow', () => {
+      // TODO: Add tests for dayPeriodNarrow token
+    });
+
+    describe('twelveHour', () => {
+      // TODO: Add tests for twelveHour token
+    });
+
+    describe('twelveHourPadded', () => {
+      // TODO: Add tests for twelveHourPadded token
+    });
+
+    describe('hour', () => {
+      // TODO: Add tests for hour token
+    });
+
+    describe('hourPadded', () => {
+      // TODO: Add tests for hourPadded token
+    });
+
+    describe('minute', () => {
+      // TODO: Add tests for minute token
+    });
+
+    describe('minutePadded', () => {
+      // TODO: Add tests for minutePadded token
+    });
+
+    describe('second', () => {
+      // TODO: Add tests for second token
+    });
+
+    describe('secondPadded', () => {
+      // TODO: Add tests for secondPadded token
+    });
+
+    describe('fractionalSecond', () => {
+      // TODO: Add tests for fractionalSecond token
+    });
+
+    describe('timeZoneOffsetZ', () => {
+      // TODO: Add tests for timeZoneOffsetZ token
+    });
+
+    describe('timeZoneOffsetWithZ_X', () => {
+      // TODO: Add tests for timeZoneOffsetWithZ_X token
+    });
+
+    describe('timeZoneOffsetWithZ_XX', () => {
+      // TODO: Add tests for timeZoneOffsetWithZ_XX token
+    });
+
+    describe('timeZoneOffsetWithZ_XXX', () => {
+      // TODO: Add tests for timeZoneOffsetWithZ_XXX token
+    });
+
+    describe('timeZoneOffsetWithZ_XXXX', () => {
+      // TODO: Add tests for timeZoneOffsetWithZ_XXXX token
+    });
+
+    describe('timeZoneOffsetWithZ_XXXXX', () => {
+      // TODO: Add tests for timeZoneOffsetWithZ_XXXXX token
+    });
+
+    describe('timeZoneOffsetWithoutZ_x', () => {
+      // TODO: Add tests for timeZoneOffsetWithoutZ_x token
+    });
+
+    describe('timeZoneOffsetWithoutZ_xx', () => {
+      // TODO: Add tests for timeZoneOffsetWithoutZ_xx token
+    });
+
+    describe('timeZoneOffsetWithoutZ_xxx', () => {
+      // TODO: Add tests for timeZoneOffsetWithoutZ_xxx token
+    });
+
+    describe('timeZoneOffsetWithoutZ_xxxx', () => {
+      // TODO: Add tests for timeZoneOffsetWithoutZ_xxxx token
+    });
+
+    describe('timeZoneOffsetWithoutZ_xxxxx', () => {
+      // TODO: Add tests for timeZoneOffsetWithoutZ_xxxxx token
+    });
+
+    describe('timeZoneId', () => {
+      // TODO: Add tests for timeZoneId token
+    });
+
+    describe('timeZoneNameShort', () => {
+      // TODO: Add tests for timeZoneNameShort token
+    });
+
+    describe('timeZoneNameLong', () => {
+      // TODO: Add tests for timeZoneNameLong token
+    });
+
     describe('secondsTimestamp', () => {
       describe('unsigned', () => {
         it('should parse seconds timestamp pattern', () => {
@@ -813,13 +1043,6 @@ describe('DateTimePattern', () => {
     })
     // STOP EDITING HERE
   })
-
-
-
-
-
-
-
 
 
   describe('Complex Pattern Combinations', () => {
