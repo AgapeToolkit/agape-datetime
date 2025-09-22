@@ -665,7 +665,195 @@ describe('DateTimePattern', () => {
 
     // Test stubs for all unicodeDateTimeTokenDefinitions tokens
     describe('eraShort', () => {
-      // TODO: Add tests for eraShort token
+      describe('en-US', () => {
+        describe('default case', () => {
+          it('should parse AD', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US' });
+            const value = pattern.parse('AD');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should parse BC', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US' });
+            const value = pattern.parse('BC');
+            expect(value.resolved.era).toBe(0);
+          });
+          it('should fail BCE', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US' });
+            expect(() => pattern.parse('BCE')).toThrow();
+          });
+          it('should fail CE', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US' });
+            expect(() => pattern.parse('CE')).toThrow();
+          });
+          it('should fail ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US' });
+            expect(() => pattern.parse('ad')).toThrow();
+          });
+          it('should fail bc', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US' });
+            expect(() => pattern.parse('bc')).toThrow();
+          });
+          it('should be part of a valid date', () => {
+            const pattern = new DateTimePattern('MM/DD/yyyy G', { locale: 'en-US' });
+            const value = pattern.parse('01/01/2025 AD');
+            expect(value.normalized.year).toBe(2025);
+          })
+          it('should normalize the year using the era', () => {
+            const pattern = new DateTimePattern('MM/DD/yyyy G', { locale: 'en-US' });
+            const value = pattern.parse('01/01/2025 BC');
+            expect(value.normalized.year).toBe(-2024);
+          })
+        })
+        describe('uppercase', () => {
+          it('should parse AD', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'uppercase' });
+            const value = pattern.parse('AD');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should fail lowercase ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'uppercase' });
+            expect(() => pattern.parse('ad')).toThrow();
+          });
+        })
+        describe('lowercase', () => {
+          it('should parse ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'lowercase' });
+            const value = pattern.parse('ad');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should parse bc', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'lowercase' });
+            const value = pattern.parse('bc');
+            expect(value.resolved.era).toBe(0);
+          });
+          it('should fail uppercase AD', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'lowercase' });
+            expect(() => pattern.parse('AD')).toThrow();
+          });
+        })
+        describe('case insensitive', () => {
+          it('should parse ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
+            const value = pattern.parse('ad');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should parse bc', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
+            const value = pattern.parse('bc');
+            expect(value.resolved.era).toBe(0);
+          });
+          it('should parse AD', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
+            const value = pattern.parse('AD');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should parse BC', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
+            const value = pattern.parse('BC');
+            expect(value.resolved.era).toBe(0);
+          });
+          it('should parse Ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
+            const value = pattern.parse('Ad');
+            expect(value.resolved.era).toBe(1);
+          });
+        })
+      })
+      describe('es-US', () => {
+        describe('default case', () => {
+          it('should parse d.C', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US' });
+            const value = pattern.parse('d.C.');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should parse a.C.', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US' });
+            const value = pattern.parse('a.C.');
+            expect(value.resolved.era).toBe(0);
+          });
+          it('should fail BCE', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US' });
+            expect(() => pattern.parse('BCE')).toThrow();
+          });
+          it('should fail CE', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US' });
+            expect(() => pattern.parse('CE')).toThrow();
+          });
+          it('should fail ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US' });
+            expect(() => pattern.parse('ad')).toThrow();
+          });
+          it('should fail bc', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US' });
+            expect(() => pattern.parse('bc')).toThrow();
+          });
+          it('should be part of a valid date', () => {
+            const pattern = new DateTimePattern('MM/DD/yyyy G', { locale: 'es-US' });
+            const value = pattern.parse('01/01/2025 AD');
+            expect(value.normalized.year).toBe(2025);
+          })
+          it('should normalize the year using the era', () => {
+            const pattern = new DateTimePattern('MM/DD/yyyy G', { locale: 'es-US' });
+            const value = pattern.parse('01/01/2025 BC');
+            expect(value.normalized.year).toBe(-2024);
+          })
+        })
+        describe('uppercase', () => {
+          it('should parse AD', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'uppercase' });
+            const value = pattern.parse('AD');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should fail lowercase ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'uppercase' });
+            expect(() => pattern.parse('ad')).toThrow();
+          });
+        })
+        describe('lowercase', () => {
+          it('should parse ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'lowercase' });
+            const value = pattern.parse('ad');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should parse bc', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'lowercase' });
+            const value = pattern.parse('bc');
+            expect(value.resolved.era).toBe(0);
+          });
+          it('should fail uppercase AD', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'lowercase' });
+            expect(() => pattern.parse('AD')).toThrow();
+          });
+        })
+        describe('case insensitive', () => {
+          it('should parse ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
+            const value = pattern.parse('ad');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should parse bc', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
+            const value = pattern.parse('bc');
+            expect(value.resolved.era).toBe(0);
+          });
+          it('should parse AD', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
+            const value = pattern.parse('AD');
+            expect(value.resolved.era).toBe(1);
+          });
+          it('should parse BC', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
+            const value = pattern.parse('BC');
+            expect(value.resolved.era).toBe(0);
+          });
+          it('should parse Ad', () => {
+            const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
+            const value = pattern.parse('Ad');
+            expect(value.resolved.era).toBe(1);
+          });
+        })
+      })
+
     });
 
     describe('eraLong', () => {

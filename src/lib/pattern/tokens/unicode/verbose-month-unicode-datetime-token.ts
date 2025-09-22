@@ -22,14 +22,14 @@ export class VerboseMonthUnicodeDateTimeToken extends VerboseUnicodeDateTimeToke
   }
 
   getRegex(options: DateTimePatternImplementationOptions): string {
-    const namesCase = options.case === 'insensitive' ? 'default' : options.case;
+    const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const monthNames = MonthNames.get({locale: options.locale, case: namesCase});
     const months = monthNames[this.variation];
     return buildRegexFromNames(months);
   }
 
   resolve(value: string, options: DateTimePatternImplementationOptions): { month: number } {
-    const namesCase = options.case === 'insensitive' ? 'default' : options.case;
+    const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const monthNames = MonthNames.get({locale: options.locale, case: namesCase});
     const months = monthNames[this.variation];
 

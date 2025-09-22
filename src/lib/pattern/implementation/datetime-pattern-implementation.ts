@@ -39,7 +39,6 @@ export class DateTimePatternImplementation {
     const resolvedDateTimeParts: ResolvedDateTimeParts = this.resolveDateTimeParts(parsedDateTimeParts);
     const normalizedDateTimeParts: ResolvedDateTimeParts = this.normalizeDateTimeParts(resolvedDateTimeParts, this.options);
 
-    console.log("Normalized Parts", normalizedDateTimeParts);
     this.validateNormalizedValue(normalizedDateTimeParts);
 
     const datetime = Object.create(DateTimeValue.prototype)
@@ -55,6 +54,7 @@ export class DateTimePatternImplementation {
 
   private parseValue(value: string): ParsedDateTimeParts {
     this.regex ??= this.getRegex();
+    console.log(this.regex);
 
     const match = value.match(this.regex);
     if (!match) throw new DateTimePatternMatchError();

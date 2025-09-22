@@ -29,7 +29,7 @@ export class VerboseTimeZoneNameUnicodeDateTimeToken extends VerboseUnicodeDateT
   }
 
   resolve(value: string, options: DateTimePatternImplementationOptions): { timeZoneOffset: string } {
-    const namesCase = options.case === 'insensitive' ? 'default' : options.case;
+    const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const timeZoneNames = TimeZoneNames.get({locale: options.locale, case: namesCase});
 
     const testValue = options.case === 'insensitive'

@@ -24,14 +24,14 @@ export class VerboseWeekdayUnicodeDateTimeToken extends VerboseUnicodeDateTimeTo
   }
 
   getRegex(options: DateTimePatternImplementationOptions): string {
-    const namesCase = options.case === 'insensitive' ? 'default' : options.case;
+    const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const weekdayNames = WeekdayNames.get({locale: options.locale, case: namesCase});
     const weekdays = weekdayNames[this.variation];
     return buildRegexFromNames(weekdays);
   }
 
   resolve(value: string, options: DateTimePatternImplementationOptions, parts?: ResolvedDateTimeParts): { weekday: number } {
-    const namesCase = options.case === 'insensitive' ? 'default' : options.case;
+    const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const weekdayNames = WeekdayNames.get({locale: options.locale, case: namesCase});
     const weekdays = weekdayNames[this.variation];
 

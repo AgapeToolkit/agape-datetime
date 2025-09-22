@@ -22,7 +22,7 @@ export class VerboseEraUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken 
   }
 
   getRegex(options: DateTimePatternImplementationOptions): string {
-    const namesCase = options.case === 'insensitive' ? 'default' : options.case;
+    const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
 
     const eraNames = this.common
       ? CommonEraNames.get({locale: options.locale, case: namesCase})
@@ -33,7 +33,7 @@ export class VerboseEraUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken 
   }
 
   resolve(value: string, options: DateTimePatternImplementationOptions): { era: number } {
-    const namesCase = options.case === 'insensitive' ? 'default' : options.case;
+    const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const eraNames = this.common
       ? CommonEraNames.get({locale: options.locale, case: namesCase})
       : EraNames.get({locale: options.locale, case: namesCase});
