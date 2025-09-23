@@ -3245,19 +3245,706 @@ describe('DateTimePattern', () => {
     });
 
     describe('calendarYear', () => {
-      // TODO: Add tests for calendarYear token
+      describe('single year pattern (y)', () => {
+        it('should parse single digit year', () => {
+          const pattern = new DateTimePattern('y', { locale: 'en-US' });
+          const value = pattern.parse('1');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse multi-digit year (elastic)', () => {
+          const pattern = new DateTimePattern('y', { locale: 'en-US' });
+          const value = pattern.parse('123456');
+          expect(value.normalized.year).toBe(123456);
+        });
+        it('should fail year 0', () => {
+          const pattern = new DateTimePattern('y', { locale: 'en-US' });
+          expect(() => pattern.parse('0')).toThrow();
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/y', { locale: 'en-US' });
+          const value = pattern.parse('01/01/2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/y', { locale: 'en-US' });
+          const value = pattern.parse('01/01/1');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('four digit year pattern (yyyy)', () => {
+        it('should parse padded year', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US' });
+          const value = pattern.parse('0001');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse normal 4-digit year', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should fail unpadded year', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US' });
+          expect(() => pattern.parse('1')).toThrow();
+        });
+        it('should fail year 0', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US' });
+          expect(() => pattern.parse('0000')).toThrow();
+        });
+        it('should be elastic by default', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US' });
+          const value = pattern.parse('123456');
+          expect(value.normalized.year).toBe(123456);
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/yyyy', { locale: 'en-US' });
+          const value = pattern.parse('01/01/2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/yyyy', { locale: 'en-US' });
+          const value = pattern.parse('01/01/0001');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('non-elastic four digit year pattern (yyyy)', () => {
+        it('should parse exact 4-digit year', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should parse padded year', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('0001');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should fail unpadded year', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('1')).toThrow();
+        });
+        it('should fail year 0', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('0000')).toThrow();
+        });
+        it('should fail longer year (non-elastic)', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('123456')).toThrow();
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/yyyy', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('01/01/2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/yyyy', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('01/01/0001');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('different locales', () => {
+        it('should work with es-US locale', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'es-US' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with ru-RU locale', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'ru-RU' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with ja-JP locale', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'ja-JP' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with de-DE locale', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'de-DE' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with fr-FR locale', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'fr-FR' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+      });
+
+      describe('edge cases', () => {
+        it('should handle very large years', () => {
+          const pattern = new DateTimePattern('y', { locale: 'en-US' });
+          const value = pattern.parse('999999');
+          expect(value.normalized.year).toBe(999999);
+        });
+        it('should not handle negative years', () => {
+          const pattern = new DateTimePattern('y', { locale: 'en-US' });
+          expect(() => pattern.parse('-2025')).toThrow();
+        });
+        it('should fail empty string', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US' });
+          expect(() => pattern.parse('')).toThrow();
+        });
+        it('should fail non-numeric input', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US' });
+          expect(() => pattern.parse('abcd')).toThrow();
+        });
+        it('should fail partial numeric input', () => {
+          const pattern = new DateTimePattern('yyyy', { locale: 'en-US' });
+          expect(() => pattern.parse('20ab')).toThrow();
+        });
+      });
     });
 
     describe('isoYear', () => {
-      // TODO: Add tests for isoYear token
+      describe('single year pattern (Y)', () => {
+        it('should parse single digit year', () => {
+          const pattern = new DateTimePattern('Y', { locale: 'en-US' });
+          const value = pattern.parse('1');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('Y', { locale: 'en-US' });
+          const value = pattern.parse('0');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should parse multi-digit year (elastic)', () => {
+          const pattern = new DateTimePattern('Y', { locale: 'en-US' });
+          const value = pattern.parse('123456');
+          expect(value.normalized.year).toBe(123456);
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/Y', { locale: 'en-US' });
+          const value = pattern.parse('01/01/2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/Y', { locale: 'en-US' });
+          const value = pattern.parse('01/01/1');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('four digit year pattern (YYYY)', () => {
+        it('should parse padded year', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          const value = pattern.parse('0001');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse normal 4-digit year', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          const value = pattern.parse('0000');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should fail unpadded year', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('1')).toThrow();
+        });
+        it('should fail with + sign', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('+0001')).toThrow();
+        });
+        it('should fail with - sign', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('-0001')).toThrow();
+        });
+        it('should be elastic by default', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          const value = pattern.parse('123456');
+          expect(value.normalized.year).toBe(123456);
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/YYYY', { locale: 'en-US' });
+          const value = pattern.parse('01/01/2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/YYYY', { locale: 'en-US' });
+          const value = pattern.parse('01/01/0001');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('non-elastic four digit year pattern (YYYY)', () => {
+        it('should parse exact 4-digit year', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should parse padded year', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('0001');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('0000');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should fail unpadded year', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('1')).toThrow();
+        });
+        it('should fail with + sign', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('+0001')).toThrow();
+        });
+        it('should fail with - sign', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('-0001')).toThrow();
+        });
+        it('should fail longer year (non-elastic)', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('123456')).toThrow();
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('01/01/2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('01/01/0001');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('different locales', () => {
+        it('should work with es-US locale', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'es-US' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with ru-RU locale', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'ru-RU' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with ja-JP locale', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'ja-JP' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with de-DE locale', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'de-DE' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with fr-FR locale', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'fr-FR' });
+          const value = pattern.parse('2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+      });
+
+      describe('edge cases', () => {
+        it('should handle very large years', () => {
+          const pattern = new DateTimePattern('Y', { locale: 'en-US' });
+          const value = pattern.parse('999999');
+          expect(value.normalized.year).toBe(999999);
+        });
+        it('should fail empty string', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('')).toThrow();
+        });
+        it('should fail non-numeric input', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('abcd')).toThrow();
+        });
+        it('should fail partial numeric input', () => {
+          const pattern = new DateTimePattern('YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('20ab')).toThrow();
+        });
+      });
     });
 
     describe('signedIsoYear', () => {
-      // TODO: Add tests for signedIsoYear token
+      describe('single year pattern (+Y)', () => {
+        it('should parse positive single digit year', () => {
+          const pattern = new DateTimePattern('+Y', { locale: 'en-US' });
+          const value = pattern.parse('+1');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('+Y', { locale: 'en-US' });
+          const value = pattern.parse('+0');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should parse negative year', () => {
+          const pattern = new DateTimePattern('+Y', { locale: 'en-US' });
+          const value = pattern.parse('-1');
+          expect(value.normalized.year).toBe(-1);
+        });
+        it('should parse multi-digit year (elastic)', () => {
+          const pattern = new DateTimePattern('+Y', { locale: 'en-US' });
+          const value = pattern.parse('+123456');
+          expect(value.normalized.year).toBe(123456);
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/+Y', { locale: 'en-US' });
+          const value = pattern.parse('01/01/+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/+Y', { locale: 'en-US' });
+          const value = pattern.parse('01/01/+1');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('six digit year pattern (+YYYYYY)', () => {
+        it('should parse padded positive year', () => {
+          const pattern = new DateTimePattern('+YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('+002025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should parse normal 6-digit year', () => {
+          const pattern = new DateTimePattern('+YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('+202500');
+          expect(value.normalized.year).toBe(202500);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('+YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('+000000');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should fail unpadded year', () => {
+          const pattern = new DateTimePattern('+YYYYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('+1')).toThrow();
+        });
+        it('should fail without + sign', () => {
+          const pattern = new DateTimePattern('+YYYYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('000001')).toThrow();
+        });
+        it('should be elastic by default', () => {
+          const pattern = new DateTimePattern('+YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('+1234567');
+          expect(value.normalized.year).toBe(1234567);
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/+YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('01/01/+002025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/+YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('01/01/+000001');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('four digit year pattern with ± sign (±YYYY)', () => {
+        it('should parse positive year with + sign', () => {
+          const pattern = new DateTimePattern('±YYYY', { locale: 'en-US' });
+          const value = pattern.parse('+0001');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse negative year with - sign', () => {
+          const pattern = new DateTimePattern('±YYYY', { locale: 'en-US' });
+          const value = pattern.parse('-0001');
+          expect(value.normalized.year).toBe(-1);
+        });
+        it('should parse year 0 with + sign', () => {
+          const pattern = new DateTimePattern('±YYYY', { locale: 'en-US' });
+          const value = pattern.parse('+0000');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should parse year 0 with - sign', () => {
+          const pattern = new DateTimePattern('±YYYY', { locale: 'en-US' });
+          const value = pattern.parse('-0000');
+          expect(value.normalized.year).toEqual(0);
+        });
+        it('should fail without sign', () => {
+          const pattern = new DateTimePattern('±YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('0001')).toThrow();
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/±YYYY', { locale: 'en-US' });
+          const value = pattern.parse('01/01/+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/±YYYY', { locale: 'en-US' });
+          const value = pattern.parse('01/01/+0001');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('non-elastic four digit year pattern (+YYYY)', () => {
+        it('should parse exact 4-digit year', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should parse padded year', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('+0001');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('+0000');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should fail unpadded year', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('+1')).toThrow();
+        });
+        it('should fail without + sign', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('2025')).toThrow();
+        });
+        it('should fail longer year (non-elastic)', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('+123456')).toThrow();
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/+YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('01/01/+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/+YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('01/01/+0001');
+          expect(value.normalized.year).toBe(1);
+        });
+      });
+
+      describe('different locales', () => {
+        it('should work with es-US locale', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'es-US' });
+          const value = pattern.parse('+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with ru-RU locale', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'ru-RU' });
+          const value = pattern.parse('+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with ja-JP locale', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'ja-JP' });
+          const value = pattern.parse('+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with de-DE locale', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'de-DE' });
+          const value = pattern.parse('+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should work with fr-FR locale', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'fr-FR' });
+          const value = pattern.parse('+2025');
+          expect(value.normalized.year).toBe(2025);
+        });
+      });
+
+      describe('edge cases', () => {
+        it('should handle very large years', () => {
+          const pattern = new DateTimePattern('+Y', { locale: 'en-US' });
+          const value = pattern.parse('+999999');
+          expect(value.normalized.year).toBe(999999);
+        });
+        it('should handle very large negative years', () => {
+          const pattern = new DateTimePattern('+Y', { locale: 'en-US' });
+          const value = pattern.parse('-999999');
+          expect(value.normalized.year).toBe(-999999);
+        });
+        it('should fail empty string', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('')).toThrow();
+        });
+        it('should fail non-numeric input', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('+abcd')).toThrow();
+        });
+        it('should fail partial numeric input', () => {
+          const pattern = new DateTimePattern('+YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('+20ab')).toThrow();
+        });
+      });
     });
 
     describe('negativeSignedIsoYear', () => {
-      // TODO: Add tests for negativeSignedIsoYear token
+      describe('single year pattern (-Y)', () => {
+        it('should parse positive single digit year', () => {
+          const pattern = new DateTimePattern('-Y', { locale: 'en-US' });
+          const value = pattern.parse('1');
+          expect(value.normalized.year).toBe(1);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('-Y', { locale: 'en-US' });
+          const value = pattern.parse('0');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should parse negative year', () => {
+          const pattern = new DateTimePattern('-Y', { locale: 'en-US' });
+          const value = pattern.parse('-1');
+          expect(value.normalized.year).toBe(-1);
+        });
+        it('should fail positive year with + sign', () => {
+          const pattern = new DateTimePattern('-Y', { locale: 'en-US' });
+          expect(() => pattern.parse('+1')).toThrow();
+        });
+        it('should parse multi-digit year (elastic)', () => {
+          const pattern = new DateTimePattern('-Y', { locale: 'en-US' });
+          const value = pattern.parse('-123456');
+          expect(value.normalized.year).toBe(-123456);
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/-Y', { locale: 'en-US' });
+          const value = pattern.parse('01/01/-2025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/-Y', { locale: 'en-US' });
+          const value = pattern.parse('01/01/-1');
+          expect(value.normalized.year).toBe(-1);
+        });
+      });
+
+      describe('six digit year pattern (-YYYYYY)', () => {
+        it('should parse padded positive year', () => {
+          const pattern = new DateTimePattern('-YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('002025');
+          expect(value.normalized.year).toBe(2025);
+        });
+        it('should parse normal 6-digit year', () => {
+          const pattern = new DateTimePattern('-YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('202500');
+          expect(value.normalized.year).toBe(202500);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('-YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('000000');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should fail unpadded year', () => {
+          const pattern = new DateTimePattern('-YYYYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('1')).toThrow();
+        });
+        it('should fail with + sign', () => {
+          const pattern = new DateTimePattern('-YYYYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('+000001')).toThrow();
+        });
+        it('should parse padded negative year', () => {
+          const pattern = new DateTimePattern('-YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('-000001');
+          expect(value.normalized.year).toBe(-1);
+        });
+        it('should be elastic by default', () => {
+          const pattern = new DateTimePattern('-YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('-1234567');
+          expect(value.normalized.year).toBe(-1234567);
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/-YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('01/01/-002025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/-YYYYYY', { locale: 'en-US' });
+          const value = pattern.parse('01/01/-000001');
+          expect(value.normalized.year).toBe(-1);
+        });
+      });
+
+      describe('non-elastic four digit year pattern (-YYYY)', () => {
+        it('should parse exact 4-digit year', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('-2025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+        it('should parse padded year', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('-0001');
+          expect(value.normalized.year).toBe(-1);
+        });
+        it('should parse year 0', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('-0000');
+          expect(value.normalized.year).toBe(0);
+        });
+        it('should fail unpadded year', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('-1')).toThrow();
+        });
+        it('should fail with + sign', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('+2025')).toThrow();
+        });
+        it('should fail longer year (non-elastic)', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US', elastic: false });
+          expect(() => pattern.parse('-123456')).toThrow();
+        });
+        it('should be part of a valid date', () => {
+          const pattern = new DateTimePattern('MM/DD/-YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('01/01/-2025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+        it('should normalize the year', () => {
+          const pattern = new DateTimePattern('MM/DD/-YYYY', { locale: 'en-US', elastic: false });
+          const value = pattern.parse('01/01/-0001');
+          expect(value.normalized.year).toBe(-1);
+        });
+      });
+
+      describe('different locales', () => {
+        it('should work with es-US locale', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'es-US' });
+          const value = pattern.parse('-2025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+        it('should work with ru-RU locale', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'ru-RU' });
+          const value = pattern.parse('-2025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+        it('should work with ja-JP locale', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'ja-JP' });
+          const value = pattern.parse('-2025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+        it('should work with de-DE locale', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'de-DE' });
+          const value = pattern.parse('-2025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+        it('should work with fr-FR locale', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'fr-FR' });
+          const value = pattern.parse('-2025');
+          expect(value.normalized.year).toBe(-2025);
+        });
+      });
+
+      describe('edge cases', () => {
+        it('should handle very large years', () => {
+          const pattern = new DateTimePattern('-Y', { locale: 'en-US' });
+          const value = pattern.parse('999999');
+          expect(value.normalized.year).toBe(999999);
+        });
+        it('should handle very large negative years', () => {
+          const pattern = new DateTimePattern('-Y', { locale: 'en-US' });
+          const value = pattern.parse('-999999');
+          expect(value.normalized.year).toBe(-999999);
+        });
+        it('should fail empty string', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('')).toThrow();
+        });
+        it('should fail non-numeric input', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('-abcd')).toThrow();
+        });
+        it('should fail partial numeric input', () => {
+          const pattern = new DateTimePattern('-YYYY', { locale: 'en-US' });
+          expect(() => pattern.parse('-20ab')).toThrow();
+        });
+      });
     });
 
     describe('month', () => {

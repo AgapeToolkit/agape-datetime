@@ -1,6 +1,8 @@
 import { Properties } from '@agape/types';
 import { UnicodeDateTimeToken } from './unicode-datetime-token';
 import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { DestructuredDateTimePatternPart } from '@agape/datetime';
+import { LiteralDateTimeToken } from '../literal-datetime-token';
 
 export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
 
@@ -32,7 +34,8 @@ export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
 
   resolve(value: string, options?: DateTimePatternImplementationOptions): object {
     const n = value.startsWith('+') ? value.slice(1) : value;
-    return { [this.name ?? this.id]: Number(n) };
+    const number = Number(n);
+    return { [this.name ?? this.id]: Object.is(number, -0) ? 0 : number  };
   }
 
   getTokenLength(tokenString: string): number {
@@ -50,10 +53,8 @@ export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
     return `${prefix}${this.char}+`;
   }
 
-  getTokenQualifier(pattern: string, char: number) {
-    if (this.prefix === '-') {
-      return char == 0;
-    }
-    return true;
+  getTokenQualifier(parts: DestructuredDateTimePatternPart[]) {
+    if (!parts || !parts.length) return true;
+    return parts.at(-1)?.token instanceof LiteralDateTimeToken;
   }
 }

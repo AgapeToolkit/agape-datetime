@@ -87,7 +87,7 @@ export class DateTimePatternStringParser extends DateTimePatternParser {
       for (const entry of regexEntries) {
         const match = entry.regex.exec(slice);
         if (match) {
-          if (entry.token instanceof ElasticNumberUnicodeDateTimeToken && !entry.token.getTokenQualifier(pattern, i)) {
+          if (entry.token instanceof ElasticNumberUnicodeDateTimeToken && !entry.token.getTokenQualifier(parts)) {
             continue;
           }
           else {

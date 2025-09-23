@@ -39,6 +39,8 @@ export class DateTimePatternImplementation {
     const resolvedDateTimeParts: ResolvedDateTimeParts = this.resolveDateTimeParts(parsedDateTimeParts);
     const normalizedDateTimeParts: ResolvedDateTimeParts = this.normalizeDateTimeParts(resolvedDateTimeParts, this.options);
 
+    console.log("Normalized Parts", normalizedDateTimeParts);
+
     this.validateNormalizedValue(normalizedDateTimeParts);
 
     const datetime = Object.create(DateTimeValue.prototype)
