@@ -37,7 +37,7 @@ describe('DateTimePattern - weekdayLocal', () => {
   describe('multi-locale consistency', () => {
     const locales = ['es-US', 'en-UK', 'ru-RU', 'ja-JP', 'de-DE', 'fr-FR'];
 
-    locales.forEach(locale => {
+    locales.forEach((locale) => {
       it(`weekdayLocal (e) should work consistently in ${locale}`, () => {
         const pattern = new DateTimePattern('e', { locale });
         const value = pattern.parse('3');
