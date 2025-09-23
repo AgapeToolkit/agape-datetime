@@ -1,11 +1,14 @@
-import { unicodeTokensToUseInStandardPatterns } from './unicode-datetime-token-definitions';
+
 import { sortDateTimeTokenIndex } from './util';
 import { DateTimeToken } from '../tokens/datetime-token';
 import { ElasticNumberDateTimeToken } from '../tokens/standard/elastic-number-datetime-token';
 import { SymbolDateTimeToken } from '../tokens/standard/symbol-datetime-token';
 import { TokenIndexElasticEntry, TokenIndexEntry, TokenIndexRegexEntry, TokenIndexStringEntry } from './types';
 import { unicodeDateTimeTokenIndex } from './unicode-datetime-token-index';
-import { standardDateTimeTokenDefinitions } from './standard-datetime-token-definitions';
+import {
+  standardDateTimeTokenDefinitions,
+  unicodeTokensToUseInStandardPatterns
+} from './standard-datetime-token-definitions';
 
 function buildStandardDateTimeTokenIndex(definitions: Record<string, DateTimeToken>, unicodeIndex: TokenIndexEntry[]) {
   const index: TokenIndexEntry[] = [];

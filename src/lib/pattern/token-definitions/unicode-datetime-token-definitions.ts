@@ -1,7 +1,5 @@
 import { VerboseEraUnicodeDateTimeToken } from '../tokens/unicode/verbose-era-unicode-datetime-token';
-import {
-  ElasticCalendarYearUnicodeDateTimeToken
-} from '../tokens/unicode/elastic-calendar-year-unicode-datetime-token';
+import { ElasticCalendarYearUnicodeDateTimeToken } from '../tokens/unicode/elastic-calendar-year-unicode-datetime-token';
 import { ElasticNumberUnicodeDateTimeToken } from '../tokens/unicode/elastic-number-unicode-datetime-token';
 import { NumberUnicodeDateTimeToken } from '../tokens/unicode/number-unicode-datetime-token';
 import { VerboseMonthUnicodeDateTimeToken } from '../tokens/unicode/verbose-month-unicode-datetime-token';
@@ -10,9 +8,7 @@ import { DayPeriodUnicodeDateTimeToken } from '../tokens/unicode/day-period-unic
 import { FractionalSecondUnicodeDateTimeToken } from '../tokens/unicode/fractional-second-unicode-datetime-token';
 import { TimeZoneOffsetUnicodeDateTimeToken } from '../tokens/unicode/timezone-offset-unicode-datetime-token';
 import { TimeZoneIdUnicodeDateTimeToken } from '../tokens/unicode/timezone-id-unicode-datetime-token';
-import {
-  VerboseTimeZoneNameUnicodeDateTimeToken
-} from '../tokens/unicode/verbose-timezone-name-unicode-datetime-token';
+import { VerboseTimeZoneNameUnicodeDateTimeToken } from '../tokens/unicode/verbose-timezone-name-unicode-datetime-token';
 
 export const unicodeDateTimeTokenDefinitions = {
   eraShort: new VerboseEraUnicodeDateTimeToken({
@@ -67,7 +63,7 @@ export const unicodeDateTimeTokenDefinitions = {
     id: 'signedIsoYear',
     name: 'year',
     char: 'u',
-    prefix: '-'
+    prefix: '-',
   }),
   month: new NumberUnicodeDateTimeToken({
     id: 'month',
@@ -258,57 +254,57 @@ export const unicodeDateTimeTokenDefinitions = {
   timeZoneOffsetZ: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetZ',
     symbol: 'Z',
-    regex: 'Z'
+    regex: 'Z',
   }),
   timeZoneOffsetWithZ_X: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithZ_X',
     symbol: 'X', // “Z” or ±HH or ±HHMM  (e.g., Z, -08, +0530)
-    regex: `(?:Z|[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9])?)`
+    regex: `(?:Z|[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9])?)`,
   }),
   timeZoneOffsetWithZ_XX: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithZ_XX',
     symbol: 'XX', // “Z” or ±HHMM  (e.g., Z, -0800, +0530)
-    regex: `(?:Z|[+-](?:0[0-9]|1[0-4])[0-5][0-9])`
+    regex: `(?:Z|[+-](?:0[0-9]|1[0-4])[0-5][0-9])`,
   }),
   timeZoneOffsetWithZ_XXX: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithZ_XXX',
     symbol: 'XXX', // “Z” or ±HH:MM  (e.g., Z, -08:00, +05:30)
-    regex: `(?:Z|[+-](?:0[0-9]|1[0-4]):[0-5][0-9])`
+    regex: `(?:Z|[+-](?:0[0-9]|1[0-4]):[0-5][0-9])`,
   }),
   timeZoneOffsetWithZ_XXXX: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithZ_XXXX',
     symbol: 'XXXX', // “Z” or ±HHMM or ±HHMMSS  (e.g., Z, -0800, +0530, +123456)
-    regex: `(?:Z|[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9]){1,2})`
+    regex: `(?:Z|[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9]){1,2})`,
   }),
   timeZoneOffsetWithZ_XXXXX: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithZ_XXXXX',
     symbol: 'XXXXX', // “Z” or ±HH:MM or ±HH:MM:SS  (e.g., Z, -08:00, +05:30, +12:34:56)
-    regex: `(?:Z|[+-](?:0[0-9]|1[0-4]):[0-5][0-9](?::[0-5][0-9])?)`
+    regex: `(?:Z|[+-](?:0[0-9]|1[0-4]):[0-5][0-9](?::[0-5][0-9])?)`,
   }),
   timeZoneOffsetWithoutZ_x: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithoutZ_x',
     symbol: 'x', //±HH or ±HHMM  (e.g., -08, +0530, +00)
-    regex: `[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9])?`
+    regex: `[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9])?`,
   }),
   timeZoneOffsetWithoutZ_xx: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithoutZ_xx',
     symbol: 'xx', // “±HHMM  (e.g., -0800, +0530, +0000)
-    regex: `[+-](?:0[0-9]|1[0-4])[0-5][0-9]`
+    regex: `[+-](?:0[0-9]|1[0-4])[0-5][0-9]`,
   }),
   timeZoneOffsetWithoutZ_xxx: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithoutZ_xxx',
     symbol: 'xxx', // ±HH:MM  (e.g., -08:00, +05:30, +00:00)
-    regex: `[+-](?:0[0-9]|1[0-4]):[0-5][0-9]`
+    regex: `[+-](?:0[0-9]|1[0-4]):[0-5][0-9]`,
   }),
   timeZoneOffsetWithoutZ_xxxx: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithoutZ_xxxx',
     symbol: 'xxxx', // ±HHMM or ±HHMMSS  (e.g., -0800, +0530, +0000, +123456)
-    regex: `[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9]){1,2}`
+    regex: `[+-](?:0[0-9]|1[0-4])(?:[0-5][0-9]){1,2}`,
   }),
   timeZoneOffsetWithoutZ_xxxxx: new TimeZoneOffsetUnicodeDateTimeToken({
     id: 'timeZoneOffsetWithoutZ_xxxxx',
     symbol: 'xxxxx', // ±HH:MM or ±HH:MM:SS  (e.g., -08:00, +05:30, +00:00, +12:34:56)
-    regex: `[+-](?:0[0-9]|1[0-4]):[0-5][0-9](?::[0-5][0-9])?`
+    regex: `[+-](?:0[0-9]|1[0-4]):[0-5][0-9](?::[0-5][0-9])?`,
   }),
   timeZoneId: new TimeZoneIdUnicodeDateTimeToken({
     id: 'timeZoneId',
@@ -382,55 +378,3 @@ export const unicodeDateTimeTokenDefinitions = {
 } as const;
 
 
-export const unicodeTokensToUseInStandardPatterns = [
-  'eraShort',
-  'eraLong',
-  'eraNarrow',
-  'commonEraShort',
-  'commonEraLong',
-  'commonEraNarrow',
-  'month',
-  'monthPadded',
-  'monthShort',
-  'monthLong',
-  'monthNarrow',
-  'monthStandaloneShort',
-  'monthStandaloneLong',
-  'monthStandaloneNarrow',
-  'weekday',
-  'weekdayPadded',
-  'weekdayLocal',
-  'weekdayLocalPadded',
-  'dayPeriod',
-  'dayPeriodShort',
-  'dayPeriodLong',
-  'dayPeriodNarrow',
-  'minute',
-  'minutePadded',
-  'second',
-  'secondPadded',
-  'fractionalSecond',
-  'timeZoneOffsetZ',
-  'timeZoneOffsetWithZ_X',
-  'timeZoneOffsetWithZ_XX',
-  'timeZoneOffsetWithZ_XXX',
-  'timeZoneOffsetWithZ_XXXX',
-  'timeZoneOffsetWithZ_XXXXX',
-  'timeZoneOffsetWithoutZ_x',
-  'timeZoneOffsetWithoutZ_xx',
-  'timeZoneOffsetWithoutZ_xxx',
-  'timeZoneOffsetWithoutZ_xxxx',
-  'timeZoneOffsetWithoutZ_xxxxx',
-  'timeZoneId',
-  'timeZoneNameShort',
-  'timeZoneNameLong',
-  'secondsTimestamp',
-  'signedSecondsTimestamp',
-  'negativeSignedSecondsTimestamp',
-  'millisecondsTimestamp',
-  'signedMillisecondsTimestamp',
-  'negativeSignedMillisecondsTimestamp',
-  'nanosecondsTimestamp',
-  'signedNanosecondsTimestamp',
-  'negativeSignedNanosecondsTimestamp',
-] as const;

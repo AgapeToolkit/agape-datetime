@@ -6,81 +6,134 @@ export const standardDateTimeTokenDefinitions = {
   calendarYear: new ElasticNumberDateTimeToken({
     id: 'calendarYear',
     char: 'y',
-    unicode: unicodeDateTimeTokenDefinitions.calendarYear
+    unicode: unicodeDateTimeTokenDefinitions.calendarYear,
   }),
   isoYear: new ElasticNumberDateTimeToken({
     id: 'isoYear',
     char: 'Y',
-    unicode: unicodeDateTimeTokenDefinitions.isoYear
+    unicode: unicodeDateTimeTokenDefinitions.isoYear,
   }),
   signedIsoYear: new ElasticNumberDateTimeToken({
     id: 'signedIsoYear',
     char: 'Y',
-    unicode: unicodeDateTimeTokenDefinitions.signedIsoYear
+    unicode: unicodeDateTimeTokenDefinitions.signedIsoYear,
   }),
   negativeSignedIsoYear: new ElasticNumberDateTimeToken({
     id: 'year',
     char: 'Y',
-    unicode: unicodeDateTimeTokenDefinitions.negativeSignedIsoYear
+    unicode: unicodeDateTimeTokenDefinitions.negativeSignedIsoYear,
   }),
   day: new SymbolDateTimeToken({
     id: 'day',
     symbol: 'D',
-    unicode: unicodeDateTimeTokenDefinitions.day
+    unicode: unicodeDateTimeTokenDefinitions.day,
   }),
   dayPadded: new SymbolDateTimeToken({
     id: 'dayPadded',
     symbol: 'DD',
-    unicode: unicodeDateTimeTokenDefinitions.dayPadded
+    unicode: unicodeDateTimeTokenDefinitions.dayPadded,
   }),
   weekdayShort: new SymbolDateTimeToken({
     id: 'weekdayShort',
     symbol: 'DDD',
-    unicode: unicodeDateTimeTokenDefinitions.weekdayShort
+    unicode: unicodeDateTimeTokenDefinitions.weekdayShort,
   }),
   weekdayLong: new SymbolDateTimeToken({
     id: 'weekdayLong',
     symbol: 'DDDD',
-    unicode: unicodeDateTimeTokenDefinitions.weekdayLong
+    unicode: unicodeDateTimeTokenDefinitions.weekdayLong,
   }),
   weekdayNarrow: new SymbolDateTimeToken({
     id: 'weekdayNarrow',
     symbol: 'DDDDD',
-    unicode: unicodeDateTimeTokenDefinitions.weekdayNarrow
+    unicode: unicodeDateTimeTokenDefinitions.weekdayNarrow,
   }),
   weekdayStandaloneShort: new SymbolDateTimeToken({
     id: 'weekdayStandaloneShort',
     symbol: 'CCC',
-    unicode: unicodeDateTimeTokenDefinitions.weekdayStandaloneShort
+    unicode: unicodeDateTimeTokenDefinitions.weekdayStandaloneShort,
   }),
   weekdayStandaloneLong: new SymbolDateTimeToken({
     id: 'weekdayStandaloneLong',
     symbol: 'CCCC',
-    unicode: unicodeDateTimeTokenDefinitions.weekdayStandaloneLong
+    unicode: unicodeDateTimeTokenDefinitions.weekdayStandaloneLong,
   }),
   weekdayStandaloneNarrow: new SymbolDateTimeToken({
     id: 'weekdayStandaloneNarrow',
     symbol: 'CCCCC',
-    unicode: unicodeDateTimeTokenDefinitions.weekdayStandaloneNarrow
+    unicode: unicodeDateTimeTokenDefinitions.weekdayStandaloneNarrow,
   }),
   hour: new SymbolDateTimeToken({
     id: 'hour',
     symbol: 'h',
-    unicode: unicodeDateTimeTokenDefinitions.hour
+    unicode: unicodeDateTimeTokenDefinitions.hour,
   }),
   hourPadded: new SymbolDateTimeToken({
     id: 'hourPadded',
     symbol: 'hh',
-    unicode: unicodeDateTimeTokenDefinitions.hourPadded
+    unicode: unicodeDateTimeTokenDefinitions.hourPadded,
   }),
   twelveHour: new SymbolDateTimeToken({
     id: 'twelveHour',
     symbol: 'H',
-    unicode: unicodeDateTimeTokenDefinitions.twelveHour
+    unicode: unicodeDateTimeTokenDefinitions.twelveHour,
   }),
   twelveHourPadded: new SymbolDateTimeToken({
     id: 'hourPadded',
     symbol: 'HH',
-    unicode: unicodeDateTimeTokenDefinitions.twelveHourPadded
-  })
+    unicode: unicodeDateTimeTokenDefinitions.twelveHourPadded,
+  }),
 };
+
+export const unicodeTokensToUseInStandardPatterns = [
+  'eraShort',
+  'eraLong',
+  'eraNarrow',
+  'commonEraShort',
+  'commonEraLong',
+  'commonEraNarrow',
+  'month',
+  'monthPadded',
+  'monthShort',
+  'monthLong',
+  'monthNarrow',
+  'monthStandaloneShort',
+  'monthStandaloneLong',
+  'monthStandaloneNarrow',
+  'weekday',
+  'weekdayPadded',
+  'weekdayLocal',
+  'weekdayLocalPadded',
+  'dayPeriod',
+  'dayPeriodShort',
+  'dayPeriodLong',
+  'dayPeriodNarrow',
+  'minute',
+  'minutePadded',
+  'second',
+  'secondPadded',
+  'fractionalSecond',
+  'timeZoneOffsetZ',
+  'timeZoneOffsetWithZ_X',
+  'timeZoneOffsetWithZ_XX',
+  'timeZoneOffsetWithZ_XXX',
+  'timeZoneOffsetWithZ_XXXX',
+  'timeZoneOffsetWithZ_XXXXX',
+  'timeZoneOffsetWithoutZ_x',
+  'timeZoneOffsetWithoutZ_xx',
+  'timeZoneOffsetWithoutZ_xxx',
+  'timeZoneOffsetWithoutZ_xxxx',
+  'timeZoneOffsetWithoutZ_xxxxx',
+  'timeZoneId',
+  'timeZoneNameShort',
+  'timeZoneNameLong',
+  'secondsTimestamp',
+  'signedSecondsTimestamp',
+  'negativeSignedSecondsTimestamp',
+  'millisecondsTimestamp',
+  'signedMillisecondsTimestamp',
+  'negativeSignedMillisecondsTimestamp',
+  'nanosecondsTimestamp',
+  'signedNanosecondsTimestamp',
+  'negativeSignedNanosecondsTimestamp',
+] as const;

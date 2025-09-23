@@ -18,7 +18,7 @@ export class CommonEraNames extends Names {
       const defaultInstance = CommonEraNames.get({ locale: this.locale, case: 'default' });
       this._long = this.applyCase(defaultInstance.long);
     }
-    
+
     return this._long;
   }
 
@@ -31,7 +31,7 @@ export class CommonEraNames extends Names {
       const defaultInstance = CommonEraNames.get({ locale: this.locale, case: 'default' });
       this._short = this.applyCase(defaultInstance.short);
     }
-    
+
     return this._short;
   }
 
@@ -44,7 +44,7 @@ export class CommonEraNames extends Names {
       const defaultInstance = CommonEraNames.get({ locale: this.locale, case: 'default' });
       this._narrow = this.applyCase(defaultInstance.narrow);
     }
-    
+
     return this._narrow;
   }
 
@@ -52,7 +52,7 @@ export class CommonEraNames extends Names {
     const locale = params.locale ?? getLocale();
     const caseType = params.case ?? 'default';
     const key = `${locale}-${caseType}`;
-    
+
     const cached = commonEraNamesRegistry.get(key);
     if (cached) return cached;
 
