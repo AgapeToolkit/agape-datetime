@@ -58,7 +58,8 @@ export class MonthNames extends Names {
   private getMonthNames(variation: 'long' | 'short' | 'narrow'): readonly string[] {
     const intlFormat = new Intl.DateTimeFormat(this.locale, {
       month: variation,
-      ...(this.standalone && { calendar: 'gregory' }),
+      ...(!this.standalone && { year: 'numeric', day: 'numeric' }),
+      calendar: 'gregory',
       timeZone: 'utc'
     });
 

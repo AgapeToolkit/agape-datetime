@@ -19,18 +19,19 @@ export class VerboseMonthUnicodeDateTimeToken extends VerboseUnicodeDateTimeToke
   constructor(params: Properties<VerboseMonthUnicodeDateTimeToken>) {
     super();
     Object.assign(this, params);
+    this.standalone ??= false;
   }
 
   getRegex(options: DateTimePatternImplementationOptions): string {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
-    const monthNames = MonthNames.get({locale: options.locale, case: namesCase});
+    const monthNames = MonthNames.get({locale: options.locale, case: namesCase, standalone: this.standalone});
     const months = monthNames[this.variation];
     return buildRegexFromNames(months);
   }
 
   resolve(value: string, options: DateTimePatternImplementationOptions): { month: number } {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
-    const monthNames = MonthNames.get({locale: options.locale, case: namesCase});
+    const monthNames = MonthNames.get({locale: options.locale, case: namesCase, standalone: this.standalone});
     const months = monthNames[this.variation];
 
     const testValue = options.case === 'insensitive'
