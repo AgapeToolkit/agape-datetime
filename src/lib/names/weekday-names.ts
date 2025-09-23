@@ -58,7 +58,8 @@ export class WeekdayNames extends Names {
   private getWeekdayNames(variation: 'long' | 'short' | 'narrow'): readonly string[] {
     const intlFormat = new Intl.DateTimeFormat(this.locale, {
       weekday: variation,
-      ...(this.standalone && { calendar: 'gregory' }),
+      ...(!this.standalone && { year: 'numeric', day: 'numeric', month: variation }),
+      calendar: 'gregory',
       timeZone: 'utc'
     });
 

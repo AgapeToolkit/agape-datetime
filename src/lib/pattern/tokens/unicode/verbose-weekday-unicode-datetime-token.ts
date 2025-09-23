@@ -21,18 +21,19 @@ export class VerboseWeekdayUnicodeDateTimeToken extends VerboseUnicodeDateTimeTo
   constructor(params: Properties<VerboseWeekdayUnicodeDateTimeToken>) {
     super();
     Object.assign(this, params);
+    this.standalone ??= false;
   }
 
   getRegex(options: DateTimePatternImplementationOptions): string {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
-    const weekdayNames = WeekdayNames.get({locale: options.locale, case: namesCase});
+    const weekdayNames = WeekdayNames.get({locale: options.locale, case: namesCase, standalone: this.standalone});
     const weekdays = weekdayNames[this.variation];
     return buildRegexFromNames(weekdays);
   }
 
   resolve(value: string, options: DateTimePatternImplementationOptions, parts?: ResolvedDateTimeParts): { weekday: number } {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
-    const weekdayNames = WeekdayNames.get({locale: options.locale, case: namesCase});
+    const weekdayNames = WeekdayNames.get({locale: options.locale, case: namesCase, standalone: this.standalone});
     const weekdays = weekdayNames[this.variation];
 
     const testValue = options.case === 'insensitive'
