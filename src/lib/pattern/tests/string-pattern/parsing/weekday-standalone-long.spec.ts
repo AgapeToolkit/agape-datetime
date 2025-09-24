@@ -192,7 +192,7 @@ describe('DateTimePattern - weekdayStandaloneLong', () => {
     });
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('CCCC, MMM DD, YYYY', { locale: 'ru-RU' });
-      const value = pattern.parse('воскресенье, янв 05, 2025');
+      const value = pattern.parse('воскресенье, янв. 05, 2025');
       expect(value.normalized.weekday).toBe(7);
       expect(value.normalized.month).toBe(1);
       expect(value.normalized.day).toBe(5);
@@ -200,7 +200,7 @@ describe('DateTimePattern - weekdayStandaloneLong', () => {
     });
     it('should normalize the weekday', () => {
       const pattern = new DateTimePattern('CCCC, MMM DD, YYYY', { locale: 'ru-RU' });
-      const value = pattern.parse('воскресенье, янв 05, 2025');
+      const value = pattern.parse('воскресенье, янв. 05, 2025');
       expect(value.normalized.weekday).toBe(7);
     });
   });
@@ -236,7 +236,7 @@ describe('DateTimePattern - weekdayStandaloneLong', () => {
       expect(() => pattern.parse('Invalid')).toThrow();
     });
     it('should be part of a valid date', () => {
-      const pattern = new DateTimePattern('CCCC, MMM DD, YYYY', { locale: 'ja-JP' });
+      const pattern = new DateTimePattern('CCCC, MMM月 DD, YYYY', { locale: 'ja-JP' });
       const value = pattern.parse('日曜日, 1月 05, 2025');
       expect(value.normalized.weekday).toBe(7);
       expect(value.normalized.month).toBe(1);
@@ -244,7 +244,7 @@ describe('DateTimePattern - weekdayStandaloneLong', () => {
       expect(value.normalized.year).toBe(2025);
     });
     it('should normalize the weekday', () => {
-      const pattern = new DateTimePattern('CCCC, MMM DD, YYYY', { locale: 'ja-JP' });
+      const pattern = new DateTimePattern('CCCC, MMM月 DD, YYYY', { locale: 'ja-JP' });
       const value = pattern.parse('日曜日, 1月 05, 2025');
       expect(value.normalized.weekday).toBe(7);
     });

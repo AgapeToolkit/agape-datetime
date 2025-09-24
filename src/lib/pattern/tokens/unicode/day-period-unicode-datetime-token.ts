@@ -28,7 +28,7 @@ export class DayPeriodUnicodeDateTimeToken extends SymbolUnicodeDateTimeToken {
   }
 
   resolve(value: string, options: DateTimePatternImplementationOptions): { dayPeriod: number } {
-    const namesCase = options.case === 'insensitive' ? 'default' : options.case;
+    const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const dayPeriodNames = DayPeriodNames.get({locale: options.locale, case: namesCase});
     const dayPeriods = dayPeriodNames[this.variation];
 

@@ -2,7 +2,7 @@ import { Properties } from '@agape/types';
 import { VerboseUnicodeDateTimeToken } from './verbose-unicode-datetime-token';
 import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
 import { WeekdayNames } from '../../../names';
-import { buildRegexFromNames } from '../util';
+import { buildRegexFromNames, getIsoWeekdayFromResolvedDateParts } from '../util';
 import { VerboseDateTimePartVariation } from '../../types/verbose-datetime-part-variaion';
 import { ResolvedDateTimeParts } from '../../types/resolved-datetime-parts';
 
@@ -39,6 +39,15 @@ export class VerboseWeekdayUnicodeDateTimeToken extends VerboseUnicodeDateTimeTo
     const testValue = options.case === 'insensitive'
       ? value.toLocaleLowerCase(options.locale)
       : value;
+
+    if (this.variation === 'narrow' && parts && (parts.year || parts.calendarYear) && parts.month && parts.day) {
+      const dow = getIsoWeekdayFromResolvedDateParts(parts) as number;
+      const actualWeekday = weekdays[dow-1];
+
+      if (actualWeekday === testValue) {
+        return { weekday: dow };
+      }
+    }
 
     const index = weekdays.indexOf(testValue);
     if (index < 0) throw new Error(`Error resolving weekday, value "${value}" is not one of ${weekdays.map(m => '"' + m + '"').join(', ')}`)
