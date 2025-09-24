@@ -1523,18 +1523,60 @@ describe('DateTimePattern', () => {
       });
     });
 
-    describe('timeZoneId', () => {
-      // TODO: Add tests for timeZoneId token
+    describe('timezoneID', () => {
+      it('should parse America/New_York', () => {
+        const pattern = new DateTimePattern('V', { locale: 'en-US' });
+        const value = pattern.parse('America/New_York');
+        expect(value.normalized.timeZoneId).toBe('America/New_York');
+      });
+      it('should fail Europe/New_York', () => {
+        const pattern = new DateTimePattern('V', { locale: 'en-US' });
+        expect(() => pattern.parse('Europe/New_York')).toThrow();
+      });
     });
 
     describe('timeZoneNameShort', () => {
-      // TODO: Add tests for timeZoneNameShort token
+      it('should parse PST', () => {
+        const pattern = new DateTimePattern('z', { locale: 'en-US' });
+        const value = pattern.parse('PST');
+        expect(value.parsed.timeZoneNameShort).toBe('PST');
+      });
+      it('should parse PDT', () => {
+        const pattern = new DateTimePattern('z', { locale: 'en-US' });
+        const value = pattern.parse('PDT');
+        expect(value.parsed.timeZoneNameShort).toBe('PDT');
+      });
+      it('should fail TUR', () => {
+        const pattern = new DateTimePattern('z', { locale: 'en-US' });
+        expect(() => pattern.parse('TUR')).toThrow();
+      });
+      it('should fail Europe/New_York', () => {
+        const pattern = new DateTimePattern('z', { locale: 'en-US' });
+        expect(() => pattern.parse('Europe/New_York')).toThrow();
+      });
     });
 
     describe('timeZoneNameLong', () => {
-      // TODO: Add tests for timeZoneNameLong token
+      it('should parse Pacific Standard Time', () => {
+        const pattern = new DateTimePattern('zzzz', { locale: 'en-US' });
+        const value = pattern.parse('Pacific Standard Time');
+        expect(value.parsed.timeZoneNameLong).toBe('Pacific Standard Time');
+      });
+      it('should parse Pacific Daylight Time', () => {
+        const pattern = new DateTimePattern('zzzz', { locale: 'en-US' });
+        const value = pattern.parse('Pacific Daylight Time');
+        expect(value.parsed.timeZoneNameLong).toBe('Pacific Daylight Time');
+      });
+      it('should fail Ooga Booga', () => {
+        const pattern = new DateTimePattern('zzzz', { locale: 'en-US' });
+        expect(() => pattern.parse('Ooga Booga')).toThrow();
+      });
+      it('should fail Europe/New_York', () => {
+        const pattern = new DateTimePattern('zzzz', { locale: 'en-US' });
+        expect(() => pattern.parse('Europe/New_York')).toThrow();
+      });
     });
-
+    
     describe('secondsTimestamp', () => {
       describe('unsigned', () => {
         it('should parse seconds timestamp pattern', () => {
@@ -1723,4 +1765,6 @@ describe('DateTimePattern', () => {
       expect(value.normalized.weekday).toBe(3);
     });
   });
+
+
 });
