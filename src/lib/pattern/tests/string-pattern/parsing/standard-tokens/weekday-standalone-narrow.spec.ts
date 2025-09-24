@@ -2,22 +2,22 @@ import { DateTimePattern } from '../../../../datetime-pattern';
 
 describe('DateTimePattern - weekdayStandaloneNarrow', () => {
   describe('en-US locale', () => {
-    it('should parse Sunday (default case)', () => {
+    it('should parse S (Saturday, default case)', () => {
       const pattern = new DateTimePattern('CCCCC', { locale: 'en-US' });
       const value = pattern.parse('S');
       expect(value.normalized.weekday).toBe(6);
     });
-    it('should parse Sunday (uppercase)', () => {
+    it('should parse S (Saturday, uppercase)', () => {
       const pattern = new DateTimePattern('CCCCC', { locale: 'en-US', case: 'uppercase' });
       const value = pattern.parse('S');
       expect(value.normalized.weekday).toBe(6);
     });
-    it('should parse Sunday (lowercase)', () => {
+    it('should parse s (Saturday, lowercase)', () => {
       const pattern = new DateTimePattern('CCCCC', { locale: 'en-US', case: 'lowercase' });
       const value = pattern.parse('s');
       expect(value.normalized.weekday).toBe(6);
     });
-    it('should parse Sunday (case insensitive)', () => {
+    it('should parse s (Saturday, case insensitive)', () => {
       const pattern = new DateTimePattern('CCCCC', { locale: 'en-US', case: 'insensitive' });
       const value = pattern.parse('s');
       expect(value.normalized.weekday).toBe(6);
@@ -31,7 +31,7 @@ describe('DateTimePattern - weekdayStandaloneNarrow', () => {
       const pattern = new DateTimePattern('CCCCC', { locale: 'en-US' });
       expect(() => pattern.parse('Invalid')).toThrow();
     });
-    it('should fail lowercase Sunday (default case)', () => {
+    it('should fail lowercase s (Saturday, default case)', () => {
       const pattern = new DateTimePattern('CCCCC', { locale: 'en-US' });
       expect(() => pattern.parse('s')).toThrow();
     });
