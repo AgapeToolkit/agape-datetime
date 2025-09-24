@@ -25,20 +25,20 @@ export class TimeZoneOffsetUnicodeDateTimeToken extends SymbolUnicodeDateTimeTok
   }
 
   resolve(value: string, options?: DateTimePatternImplementationOptions): object {
-    if (value === 'Z' || value === 'z') return { timezoneOffset: "+00:00", isUtc: true };
+    if (value === 'Z' || value === 'z') return { timeZoneOffset: "+00:00", isUtc: true };
 
-    let timezoneOffset: string;
+    let timeZoneOffset: string;
     if (!value.includes(':')) {
       const length = value.length;
-      if (length === 3) timezoneOffset = `${value}:00`;
-      else if (length === 5) timezoneOffset = `${value.slice(0,3)}:${value.slice(3)}`;
-      else if (length === 7) timezoneOffset = `${value.slice(0,3)}:${value.slice(3,5)}:${value.slice(5)}`;
+      if (length === 3) timeZoneOffset = `${value}:00`;
+      else if (length === 5) timeZoneOffset = `${value.slice(0,3)}:${value.slice(3)}`;
+      else if (length === 7) timeZoneOffset = `${value.slice(0,3)}:${value.slice(3,5)}:${value.slice(5)}`;
       else throw new Error(`Cannot resolve timezone offset "${value}", invalid value`);
     }
     else {
-      timezoneOffset = value;
+      timeZoneOffset = value;
     }
 
-    return { timezoneOffset };
+    return { timeZoneOffset };
   }
 }

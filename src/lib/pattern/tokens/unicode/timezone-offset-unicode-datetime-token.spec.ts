@@ -28,16 +28,16 @@ describe('TimeZoneOffsetUnicodeDateTimeToken', () => {
 
   describe('resolve', () => {
     it('should resolve the value', () => {
-      expect(token.resolve('+00:00')).toEqual({ timezoneOffset: '+00:00' });
+      expect(token.resolve('+00:00')).toEqual({ timeZoneOffset: '+00:00' });
     })
     it('should resolve a padded number', () => {
-      expect(token.resolve('-0100')).toEqual({ timezoneOffset: '-01:00' });
+      expect(token.resolve('-0100')).toEqual({ timeZoneOffset: '-01:00' });
     })
     it('should resolve a padded number', () => {
-      expect(token.resolve('-01:00')).toEqual({ timezoneOffset: '-01:00' });
+      expect(token.resolve('-01:00')).toEqual({ timeZoneOffset: '-01:00' });
     })
     it('should resolve a padded number', () => {
-      expect(token.resolve('-123456')).toEqual({ timezoneOffset: '-12:34:56' });
+      expect(token.resolve('-123456')).toEqual({ timeZoneOffset: '-12:34:56' });
     })
   })
 })

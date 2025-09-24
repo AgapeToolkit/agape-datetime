@@ -942,47 +942,585 @@ describe('DateTimePattern', () => {
     });
 
     describe('timeZoneOffsetZ', () => {
-      // TODO: Add tests for timeZoneOffsetZ token
+      it('should parse Z', () => {
+        const pattern = new DateTimePattern('Z', { locale: 'en-US' });
+        const value = pattern.parse('Z');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse lowercase z', () => {
+        const pattern = new DateTimePattern('Z', { locale: 'en-US', case: 'lowercase' });
+        const value = pattern.parse('z');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSZ', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000Z');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
     });
 
     describe('timeZoneOffsetWithZ_X', () => {
-      // TODO: Add tests for timeZoneOffsetWithZ_X token
+      it('should parse +05', () => {
+        const pattern = new DateTimePattern('X', { locale: 'en-US' });
+        const value = pattern.parse('+05');
+        expect(value.normalized.timeZoneOffset).toBe('+05:00');
+      });
+      it('should parse -05', () => {
+        const pattern = new DateTimePattern('X', { locale: 'en-US' });
+        const value = pattern.parse('-05');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+      });
+      it('should parse +00', () => {
+        const pattern = new DateTimePattern('X', { locale: 'en-US' });
+        const value = pattern.parse('+00');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -00', () => {
+        const pattern = new DateTimePattern('X', { locale: 'en-US' });
+        const value = pattern.parse('-00');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse -0500', () => {
+        const pattern = new DateTimePattern('X', { locale: 'en-US' });
+        const value = pattern.parse('-0500');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+      });
+      it('should parse -0530', () => {
+        const pattern = new DateTimePattern('X', { locale: 'en-US' });
+        const value = pattern.parse('-0530');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should parse Z', () => {
+        const pattern = new DateTimePattern('X', { locale: 'en-US' });
+        const value = pattern.parse('Z');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSX', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-05');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +05:30', () => {
+        const pattern = new DateTimePattern('X', { locale: 'en-US' });
+        expect(() => pattern.parse('+05:30')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithZ_XX', () => {
-      // TODO: Add tests for timeZoneOffsetWithZ_XX token
+      it('should parse +0000', () => {
+        const pattern = new DateTimePattern('XX', { locale: 'en-US' });
+        const value = pattern.parse('+0000');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -0000', () => {
+        const pattern = new DateTimePattern('XX', { locale: 'en-US' });
+        const value = pattern.parse('-0000');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse -0500', () => {
+        const pattern = new DateTimePattern('XX', { locale: 'en-US' });
+        const value = pattern.parse('-0500');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+      });
+      it('should parse -0530', () => {
+        const pattern = new DateTimePattern('XX', { locale: 'en-US' });
+        const value = pattern.parse('-0530');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should parse Z', () => {
+        const pattern = new DateTimePattern('XX', { locale: 'en-US' });
+        const value = pattern.parse('Z');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSXX', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-0530');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +05:30', () => {
+        const pattern = new DateTimePattern('XX', { locale: 'en-US' });
+        expect(() => pattern.parse('+05:30')).toThrow();
+      });
+      it('should fail +05', () => {
+        const pattern = new DateTimePattern('XX', { locale: 'en-US' });
+        expect(() => pattern.parse('+05')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithZ_XXX', () => {
-      // TODO: Add tests for timeZoneOffsetWithZ_XXX token
+      it('should parse +00:00', () => {
+        const pattern = new DateTimePattern('XXX', { locale: 'en-US' });
+        const value = pattern.parse('+00:00');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -00:00', () => {
+        const pattern = new DateTimePattern('XXX', { locale: 'en-US' });
+        const value = pattern.parse('-00:00');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse +05:00', () => {
+        const pattern = new DateTimePattern('XXX', { locale: 'en-US' });
+        const value = pattern.parse('+05:00');
+        expect(value.normalized.timeZoneOffset).toBe('+05:00');
+      });
+      it('should parse -05:30', () => {
+        const pattern = new DateTimePattern('XXX', { locale: 'en-US' });
+        const value = pattern.parse('-05:30');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should parse Z', () => {
+        const pattern = new DateTimePattern('XXX', { locale: 'en-US' });
+        const value = pattern.parse('Z');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSXXX', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-05:30');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +0530', () => {
+        const pattern = new DateTimePattern('XXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+0530')).toThrow();
+      });
+      it('should fail +05', () => {
+        const pattern = new DateTimePattern('XXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+05')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithZ_XXXX', () => {
-      // TODO: Add tests for timeZoneOffsetWithZ_XXXX token
+      it('should parse +0000', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        const value = pattern.parse('+0000');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -0000', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        const value = pattern.parse('-0000');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -0500', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        const value = pattern.parse('-0500');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+      });
+      it('should parse -0530', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        const value = pattern.parse('-0530');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should parse -123456', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        const value = pattern.parse('-123456');
+        expect(value.normalized.timeZoneOffset).toBe('-12:34:56');
+      });
+      it('should parse Z', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        const value = pattern.parse('Z');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSXXXX', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-123456');
+        expect(value.normalized.timeZoneOffset).toBe('-12:34:56');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +05:30', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+05:30')).toThrow();
+      });
+      it('should fail +05', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+05')).toThrow();
+      });
+      it('should fail +051', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+051')).toThrow();
+      });
+      it('should fail +12345', () => {
+        const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+12345')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithZ_XXXXX', () => {
-      // TODO: Add tests for timeZoneOffsetWithZ_XXXXX token
+      it('should parse +00:00', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        const value = pattern.parse('+00:00');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -00:00', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        const value = pattern.parse('-00:00');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse +05:00', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        const value = pattern.parse('+05:00');
+        expect(value.normalized.timeZoneOffset).toBe('+05:00');
+      });
+      it('should parse -05:30', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        const value = pattern.parse('-05:30');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should parse +12:34:56', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        const value = pattern.parse('+12:34:56');
+        expect(value.normalized.timeZoneOffset).toBe('+12:34:56');
+      });
+      it('should parse -12:34:56', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        const value = pattern.parse('-12:34:56');
+        expect(value.normalized.timeZoneOffset).toBe('-12:34:56');
+      });
+      it('should parse Z', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        const value = pattern.parse('Z');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSXXXXX', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-12:34:56');
+        expect(value.normalized.timeZoneOffset).toBe('-12:34:56');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +0530', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+0530')).toThrow();
+      });
+      it('should fail +123456', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+123456')).toThrow();
+      });
+      it('should fail +05', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+05')).toThrow();
+      });
+      it('should fail +12:3', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+12:3')).toThrow();
+      });
+      it('should fail +12:34:5', () => {
+        const pattern = new DateTimePattern('XXXXX', { locale: 'en-US' });
+        expect(() => pattern.parse('+12:34:5')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithoutZ_x', () => {
-      // TODO: Add tests for timeZoneOffsetWithoutZ_x token
+      it('should parse +05', () => {
+        const pattern = new DateTimePattern('x', { locale: 'en-US' });
+        const value = pattern.parse('+05');
+        expect(value.normalized.timeZoneOffset).toBe('+05:00');
+      });
+      it('should parse -05', () => {
+        const pattern = new DateTimePattern('x', { locale: 'en-US' });
+        const value = pattern.parse('-05');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+      });
+      it('should parse +00', () => {
+        const pattern = new DateTimePattern('x', { locale: 'en-US' });
+        const value = pattern.parse('+00');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse -00', () => {
+        const pattern = new DateTimePattern('x', { locale: 'en-US' });
+        const value = pattern.parse('-00');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -0500', () => {
+        const pattern = new DateTimePattern('x', { locale: 'en-US' });
+        const value = pattern.parse('-0500');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+      });
+      it('should parse -0530', () => {
+        const pattern = new DateTimePattern('x', { locale: 'en-US' });
+        const value = pattern.parse('-0530');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should fail Z', () => {
+        const pattern = new DateTimePattern('x', { locale: 'en-US' });
+        expect(() => pattern.parse('Z')).toThrow();
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSx', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-05');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +05:30', () => {
+        const pattern = new DateTimePattern('x', { locale: 'en-US' });
+        expect(() => pattern.parse('+05:30')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithoutZ_xx', () => {
-      // TODO: Add tests for timeZoneOffsetWithoutZ_xx token
+      it('should parse +0000', () => {
+        const pattern = new DateTimePattern('xx', { locale: 'en-US' });
+        const value = pattern.parse('+0000');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -0000', () => {
+        const pattern = new DateTimePattern('xx', { locale: 'en-US' });
+        const value = pattern.parse('-0000');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse -0500', () => {
+        const pattern = new DateTimePattern('xx', { locale: 'en-US' });
+        const value = pattern.parse('-0500');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+      });
+      it('should parse -0530', () => {
+        const pattern = new DateTimePattern('xx', { locale: 'en-US' });
+        const value = pattern.parse('-0530');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should fail Z', () => {
+        const pattern = new DateTimePattern('xx', { locale: 'en-US' });
+        expect(() => pattern.parse('Z')).toThrow();
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSxx', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-0530');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +05:30', () => {
+        const pattern = new DateTimePattern('xx', { locale: 'en-US' });
+        expect(() => pattern.parse('+05:30')).toThrow();
+      });
+      it('should fail +05', () => {
+        const pattern = new DateTimePattern('xx', { locale: 'en-US' });
+        expect(() => pattern.parse('+05')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithoutZ_xxx', () => {
-      // TODO: Add tests for timeZoneOffsetWithoutZ_xxx token
+      it('should parse +00:00', () => {
+        const pattern = new DateTimePattern('xxx', { locale: 'en-US' });
+        const value = pattern.parse('+00:00');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -00:00', () => {
+        const pattern = new DateTimePattern('xxx', { locale: 'en-US' });
+        const value = pattern.parse('-00:00');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse +05:00', () => {
+        const pattern = new DateTimePattern('xxx', { locale: 'en-US' });
+        const value = pattern.parse('+05:00');
+        expect(value.normalized.timeZoneOffset).toBe('+05:00');
+      });
+      it('should parse -05:30', () => {
+        const pattern = new DateTimePattern('xxx', { locale: 'en-US' });
+        const value = pattern.parse('-05:30');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should fail Z', () => {
+        const pattern = new DateTimePattern('xxx', { locale: 'en-US' });
+        expect(() => pattern.parse('Z')).toThrow();
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSxxx', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-05:30');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +0530', () => {
+        const pattern = new DateTimePattern('xxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+0530')).toThrow();
+      });
+      it('should fail +05', () => {
+        const pattern = new DateTimePattern('xxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+05')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithoutZ_xxxx', () => {
-      // TODO: Add tests for timeZoneOffsetWithoutZ_xxxx token
+      it('should parse +0000', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        const value = pattern.parse('+0000');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -0000', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        const value = pattern.parse('-0000');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse -0500', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        const value = pattern.parse('-0500');
+        expect(value.normalized.timeZoneOffset).toBe('-05:00');
+      });
+      it('should parse -0530', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        const value = pattern.parse('-0530');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should parse -123456', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        const value = pattern.parse('-123456');
+        expect(value.normalized.timeZoneOffset).toBe('-12:34:56');
+      });
+      it('should fail Z', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('Z')).toThrow();
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSxxxx', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-123456');
+        expect(value.normalized.timeZoneOffset).toBe('-12:34:56');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +05:30', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+05:30')).toThrow();
+      });
+      it('should fail +05', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+05')).toThrow();
+      });
+      it('should fail +051', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+051')).toThrow();
+      });
+      it('should fail +12345', () => {
+        const pattern = new DateTimePattern('xxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+12345')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetWithoutZ_xxxxx', () => {
-      // TODO: Add tests for timeZoneOffsetWithoutZ_xxxxx token
+      it('should parse +00:00', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        const value = pattern.parse('+00:00');
+        expect(value.normalized.timeZoneOffset).toBe('+00:00');
+      });
+      it('should parse -00:00', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        const value = pattern.parse('-00:00');
+        expect(value.normalized.timeZoneOffset).toBe('-00:00');
+      });
+      it('should parse +05:00', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        const value = pattern.parse('+05:00');
+        expect(value.normalized.timeZoneOffset).toBe('+05:00');
+      });
+      it('should parse -05:30', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        const value = pattern.parse('-05:30');
+        expect(value.normalized.timeZoneOffset).toBe('-05:30');
+      });
+      it('should parse +12:34:56', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        const value = pattern.parse('+12:34:56');
+        expect(value.normalized.timeZoneOffset).toBe('+12:34:56');
+      });
+      it('should parse -12:34:56', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        const value = pattern.parse('-12:34:56');
+        expect(value.normalized.timeZoneOffset).toBe('-12:34:56');
+      });
+      it('should fail Z', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('Z')).toThrow();
+      });
+      it('should be valid as part of a date', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm:ss.SSSxxxxx', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00.000-12:34:56');
+        expect(value.normalized.timeZoneOffset).toBe('-12:34:56');
+        expect(value.normalized.year).toBe(2025);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.fractionalSecond).toBe(0);
+      });
+      it('should fail +0530', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+0530')).toThrow();
+      });
+      it('should fail +123456', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+123456')).toThrow();
+      });
+      it('should fail +05', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+05')).toThrow();
+      });
+      it('should fail +12:3', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+12:3')).toThrow();
+      });
+      it('should fail +12:34:5', () => {
+        const pattern = new DateTimePattern('xxxxx', { locale: 'en-US' });
+        expect(() => pattern.parse('+12:34:5')).toThrow();
+      });
     });
 
     describe('timeZoneId', () => {
