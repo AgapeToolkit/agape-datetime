@@ -98,7 +98,7 @@ export class DateTimePatternImplementation {
 
     if ('twelveHour' in resolvedDateTimeParts && !('hour' in resolvedDateTimeParts)) {
       const dayPeriod = resolvedDateTimeParts.dayPeriod ?? 0;
-      normalizedParts.hour = dayPeriod ? (resolvedDateTimeParts.twelveHour as number) + 12 : resolvedDateTimeParts.twelveHour;
+      normalizedParts.hour = dayPeriod && (resolvedDateTimeParts.twelveHour as number) < 12? (resolvedDateTimeParts.twelveHour as number) + 12 : resolvedDateTimeParts.twelveHour;
     }
     delete incoming['twelveHour'];
     delete incoming['dayPeriod'];

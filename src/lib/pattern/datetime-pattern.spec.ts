@@ -661,60 +661,284 @@ describe('DateTimePattern', () => {
 
   describe('parsing', () => {
 
-    describe('dayPeriod', () => {
-      // Individual token tests have been moved to separate files in tests/string-pattern/parsing/
-      // This keeps the main test file manageable and allows for better organization
-    });
-
-    describe('dayPeriodShort', () => {
-      // Individual token tests have been moved to separate files in tests/string-pattern/parsing/
-      // This keeps the main test file manageable and allows for better organization
-    });
-
-    describe('dayPeriodLong', () => {
-      // Individual token tests have been moved to separate files in tests/string-pattern/parsing/
-      // This keeps the main test file manageable and allows for better organization
-    });
-
-    describe('dayPeriodNarrow', () => {
-      // Individual token tests have been moved to separate files in tests/string-pattern/parsing/
-      // This keeps the main test file manageable and allows for better organization
-    });
-
     describe('twelveHour', () => {
-      // TODO: Add tests for twelveHour token
+      it('should parse 1', () => {
+        const pattern = new DateTimePattern('H', { locale: 'en-US' });
+        const value = pattern.parse('1');
+        expect(value.normalized.hour).toBe(1);
+      });
+      it('should parse padded 01', () => {
+        const pattern = new DateTimePattern('H', { locale: 'en-US' });
+        const value = pattern.parse('01');
+        expect(value.normalized.hour).toBe(1);
+      });
+      it('should fail 13', () => {
+        const pattern = new DateTimePattern('H', { locale: 'en-US' });
+        expect(() => pattern.parse('13')).toThrow();
+      });
+      it('should fail flexible false and padded', () => {
+        const pattern = new DateTimePattern('H', { locale: 'en-US', flexible: false });
+        expect(() => pattern.parse('01')).toThrow();
+      });
+      it('should be valid as part of a datetime', () => {
+        const pattern = new DateTimePattern('MMM D, YYYY H:m a', { locale: 'en-US' });
+        const value = pattern.parse('Mar 1, 2025 12:00 PM');
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.month).toBe(3);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.year).toBe(2025);
+        expect(value.resolved.dayPeriod).toBe(1);
+      });
     });
 
     describe('twelveHourPadded', () => {
-      // TODO: Add tests for twelveHourPadded token
+      it('should parse 01', () => {
+        const pattern = new DateTimePattern('HH', { locale: 'en-US' });
+        const value = pattern.parse('01');
+        expect(value.normalized.hour).toBe(1);
+      });
+      it('should fail 13', () => {
+        const pattern = new DateTimePattern('HH', { locale: 'en-US' });
+        expect(() => pattern.parse('13')).toThrow();
+      });
+      it('should fail unpadded', () => {
+        const pattern = new DateTimePattern('HH', { locale: 'en-US' });
+        expect(() => pattern.parse('1')).toThrow();
+      });
+      it('should be valid as part of a datetime', () => {
+        const pattern = new DateTimePattern('MMM D, YYYY HH:m a', { locale: 'en-US' });
+        const value = pattern.parse('Mar 1, 2025 12:00 PM');
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.month).toBe(3);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.year).toBe(2025);
+        expect(value.resolved.dayPeriod).toBe(1);
+      });
     });
 
     describe('hour', () => {
-      // TODO: Add tests for hour token
+      it('should parse 1', () => {
+        const pattern = new DateTimePattern('h', { locale: 'en-US' });
+        const value = pattern.parse('1');
+        expect(value.normalized.hour).toBe(1);
+      });
+      it('should parse padded 01', () => {
+        const pattern = new DateTimePattern('h', { locale: 'en-US' });
+        const value = pattern.parse('01');
+        expect(value.normalized.hour).toBe(1);
+      });
+      it('should parse 23', () => {
+        const pattern = new DateTimePattern('h', { locale: 'en-US' });
+        const value = pattern.parse('23');
+        expect(value.normalized.hour).toBe(23);
+      });
+      it('should fail flexible false and padded', () => {
+        const pattern = new DateTimePattern('h', { locale: 'en-US', flexible: false });
+        expect(() => pattern.parse('01')).toThrow();
+      });
+      it('should fail out of range', () => {
+        const pattern = new DateTimePattern('h', { locale: 'en-US' });
+        expect(() => pattern.parse('24')).toThrow();
+      });
+      it('should be valid as part of a datetime', () => {
+        const pattern = new DateTimePattern('Y-M-DTh:m', { locale: 'en-US' });
+        const value = pattern.parse('2015-1-1T12:0');
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.year).toBe(2015);
+      });
     });
 
     describe('hourPadded', () => {
-      // TODO: Add tests for hourPadded token
+      it('should parse 01', () => {
+        const pattern = new DateTimePattern('hh', { locale: 'en-US' });
+        const value = pattern.parse('01');
+        expect(value.normalized.hour).toBe(1);
+      });
+      it('should fail not padded', () => {
+        const pattern = new DateTimePattern('hh', { locale: 'en-US' });
+        expect(() => pattern.parse('1')).toThrow();
+      });
+      it('should fail out of range', () => {
+        const pattern = new DateTimePattern('hh', { locale: 'en-US' });
+        expect(() => pattern.parse('24')).toThrow();
+      });
+      it('should be valid as part of a datetime', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DDThh:mm', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00');
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.year).toBe(2025);
+      });
     });
 
     describe('minute', () => {
-      // TODO: Add tests for minute token
+      it('should parse 1', () => {
+        const pattern = new DateTimePattern('m', { locale: 'en-US' });
+        const value = pattern.parse('1');
+        expect(value.normalized.minute).toBe(1);
+      });
+      it('should parse padded 01', () => {
+        const pattern = new DateTimePattern('m', { locale: 'en-US' });
+        const value = pattern.parse('01');
+        expect(value.normalized.minute).toBe(1);
+      });
+      it('should parse 59', () => {
+        const pattern = new DateTimePattern('m', { locale: 'en-US' });
+        const value = pattern.parse('59');
+        expect(value.normalized.minute).toBe(59);
+      });
+      it('should fail 60', () => {
+        const pattern = new DateTimePattern('m', { locale: 'en-US' });
+        expect(() => pattern.parse('60')).toThrow();
+      });
+      it('should fail flexible false and padded', () => {
+        const pattern = new DateTimePattern('m', { locale: 'en-US', flexible: false });
+        expect(() => pattern.parse('01')).toThrow();
+      });
+      it('should be valid as part of a datetime', () => {
+        const pattern = new DateTimePattern('Y-M-DTh:m', { locale: 'en-US' });
+        const value = pattern.parse('2025-1-1T12:0');
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.year).toBe(2025);
+      });
     });
 
     describe('minutePadded', () => {
-      // TODO: Add tests for minutePadded token
+      it('should parse 01', () => {
+        const pattern = new DateTimePattern('mm', { locale: 'en-US' });
+        const value = pattern.parse('01');
+        expect(value.normalized.minute).toBe(1);
+      });
+      it('should fail not padded', () => {
+        const pattern = new DateTimePattern('mm', { locale: 'en-US' });
+        expect(() => pattern.parse('1')).toThrow();
+      });
+      it('should parse 59', () => {
+        const pattern = new DateTimePattern('mm', { locale: 'en-US' });
+        const value = pattern.parse('59');
+        expect(value.normalized.minute).toBe(59);
+      });
+      it('should fail 60', () => {
+        const pattern = new DateTimePattern('mm', { locale: 'en-US' });
+        expect(() => pattern.parse('60')).toThrow();
+      });
+      it('should be valid as part of a datetime', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DThh:mm', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00');
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.year).toBe(2025);
+      });
     });
 
     describe('second', () => {
-      // TODO: Add tests for second token
+      it('should parse 1', () => {
+        const pattern = new DateTimePattern('s', { locale: 'en-US' });
+        const value = pattern.parse('1');
+        expect(value.normalized.second).toBe(1);
+      });
+      it('should parse padded 01', () => {
+        const pattern = new DateTimePattern('s', { locale: 'en-US' });
+        const value = pattern.parse('01');
+        expect(value.normalized.second).toBe(1);
+      });
+      it('should parse 59', () => {
+        const pattern = new DateTimePattern('s', { locale: 'en-US' });
+        const value = pattern.parse('59');
+        expect(value.normalized.second).toBe(59);
+      });
+      it('should fail 60', () => {
+        const pattern = new DateTimePattern('s', { locale: 'en-US' });
+        expect(() => pattern.parse('60')).toThrow();
+      });
+      it('should fail flexible false and padded', () => {
+        const pattern = new DateTimePattern('s', { locale: 'en-US', flexible: false });
+        expect(() => pattern.parse('01')).toThrow();
+      });
+      it('should be valid as part of a datetime', () => {
+        const pattern = new DateTimePattern('Y-M-DTh:m:s', { locale: 'en-US' });
+        const value = pattern.parse('2025-1-1T12:0:0');
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.year).toBe(2025);
+      });
     });
 
     describe('secondPadded', () => {
-      // TODO: Add tests for secondPadded token
+      it('should parse 01', () => {
+        const pattern = new DateTimePattern('ss', { locale: 'en-US' });
+        const value = pattern.parse('01');
+        expect(value.normalized.second).toBe(1);
+      });
+      it('should fail not padded', () => {
+        const pattern = new DateTimePattern('ss', { locale: 'en-US' });
+        expect(() => pattern.parse('1')).toThrow();
+      });
+      it('should parse 59', () => {
+        const pattern = new DateTimePattern('ss', { locale: 'en-US' });
+        const value = pattern.parse('59');
+        expect(value.normalized.second).toBe(59);
+      });
+      it('should fail 60', () => {
+        const pattern = new DateTimePattern('ss', { locale: 'en-US' });
+        expect(() => pattern.parse('60')).toThrow();
+      });
+      it('should be valid as part of a datetime', () => {
+        const pattern = new DateTimePattern('YYYY-MM-DThh:mm:ss', { locale: 'en-US' });
+        const value = pattern.parse('2025-01-01T12:00:00');
+        expect(value.normalized.second).toBe(0);
+        expect(value.normalized.minute).toBe(0);
+        expect(value.normalized.hour).toBe(12);
+        expect(value.normalized.month).toBe(1);
+        expect(value.normalized.day).toBe(1);
+        expect(value.normalized.year).toBe(2025);
+      });
     });
 
     describe('fractionalSecond', () => {
-      // TODO: Add tests for fractionalSecond token
+      it('should parse 100', () => {
+        const pattern = new DateTimePattern('SSS', { locale: 'en-US' });
+        const value = pattern.parse('100');
+        expect(value.normalized.fractionalSecond).toBe(.1);
+      });
+      it('should parse 0', () => {
+        const pattern = new DateTimePattern('S', { locale: 'en-US' });
+        const value = pattern.parse('0');
+        expect(value.normalized.fractionalSecond).toBe(.0);
+      });
+      it('should parse padded 000001', () => {
+        const pattern = new DateTimePattern('SSSSSS', { locale: 'en-US' });
+        const value = pattern.parse('000001');
+        expect(value.normalized.fractionalSecond).toBe(.000001);
+      });
+      it('should fail not padded', () => {
+        const pattern = new DateTimePattern('SSSSSS', { locale: 'en-US' });
+        expect(() => pattern.parse('100')).toThrow();
+      });
+      it('should be elastic', () => {
+        const pattern = new DateTimePattern('SSS', { locale: 'en-US' });
+        const value = pattern.parse('123456');
+        expect(value.normalized.fractionalSecond).toBe(.123456);
+      });
+      it('should be nonelastic', () => {
+        const pattern = new DateTimePattern('SSS', { locale: 'en-US', elastic: false });
+        expect(() => pattern.parse('123456')).toThrow();
+      });
     });
 
     describe('timeZoneOffsetZ', () => {
