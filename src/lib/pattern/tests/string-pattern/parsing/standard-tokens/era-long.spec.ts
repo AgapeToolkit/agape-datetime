@@ -298,94 +298,94 @@ describe('DateTimePattern - eraLong', () => {
 
   describe('ru-RU', () => {
     describe('default case', () => {
-      it('should parse нашей эры', () => {
+      it('should parse от Рождества Христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
-        const value = pattern.parse('нашей эры');
+        const value = pattern.parse('от Рождества Христова');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse до нашей эры', () => {
+      it('should parse до Рождества Христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
-        const value = pattern.parse('до нашей эры');
+        const value = pattern.parse('до Рождества Христова');
         expect(value.resolved.era).toBe(0);
       });
-      it('should fail lowercase нашей эры', () => {
+      it('should fail lowercase от рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
-        expect(() => pattern.parse('нашей эры')).toThrow();
+        expect(() => pattern.parse('от рождества христова')).toThrow();
       });
-      it('should fail lowercase до нашей эры', () => {
+      it('should fail lowercase до рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
-        expect(() => pattern.parse('до нашей эры')).toThrow();
+        expect(() => pattern.parse('до рождества христова')).toThrow();
       });
-      it('should fail uppercase НАШЕЙ ЭРЫ', () => {
+      it('should fail uppercase ОТ РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
-        expect(() => pattern.parse('НАШЕЙ ЭРЫ')).toThrow();
+        expect(() => pattern.parse('ОТ РОЖДЕСТВА ХРИСТОВА')).toThrow();
       });
-      it('should fail uppercase ДО НАШЕЙ ЭРЫ', () => {
+      it('should fail uppercase ДО РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
-        expect(() => pattern.parse('ДО НАШЕЙ ЭРЫ')).toThrow();
+        expect(() => pattern.parse('ДО РОЖДЕСТВА ХРИСТОВА')).toThrow();
       });
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'ru-RU' });
-        const value = pattern.parse('01/01/2025 нашей эры');
+        const value = pattern.parse('01/01/2025 от Рождества Христова');
         expect(value.normalized.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'ru-RU' });
-        const value = pattern.parse('01/01/2025 до нашей эры');
+        const value = pattern.parse('01/01/2025 до Рождества Христова');
         expect(value.normalized.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
-      it('should parse НАШЕЙ ЭРЫ', () => {
+      it('should parse ОТ РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'uppercase' });
-        const value = pattern.parse('НАШЕЙ ЭРЫ');
+        const value = pattern.parse('ОТ РОЖДЕСТВА ХРИСТОВА');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse ДО НАШЕЙ ЭРЫ', () => {
+      it('should parse ДО РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'uppercase' });
-        const value = pattern.parse('ДО НАШЕЙ ЭРЫ');
+        const value = pattern.parse('ДО РОЖДЕСТВА ХРИСТОВА');
         expect(value.resolved.era).toBe(0);
       });
-      it('should fail lowercase нашей эры', () => {
+      it('should fail lowercase от рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'uppercase' });
-        expect(() => pattern.parse('нашей эры')).toThrow();
+        expect(() => pattern.parse('от рождества христова')).toThrow();
       });
     });
     describe('lowercase', () => {
-      it('should parse нашей эры', () => {
+      it('should parse от рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'lowercase' });
-        const value = pattern.parse('нашей эры');
+        const value = pattern.parse('от рождества христова');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse до нашей эры', () => {
+      it('should parse до рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'lowercase' });
-        const value = pattern.parse('до нашей эры');
+        const value = pattern.parse('до рождества христова');
         expect(value.resolved.era).toBe(0);
       });
-      it('should fail uppercase НАШЕЙ ЭРЫ', () => {
+      it('should fail uppercase ОТ РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'lowercase' });
-        expect(() => pattern.parse('НАШЕЙ ЭРЫ')).toThrow();
+        expect(() => pattern.parse('ОТ РОЖДЕСТВА ХРИСТОВА')).toThrow();
       });
     });
     describe('case insensitive', () => {
-      it('should parse нашей эры', () => {
+      it('should parse от рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'insensitive' });
-        const value = pattern.parse('нашей эры');
+        const value = pattern.parse('от рождества христова');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse до нашей эры', () => {
+      it('should parse до рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'insensitive' });
-        const value = pattern.parse('до нашей эры');
+        const value = pattern.parse('до рождества христова');
         expect(value.resolved.era).toBe(0);
       });
-      it('should parse НАШЕЙ ЭРЫ', () => {
+      it('should parse ОТ РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'insensitive' });
-        const value = pattern.parse('НАШЕЙ ЭРЫ');
+        const value = pattern.parse('ОТ РОЖДЕСТВА ХРИСТОВА');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse ДО НАШЕЙ ЭРЫ', () => {
+      it('should parse ДО РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'insensitive' });
-        const value = pattern.parse('ДО НАШЕЙ ЭРЫ');
+        const value = pattern.parse('ДО РОЖДЕСТВА ХРИСТОВА');
         expect(value.resolved.era).toBe(0);
       });
     });
@@ -475,99 +475,99 @@ describe('DateTimePattern - eraLong', () => {
 
   describe('de-DE', () => {
     describe('default case', () => {
-      it('should parse nach Christus', () => {
+      it('should parse n. Chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
-        const value = pattern.parse('nach Christus');
+        const value = pattern.parse('n. Chr.');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse vor Christus', () => {
+      it('should parse v. Chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
-        const value = pattern.parse('vor Christus');
+        const value = pattern.parse('v. Chr.');
         expect(value.resolved.era).toBe(0);
       });
-      it('should fail lowercase nach christus', () => {
+      it('should fail lowercase n. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
-        expect(() => pattern.parse('nach christus')).toThrow();
+        expect(() => pattern.parse('n. chr.')).toThrow();
       });
-      it('should fail lowercase vor christus', () => {
+      it('should fail lowercase v. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
-        expect(() => pattern.parse('vor christus')).toThrow();
+        expect(() => pattern.parse('v. chr.')).toThrow();
       });
-      it('should fail uppercase NACH CHRISTUS', () => {
+      it('should fail uppercase N. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
-        expect(() => pattern.parse('NACH CHRISTUS')).toThrow();
+        expect(() => pattern.parse('N. CHR.')).toThrow();
       });
-      it('should fail uppercase VOR CHRISTUS', () => {
+      it('should fail uppercase V. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
-        expect(() => pattern.parse('VOR CHRISTUS')).toThrow();
+        expect(() => pattern.parse('V. CHR.')).toThrow();
       });
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'de-DE' });
-        const value = pattern.parse('01/01/2025 nach Christus');
+        const value = pattern.parse('01/01/2025 n. Chr.');
         expect(value.normalized.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'de-DE' });
-        const value = pattern.parse('01/01/2025 vor Christus');
+        const value = pattern.parse('01/01/2025 v. Chr.');
         expect(value.normalized.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
-      it('should parse NACH CHRISTUS', () => {
+      it('should parse N. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'uppercase' });
-        const value = pattern.parse('NACH CHRISTUS');
+        const value = pattern.parse('N. CHR.');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse VOR CHRISTUS', () => {
+      it('should parse V. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'uppercase' });
-        const value = pattern.parse('VOR CHRISTUS');
+        const value = pattern.parse('V. CHR.');
         expect(value.resolved.era).toBe(0);
       });
-      it('should fail lowercase nach christus', () => {
+      it('should fail lowercase n. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'uppercase' });
-        expect(() => pattern.parse('nach christus')).toThrow();
+        expect(() => pattern.parse('n. chr.')).toThrow();
       });
     });
     describe('lowercase', () => {
-      it('should parse nach christus', () => {
+      it('should parse n. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'lowercase' });
-        const value = pattern.parse('nach christus');
+        const value = pattern.parse('n. chr.');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse vor christus', () => {
+      it('should parse v. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'lowercase' });
-        const value = pattern.parse('vor christus');
+        const value = pattern.parse('v. chr.');
         expect(value.resolved.era).toBe(0);
       });
-      it('should fail uppercase NACH CHRISTUS', () => {
+      it('should fail uppercase N. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'lowercase' });
-        expect(() => pattern.parse('NACH CHRISTUS')).toThrow();
+        expect(() => pattern.parse('N. CHR.')).toThrow();
       });
     });
     describe('case insensitive', () => {
-      it('should parse nach christus', () => {
+      it('should parse n. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
-        const value = pattern.parse('nach christus');
+        const value = pattern.parse('n. chr.');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse vor christus', () => {
+      it('should parse v. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
-        const value = pattern.parse('vor christus');
+        const value = pattern.parse('v. chr.');
         expect(value.resolved.era).toBe(0);
       });
-      it('should parse NACH CHRISTUS', () => {
+      it('should parse N. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
-        const value = pattern.parse('NACH CHRISTUS');
+        const value = pattern.parse('N. CHR.');
         expect(value.resolved.era).toBe(1);
       });
-      it('should parse VOR CHRISTUS', () => {
+      it('should parse V. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
-        const value = pattern.parse('VOR CHRISTUS');
+        const value = pattern.parse('V. CHR.');
         expect(value.resolved.era).toBe(0);
       });
-      it('should parse nach Christus', () => {
+      it('should parse n. Chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
-        const value = pattern.parse('nach Christus');
+        const value = pattern.parse('n. Chr.');
         expect(value.resolved.era).toBe(1);
       });
     });
