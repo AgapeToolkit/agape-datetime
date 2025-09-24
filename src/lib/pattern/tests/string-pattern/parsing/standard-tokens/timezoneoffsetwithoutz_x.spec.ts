@@ -14,12 +14,12 @@ describe('DateTimePattern - timeZoneOffsetWithoutZ_x', () => {
   it('should parse +00', () => {
     const pattern = new DateTimePattern('x', { locale: 'en-US' });
     const value = pattern.parse('+00');
-    expect(value.normalized.timeZoneOffset).toBe('-00:00');
+    expect(value.normalized.timeZoneOffset).toBe('+00:00');
   });
   it('should parse -00', () => {
     const pattern = new DateTimePattern('x', { locale: 'en-US' });
     const value = pattern.parse('-00');
-    expect(value.normalized.timeZoneOffset).toBe('+00:00');
+    expect(value.normalized.timeZoneOffset).toBe('-00:00');
   });
   it('should parse -0500', () => {
     const pattern = new DateTimePattern('x', { locale: 'en-US' });

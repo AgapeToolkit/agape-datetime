@@ -9,7 +9,7 @@ describe('DateTimePattern - timeZoneOffsetWithZ_XXXX', () => {
   it('should parse -0000', () => {
     const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });
     const value = pattern.parse('-0000');
-    expect(value.normalized.timeZoneOffset).toBe('+00:00');
+    expect(value.normalized.timeZoneOffset).toBe('-00:00');
   });
   it('should parse -0500', () => {
     const pattern = new DateTimePattern('XXXX', { locale: 'en-US' });

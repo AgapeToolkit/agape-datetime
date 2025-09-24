@@ -35,10 +35,6 @@ describe('DateTimePattern - monthStandaloneNarrow', () => {
       const pattern = new DateTimePattern('LLLLL', { locale: 'en-US' });
       expect(() => pattern.parse('j')).toThrow();
     });
-    it('should fail uppercase January (default case)', () => {
-      const pattern = new DateTimePattern('LLLLL', { locale: 'en-US' });
-      expect(() => pattern.parse('J')).toThrow();
-    });
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLLLL DD, YYYY', { locale: 'en-US' });
       const value = pattern.parse('J 05, 2025');
@@ -82,10 +78,6 @@ describe('DateTimePattern - monthStandaloneNarrow', () => {
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLLLL', { locale: 'es-US' });
       expect(() => pattern.parse('Invalid')).toThrow();
-    });
-    it('should fail uppercase January (default case)', () => {
-      const pattern = new DateTimePattern('LLLLL', { locale: 'es-US' });
-      expect(() => pattern.parse('E')).toThrow();
     });
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLLLL DD, YYYY', { locale: 'es-US' });
@@ -135,10 +127,6 @@ describe('DateTimePattern - monthStandaloneNarrow', () => {
       const pattern = new DateTimePattern('LLLLL', { locale: 'en-UK' });
       expect(() => pattern.parse('j')).toThrow();
     });
-    it('should fail uppercase January (default case)', () => {
-      const pattern = new DateTimePattern('LLLLL', { locale: 'en-UK' });
-      expect(() => pattern.parse('J')).toThrow();
-    });
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLLLL DD, YYYY', { locale: 'en-UK' });
       const value = pattern.parse('J 05, 2025');
@@ -182,10 +170,6 @@ describe('DateTimePattern - monthStandaloneNarrow', () => {
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLLLL', { locale: 'ru-RU' });
       expect(() => pattern.parse('Invalid')).toThrow();
-    });
-    it('should fail uppercase January (default case)', () => {
-      const pattern = new DateTimePattern('LLLLL', { locale: 'ru-RU' });
-      expect(() => pattern.parse('Я')).toThrow();
     });
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLLLL DD, YYYY', { locale: 'ru-RU' });
@@ -275,10 +259,6 @@ describe('DateTimePattern - monthStandaloneNarrow', () => {
       const pattern = new DateTimePattern('LLLLL', { locale: 'de-DE' });
       expect(() => pattern.parse('Invalid')).toThrow();
     });
-    it('should fail uppercase January (default case)', () => {
-      const pattern = new DateTimePattern('LLLLL', { locale: 'de-DE' });
-      expect(() => pattern.parse('J')).toThrow();
-    });
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLLLL DD, YYYY', { locale: 'de-DE' });
       const value = pattern.parse('J 05, 2025');
@@ -322,10 +302,6 @@ describe('DateTimePattern - monthStandaloneNarrow', () => {
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLLLL', { locale: 'fr-FR' });
       expect(() => pattern.parse('Invalid')).toThrow();
-    });
-    it('should fail uppercase January (default case)', () => {
-      const pattern = new DateTimePattern('LLLLL', { locale: 'fr-FR' });
-      expect(() => pattern.parse('J')).toThrow();
     });
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLLLL DD, YYYY', { locale: 'fr-FR' });

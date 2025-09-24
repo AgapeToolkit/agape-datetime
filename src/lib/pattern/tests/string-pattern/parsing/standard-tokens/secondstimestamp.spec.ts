@@ -28,7 +28,7 @@ describe('DateTimePattern - secondsTimestamp', () => {
       expect(value.normalized.secondsTimestamp).toBe(-1735689600);
     });
     it('should fail without a sign', () => {
-      const pattern = new DateTimePattern('t');
+      const pattern = new DateTimePattern('+t');
       expect(() => pattern.parse('1735689600')).toThrow();
     });
   });
