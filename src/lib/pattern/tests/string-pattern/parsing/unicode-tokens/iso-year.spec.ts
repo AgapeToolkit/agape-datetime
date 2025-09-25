@@ -1,6 +1,6 @@
 import { DateTimePattern } from '../../../../datetime-pattern';
 
-describe('DateTimePattern - isoYear (unicode)', () => {
+describe('DateTimePattern - isoYear', () => {
   describe('single year pattern (u)', () => {
     it('should parse single digit year', () => {
       const pattern = new DateTimePattern('u', { locale: 'en-US', unicode: true });

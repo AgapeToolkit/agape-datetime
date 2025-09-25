@@ -1,6 +1,6 @@
 import { DateTimePattern } from '../../../../datetime-pattern';
 
-describe('DateTimePattern - dayPadded (unicode)', () => {
+describe('DateTimePattern - dayPadded', () => {
   it('should parse a day', () => {
     const pattern = new DateTimePattern('dd', { locale: 'ru-RU', unicode: true });
     const value = pattern.parse('01');

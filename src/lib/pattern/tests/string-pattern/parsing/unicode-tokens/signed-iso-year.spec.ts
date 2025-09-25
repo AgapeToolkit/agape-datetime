@@ -1,6 +1,6 @@
 import { DateTimePattern } from '../../../../datetime-pattern';
 
-describe('DateTimePattern - signedIsoYear (unicode)', () => {
+describe('DateTimePattern - signedIsoYear', () => {
   describe('single year pattern (+u)', () => {
     it('should parse positive single digit year', () => {
       const pattern = new DateTimePattern('+u', { locale: 'en-US', unicode: true });

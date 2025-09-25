@@ -1,6 +1,6 @@
 import { DateTimePattern } from '../../../../datetime-pattern';
 
-describe('DateTimePattern - twelveHourPadded (unicode)', () => {
+describe('DateTimePattern - twelveHourPadded', () => {
   it('should parse 01', () => {
     const pattern = new DateTimePattern('hh', { locale: 'en-US', unicode: true });
     const value = pattern.parse('01');

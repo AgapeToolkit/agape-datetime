@@ -1,6 +1,6 @@
 import { DateTimePattern } from '../../../../datetime-pattern';
 
-describe('DateTimePattern - hour (unicode)', () => {
+describe('DateTimePattern - hour', () => {
   it('should parse 1', () => {
     const pattern = new DateTimePattern('H', { locale: 'en-US', unicode: true });
     const value = pattern.parse('1');
