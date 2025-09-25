@@ -2,7 +2,7 @@ import { DateTimePatternImplementation } from './implementation/datetime-pattern
 import { DateTimePatternStringParser } from './parser/datetime-pattern-string-parser';
 import { DateTimePatternIntlParser } from './parser/datetime-pattern-intl-parser';
 import { DateTimePatternObjectParser } from './parser/datetime-pattern-object-parser';
-import { DateTimeValue } from './types/datetime-value';
+import { DateTimeValue } from './values/datetime-value';
 import { DateTimePatternOptions } from './types/datetime-pattern-options';
 import { DateTimePatternImplementationOptions } from './types/datetime-pattern-implementation-options';
 import { DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS } from './constants';

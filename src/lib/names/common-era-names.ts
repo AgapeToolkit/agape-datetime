@@ -1,6 +1,6 @@
 import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { CommonEraNamesParams } from './types/common-era-names';
+import { CommonEraNamesParams } from './types/common-era-names-params';
 
 const commonEraNamesRegistry = new Map<string, CommonEraNames>();
 

@@ -306,8 +306,8 @@ export const unicodeDateTimeTokenDefinitions = {
     symbol: 'xxxxx', // ±HH:MM or ±HH:MM:SS  (e.g., -08:00, +05:30, +00:00, +12:34:56)
     regex: `[+-](?:0[0-9]|1[0-4]):[0-5][0-9](?::[0-5][0-9])?`,
   }),
-  timeZoneId: new TimeZoneIdUnicodeDateTimeToken({
-    id: 'timeZoneId',
+  timeZone: new TimeZoneIdUnicodeDateTimeToken({
+    id: 'timeZone',
     symbol: 'V',
     regex: `(?:UTC|GMT|[A-Za-z][A-Za-z0-9._+-]*(?:\\/[A-Za-z0-9._+-]+)+)`,
   }),

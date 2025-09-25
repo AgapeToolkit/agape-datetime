@@ -1,6 +1,6 @@
 import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { WeekdayNamesParams } from './types/weekday-names';
+import { WeekdayNamesParams } from './types/weekday-names-params';
 
 const weekdayNamesRegistry = new Map<string, WeekdayNames>();
 

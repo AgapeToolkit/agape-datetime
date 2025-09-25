@@ -27,11 +27,11 @@ export class TimeZoneIdUnicodeDateTimeToken extends SymbolUnicodeDateTimeToken {
     return this.regex;
   }
 
-  resolve(value: string, options?: DateTimePatternOptions): { timeZoneId: string } {
+  resolve(value: string, options?: DateTimePatternOptions): { timeZone: string } {
     try {
       const dateTimeFormat = new Intl.DateTimeFormat("en-US", { timeZone: value });
       const resolvedTimeZoneId = dateTimeFormat.resolvedOptions().timeZone; // "America/New_York"
-      return { timeZoneId: resolvedTimeZoneId };
+      return { timeZone: resolvedTimeZoneId };
     }
     catch (error) {
       if (error instanceof RangeError) {

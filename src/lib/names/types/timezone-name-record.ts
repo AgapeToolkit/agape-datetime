@@ -1,5 +1,5 @@
 export interface TimeZoneNameRecord {
   timeZoneName: string;
-  timeZoneIds: string[];
+  timeZones: string[];
   offset: string;
 }

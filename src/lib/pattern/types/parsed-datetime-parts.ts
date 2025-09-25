@@ -53,7 +53,7 @@ export interface ParsedDateTimeParts {
   timeZoneOffsetWithoutZ_xxx?: string;
   timeZoneOffsetWithoutZ_xxxx?: string;
   timeZoneOffsetWithoutZ_xxxxx?: string;
-  timeZoneId?: string;
+  timeZone?: string;
   timeZoneNameShort?: string;
   timeZoneNameLong?: string;
   secondsTimestamp?: string;

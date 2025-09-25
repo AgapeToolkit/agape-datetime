@@ -1,6 +1,6 @@
 import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { EraNamesParams } from './types/era-names';
+import { EraNamesParams } from './types/era-names-params';
 
 const eraNamesRegistry = new Map<string, EraNames>();
 

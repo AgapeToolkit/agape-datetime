@@ -1,6 +1,6 @@
 import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { MonthNamesParams } from './types/month-names';
+import { MonthNamesParams } from './types/month-names-params';
 
 const monthNamesRegistry = new Map<string, MonthNames>();
 

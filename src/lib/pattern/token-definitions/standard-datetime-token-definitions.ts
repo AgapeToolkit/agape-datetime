@@ -124,7 +124,7 @@ export const unicodeTokensToUseInStandardPatterns = [
   'timeZoneOffsetWithoutZ_xxx',
   'timeZoneOffsetWithoutZ_xxxx',
   'timeZoneOffsetWithoutZ_xxxxx',
-  'timeZoneId',
+  'timeZone',
   'timeZoneNameShort',
   'timeZoneNameLong',
   'secondsTimestamp',

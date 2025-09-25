@@ -1,19 +1,15 @@
 import { ResolvedDateTimeParts } from '@agape/datetime';
 import { hasTemporal, Temporal } from '@agape/temporal';
 import { DateOutOfRangeError } from '../errors/date-out-of-range-error';
+import { JS_MAX_YEAR, JS_MIN_YEAR } from '../constants';
 
 export function escapeRegex(text: string): string {
-  return text
-    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    .replace(/[\u00A0\u202F]/g, '[ \\u00A0\\u202F]');
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[\u00A0\u202F]/g, '[ \\u00A0\\u202F]');
 }
 
 export function buildRegexFromNames(names: readonly string[]): string {
   return names.map(escapeRegex).sort((a, b) => b.length - a.length).join('|');
 }
-
-export const JS_MAX_DATE_YEAR = 275759;
-export const JS_MIN_DATE_YEAR = -271820;
 
 
 export function getIsoWeekdayFromResolvedDateParts(parts: ResolvedDateTimeParts): number | undefined {
@@ -38,7 +34,7 @@ export function getIsoWeekdayFromResolvedDateParts(parts: ResolvedDateTimeParts)
 function isResolveDatePartYearInRange(parts: ResolvedDateTimeParts) {
   const year = getIsoYearFromResolvedDateParts(parts);
   if (!year) return true;
-  return year <= JS_MAX_DATE_YEAR && year >= JS_MIN_DATE_YEAR
+  return year <= JS_MAX_YEAR && year >= JS_MIN_YEAR
 }
 
 function getIsoYearFromResolvedDateParts(parts: ResolvedDateTimeParts) {

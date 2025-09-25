@@ -13,7 +13,7 @@ export interface ResolvedDateTimeParts {
   second?: number;
   fractionalSecond?: number;
   timeZoneOffset?: string;
-  timeZoneId?: string;
+  timeZone?: string;
   timeZoneNameShort?: string;
   timeZoneNameLong?: string;
   secondsTimestamp?: number;

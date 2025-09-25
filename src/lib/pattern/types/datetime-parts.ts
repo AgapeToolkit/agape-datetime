@@ -7,7 +7,7 @@ export interface DateTimeParts {
   minute?: number;
   second?: number;
   fractionalSecond?: number;
-  timeZoneId?: string;
+  timeZone?: string;
   timeZoneOffset?: string;
   secondsTimestamp?: number;
   millisecondsTimestamp?: number;

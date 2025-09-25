@@ -2,14 +2,14 @@ import { getOffsetLegacyDate, getOffsetTemporal } from '../util/private/offsets'
 import { getLocale } from '@agape/locale';
 import { hasTemporal, Temporal } from '@agape/temporal';
 import { Names } from './names';
-import { TimeZoneNamesParams } from './types/timezone-names';
+import { TimeZoneNamesParams } from './types/timezone-names-params';
 import { TimeZoneNameRecord } from './types/timezone-name-record';
 
 const timeZoneNamesRegistry = new Map<string, TimeZoneNames>();
 
 interface TimeZoneNameDetail {
   timeZoneName: string;
-  timeZoneId: string;
+  timeZone: string;
   offset: string;
 }
 export class TimeZoneNames extends Names {
@@ -79,7 +79,7 @@ export class TimeZoneNames extends Names {
     const map = variation === 'long' ? this.longNamesMap : this.shortNamesMap;
     const record: TimeZoneNameRecord = map[timeZoneName];
     const intlVariation = variation === 'long' ? 'long': 'short';
-    for (const timeZone of record.timeZoneIds) {
+    for (const timeZone of record.timeZones) {
       const intl = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: intlVariation });
       const name = intl.formatToParts(date).find(part => part.type === 'timeZoneName')?.value;
       if (name === timeZoneName) return timeZone;
@@ -94,9 +94,9 @@ export class TimeZoneNames extends Names {
       const nameRecord: TimeZoneNameRecord = timeZoneNames[timeZoneNameDetail.timeZoneName] ??= {
         timeZoneName: timeZoneNameDetail.timeZoneName,
         offset: timeZoneNameDetail.offset,
-        timeZoneIds: []
+        timeZones: []
       };
-      nameRecord.timeZoneIds.push(timeZoneNameDetail.timeZoneId);
+      nameRecord.timeZones.push(timeZoneNameDetail.timeZone);
     }
 
     return timeZoneNames;
@@ -141,19 +141,19 @@ export class TimeZoneNames extends Names {
     return timeZoneNameDetails;
   }
 
-  private getTimeZoneNameDetailLegacy(intlFormat: Intl.DateTimeFormat, timeZoneId: string, date: Date): TimeZoneNameDetail {
+  private getTimeZoneNameDetailLegacy(intlFormat: Intl.DateTimeFormat, timeZone: string, date: Date): TimeZoneNameDetail {
     return {
-      timeZoneId,
+      timeZone,
       timeZoneName: this.getTimeZoneName(intlFormat, date),
-      offset: getOffsetLegacyDate(date, timeZoneId),
+      offset: getOffsetLegacyDate(date, timeZone),
     }
   }
 
-  private getTimeZoneNameDetailInstant(intlFormat: Intl.DateTimeFormat, timeZoneId: string, instant: any): TimeZoneNameDetail {
+  private getTimeZoneNameDetailInstant(intlFormat: Intl.DateTimeFormat, timeZone: string, instant: any): TimeZoneNameDetail {
     return {
-      timeZoneId,
+      timeZone,
       timeZoneName: this.getTimeZoneName(intlFormat, instant),
-      offset: getOffsetTemporal(instant, timeZoneId),
+      offset: getOffsetTemporal(instant, timeZone),
     }
   }
 

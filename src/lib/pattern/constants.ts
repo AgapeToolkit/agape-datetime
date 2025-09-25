@@ -15,5 +15,5 @@ export const DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS: DateTimePatternImp
 } as const;
 
 
-export const JS_MIN_DATE_YEAR = -271820;
-export const JS_MAX_DATE_YEAR = 275759;
+export const JS_MIN_YEAR = -271820;
+export const JS_MAX_YEAR = 275759;

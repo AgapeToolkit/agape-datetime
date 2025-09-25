@@ -10,7 +10,7 @@ import { UnicodeDateTimeToken } from '../tokens/unicode/unicode-datetime-token';
 import { unicodeDateTimeTokenDefinitions } from '../token-definitions/unicode-datetime-token-definitions';
 import { datetimeTokenResolveOrder } from '../token-definitions/datetime-token-resolve-order';
 import { getLocale } from '@agape/locale';
-import { DateTimeValue } from '../types/datetime-value';
+import { DateTimeValue } from '../values/datetime-value';
 import { isValidDayOfMonth, isValidOffset, isValidTimeZone, isYearInRange } from './util/validation';
 import { InvalidDayOfMonth } from '../errors/invalid-day-of-month';
 import { isoWeekdayToLocalWeekday, isValidDayOfWeek, localWeekdayToIsoWeekday } from './util/weekday';
@@ -156,8 +156,8 @@ export class DateTimePatternImplementation {
       }
     }
 
-    if (parts.timeZoneId) {
-      if (!isValidTimeZone(parts.timeZoneId)) {
+    if (parts.timeZone) {
+      if (!isValidTimeZone(parts.timeZone)) {
         throw new InvalidTimeZoneError();
       }
 
@@ -168,7 +168,7 @@ export class DateTimePatternImplementation {
           // eslint-disable-next-line no-console
           console.warn(
             `Cannot validate time zone offsets because Temporal is not available.\n` +
-            `This occurred while checking if offset ${parts.timeZoneOffset} is valid for time zone ${parts.timeZoneId}.\n` +
+            `This occurred while checking if offset ${parts.timeZoneOffset} is valid for time zone ${parts.timeZone}.\n` +
             `Install a Temporal polyfill to enable full time zone functionality.`
           );
         } else if (skippedValidationCount % 5 === 0) {

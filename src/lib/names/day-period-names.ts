@@ -1,12 +1,12 @@
 import { getLocale } from '@agape/locale';
 import { Names } from './names';
-import { DayPeriodNamesParams } from './types/day-period-names';
+import { DayPeriodNamesParams } from './types/day-period-names-params';
 
 const dayPeriodNamesRegistry = new Map<string, DayPeriodNames>();
 
 export class DayPeriodNames extends Names {
   public readonly standalone: boolean;
-  
+
   private _long?: readonly string[];
   private _short?: readonly string[];
   private _narrow?: readonly string[];
@@ -26,7 +26,7 @@ export class DayPeriodNames extends Names {
       const defaultInstance = DayPeriodNames.get({ locale: this.locale, standalone: this.standalone, case: 'default' });
       this._default = this.applyCase(defaultInstance.default);
     }
-    
+
     return this._default;
   }
 
@@ -40,7 +40,7 @@ export class DayPeriodNames extends Names {
       this._short = this.isEnglish(defaultInstance.default) ? ['am', 'pm'] : defaultInstance.default;
       this._short = this.applyCase(this._short);
     }
-    
+
     return this._short;
   }
 
@@ -54,7 +54,7 @@ export class DayPeriodNames extends Names {
       this._long = this.isEnglish(defaultInstance.default) ? ['a.m.', 'p.m.'] : defaultInstance.default;
       this._long = this.applyCase(this._long);
     }
-    
+
     return this._long;
   }
 
@@ -68,16 +68,16 @@ export class DayPeriodNames extends Names {
       this._narrow = this.isEnglish(defaultInstance.default) ? ['a', 'p'] : defaultInstance.default;
       this._narrow = this.applyCase(this._narrow);
     }
-    
+
     return this._narrow;
   }
 
   private getDayPeriodNames() {
-    const intlFormat = new Intl.DateTimeFormat(this.locale, { 
-      hour: 'numeric', 
-      hour12: true, 
-      minute: 'numeric', 
-      timeZone: 'utc' 
+    const intlFormat = new Intl.DateTimeFormat(this.locale, {
+      hour: 'numeric',
+      hour12: true,
+      minute: 'numeric',
+      timeZone: 'utc'
     });
     return this.getNamesUsingIntlFormat(intlFormat);
   }
@@ -102,7 +102,7 @@ export class DayPeriodNames extends Names {
     const caseType = params.case ?? 'default';
     const standalone = params.standalone ?? false;
     const key = `${locale}-${standalone}-${caseType}`;
-    
+
     const cached = dayPeriodNamesRegistry.get(key);
     if (cached) return cached;
 

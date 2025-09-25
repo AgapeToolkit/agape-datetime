@@ -93,7 +93,7 @@ export function isValidOffset(parts: DateTimeParts): boolean {
     parts.year === undefined ||
     parts.month === undefined ||
     parts.day === undefined ||
-    !parts.timeZoneId ||
+    !parts.timeZone ||
     !parts.timeZoneOffset
   ) {
     return true;
@@ -102,7 +102,7 @@ export function isValidOffset(parts: DateTimeParts): boolean {
   const isoWallClock = datePartsToWallClockDateTime(parts);
   const plain = Temporal.PlainDateTime.from(isoWallClock);
 
-  const tz = Temporal.TimeZone.from(parts.timeZoneId);
+  const tz = Temporal.TimeZone.from(parts.timeZone);
 
   const possibleOffsets = tz
     .getPossibleInstantsFor(plain)
