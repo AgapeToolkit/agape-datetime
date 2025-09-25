@@ -37,8 +37,8 @@ describe('WeekdayNames', () => {
       const long = instance.long;
       
       expect(long).toHaveLength(7);
-      expect(long[0]).toMatch(/Sunday|Domingo|Воскресенье|日曜日|Sonntag|dimanche/i);
-      expect(long[6]).toMatch(/Saturday|Sábado|Суббота|土曜日|Samstag|samedi/i);
+      expect(long[0]).toMatch(/Monday|Lunes|Понедельник|月曜日|Montag|lundi/i);
+      expect(long[6]).toMatch(/Sunday|Domingo|Воскресенье|日曜日|Sonntag|dimanche/i);
     });
 
     test.each(testCases)('should handle case %s correctly', (caseType) => {
@@ -48,14 +48,14 @@ describe('WeekdayNames', () => {
       expect(long).toHaveLength(7);
       
       if (caseType === 'uppercase') {
-        expect(long[0]).toBe('SUNDAY');
-        expect(long[6]).toBe('SATURDAY');
+        expect(long[0]).toBe('MONDAY');
+        expect(long[6]).toBe('SUNDAY');
       } else if (caseType === 'lowercase') {
-        expect(long[0]).toBe('sunday');
-        expect(long[6]).toBe('saturday');
+        expect(long[0]).toBe('monday');
+        expect(long[6]).toBe('sunday');
       } else {
-        expect(long[0]).toBe('Sunday');
-        expect(long[6]).toBe('Saturday');
+        expect(long[0]).toBe('Monday');
+        expect(long[6]).toBe('Sunday');
       }
     });
 
@@ -75,8 +75,8 @@ describe('WeekdayNames', () => {
       const short = instance.short;
       
       expect(short).toHaveLength(7);
-      expect(short[0]).toMatch(/Sun|Dom|Вс|日|So|dim/i);
-      expect(short[6]).toMatch(/Sat|Sáb|Сб|土|Sa|sam/i);
+      expect(short[0]).toMatch(/Mon|Lun|Пн|月|Mo|lun/i);
+      expect(short[6]).toMatch(/Sun|Dom|Вс|日|So|dim/i);
     });
 
     test.each(testCases)('should handle case %s correctly', (caseType) => {
@@ -86,14 +86,14 @@ describe('WeekdayNames', () => {
       expect(short).toHaveLength(7);
       
       if (caseType === 'uppercase') {
-        expect(short[0]).toBe('SUN');
-        expect(short[6]).toBe('SAT');
+        expect(short[0]).toBe('MON');
+        expect(short[6]).toBe('SUN');
       } else if (caseType === 'lowercase') {
-        expect(short[0]).toBe('sun');
-        expect(short[6]).toBe('sat');
+        expect(short[0]).toBe('mon');
+        expect(short[6]).toBe('sun');
       } else {
-        expect(short[0]).toBe('Sun');
-        expect(short[6]).toBe('Sat');
+        expect(short[0]).toBe('Mon');
+        expect(short[6]).toBe('Sun');
       }
     });
   });
@@ -104,8 +104,8 @@ describe('WeekdayNames', () => {
       const narrow = instance.narrow;
       
       expect(narrow).toHaveLength(7);
-      expect(narrow[0]).toMatch(/S|D|В|日|S|d/i);
-      expect(narrow[6]).toMatch(/S|S|С|土|S|s/i);
+      expect(narrow[0]).toMatch(/M|L|П|月|M|l/i);
+      expect(narrow[6]).toMatch(/S|D|В|日|S|d/i);
     });
 
     test.each(testCases)('should handle case %s correctly', (caseType) => {
@@ -115,13 +115,13 @@ describe('WeekdayNames', () => {
       expect(narrow).toHaveLength(7);
       
       if (caseType === 'uppercase') {
-        expect(narrow[0]).toBe('S');
+        expect(narrow[0]).toBe('M');
         expect(narrow[6]).toBe('S');
       } else if (caseType === 'lowercase') {
-        expect(narrow[0]).toBe('s');
+        expect(narrow[0]).toBe('m');
         expect(narrow[6]).toBe('s');
       } else {
-        expect(narrow[0]).toBe('S');
+        expect(narrow[0]).toBe('M');
         expect(narrow[6]).toBe('S');
       }
     });
@@ -209,17 +209,17 @@ describe('WeekdayNames', () => {
   });
 
   describe('weekday order validation', () => {
-    test('should return weekdays in correct order (Sunday to Saturday)', () => {
+    test('should return weekdays in correct order (Monday to Sunday)', () => {
       const instance = WeekdayNames.get({ locale: 'en-US', case: 'default', standalone: false });
       const long = instance.long;
       
-      expect(long[0]).toContain('Sunday');
-      expect(long[1]).toContain('Monday');
-      expect(long[2]).toContain('Tuesday');
-      expect(long[3]).toContain('Wednesday');
-      expect(long[4]).toContain('Thursday');
-      expect(long[5]).toContain('Friday');
-      expect(long[6]).toContain('Saturday');
+      expect(long[0]).toContain('Monday');
+      expect(long[1]).toContain('Tuesday');
+      expect(long[2]).toContain('Wednesday');
+      expect(long[3]).toContain('Thursday');
+      expect(long[4]).toContain('Friday');
+      expect(long[5]).toContain('Saturday');
+      expect(long[6]).toContain('Sunday');
     });
   });
 

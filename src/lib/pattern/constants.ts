@@ -1,7 +1,6 @@
 import { DateTimePatternImplementationOptions } from './types/datetime-pattern-implementation-options';
 
 export const DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS: DateTimePatternImplementationOptions = {
-
   locale: '',
 
   case: 'default',
@@ -12,7 +11,9 @@ export const DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS: DateTimePatternImp
 
   limitRange: false,
 
-  unicode: false
+  unicode: false,
 } as const;
 
 
+export const JS_MIN_DATE_YEAR = -271820;
+export const JS_MAX_DATE_YEAR = 275759;

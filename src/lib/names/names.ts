@@ -1,5 +1,6 @@
 import { getLocale } from '@agape/locale';
-import { Case } from './types';
+import { Case } from './types/case';
+
 
 export abstract class Names {
   public readonly locale: string;
