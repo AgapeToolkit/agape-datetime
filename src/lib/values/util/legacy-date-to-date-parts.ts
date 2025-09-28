@@ -34,7 +34,7 @@ export function legacyDateToDateParts(date: Date, timeZone: string): DateTimePar
     hour: Number(hour),
     minute: Number(minute),
     second: Number(second),
-    fractionalSecond: Number(`.${String(milliseconds).padStart(3, '0')}`),
+    nanoseconds: milliseconds * 1_000_000,
     timeZone: timeZone,
     timeZoneOffset: timeZoneOffset,
   }

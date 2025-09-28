@@ -85,9 +85,9 @@ export function isValidOffset(parts: DateTimeParts): boolean {
     hour: parts.hour ?? 0,
     minute: parts.minute ?? 0,
     second: parts.second ?? 0,
-    millisecond: parts.fractionalSecond ? Math.round(parts.fractionalSecond * 1000) : 0,
-    microsecond: parts.fractionalSecond ? Math.round((parts.fractionalSecond * 1000000) % 1000) : 0,
-    nanosecond: parts.fractionalSecond ? Math.round((parts.fractionalSecond * 1000000000) % 1000) : 0
+    millisecond: parts.nanoseconds ? Math.floor(parts.nanoseconds / 1_000_000) : 0,
+    microsecond: parts.nanoseconds ? Math.floor((parts.nanoseconds / 1_000) % 1_000) : 0,
+    nanosecond: parts.nanoseconds ? parts.nanoseconds % 1_000 : 0
   });
 
   const tz = Temporal.TimeZone.from(parts.timeZone);

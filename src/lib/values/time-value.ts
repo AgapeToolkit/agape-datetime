@@ -26,8 +26,8 @@ export class TimeValue implements TimeParts {
     return this.parts.second;
   }
 
-  get fractionalSecond(): number | undefined {
-    return this.parts.fractionalSecond;
+  get nanoseconds(): number | undefined {
+    return this.parts.nanoseconds;
   }
 
   getDayPeriod(): number | undefined {
@@ -101,7 +101,9 @@ export class TimeValue implements TimeParts {
       parts.hour = hour;
       parts.minute = minute;
       parts.second = second;
-      parts.fractionalSecond = parseFloat('0.' + fractionalPart);
+      // Convert fractional part to nanoseconds (pad to 9 digits, then truncate)
+      const paddedFractional = fractionalPart.padEnd(9, '0').substring(0, 9);
+      parts.nanoseconds = parseInt(paddedFractional, 10);
     } else {
       throw new Error(`Cannot parse time string: ${input}`);
     }
@@ -114,7 +116,7 @@ export class TimeValue implements TimeParts {
       hour: date.getUTCHours(),
       minute: date.getUTCMinutes(),
       second: date.getUTCSeconds(),
-      fractionalSecond: date.getUTCMilliseconds() / 1000
+      nanoseconds: date.getUTCMilliseconds() * 1_000_000 // Convert milliseconds to nanoseconds
     };
     const dtv = new TimeValue();
     dtv.parts = parts;
@@ -122,15 +124,11 @@ export class TimeValue implements TimeParts {
   }
 
   private static fromPlainTime(plainTime: Temporal.PlainTime): TimeValue {
-    // Convert nanoseconds to fractional seconds (up to 9 decimal places)
-    const fractionalSecond = plainTime.nanosecond / 1_000_000_000;
-    const truncatedFractionalSecond = Math.floor(fractionalSecond * 1_000_000_000) / 1_000_000_000;
-    
     const parts: TimeParts = {
       hour: plainTime.hour,
       minute: plainTime.minute,
       second: plainTime.second,
-      fractionalSecond: truncatedFractionalSecond
+      nanoseconds: plainTime.nanosecond
     };
     const dtv = new TimeValue();
     dtv.parts = parts;
@@ -159,7 +157,7 @@ export class TimeValue implements TimeParts {
         if (part === 'hour') filled.hour = 0;
         else if (part === 'minute') filled.minute = 0;
         else if (part === 'second') filled.second = 0;
-        else if (part === 'fractionalSecond') filled.fractionalSecond = 0;
+        else if (part === 'nanoseconds') filled.nanoseconds = 0;
       }
     } else if (strategy === 'end') {
       for (const part of partsToFill) {
@@ -167,7 +165,7 @@ export class TimeValue implements TimeParts {
         if (part === 'hour') filled.hour = 23;
         else if (part === 'minute') filled.minute = 59;
         else if (part === 'second') filled.second = 59;
-        else if (part === 'fractionalSecond') filled.fractionalSecond = 0.999999999;
+        else if (part === 'nanoseconds') filled.nanoseconds = 999999999;
       }
     } else if (strategy === 'current') {
       const now = new Date();
@@ -176,7 +174,7 @@ export class TimeValue implements TimeParts {
         if (part === 'hour') filled.hour = now.getUTCHours();
         else if (part === 'minute') filled.minute = now.getUTCMinutes();
         else if (part === 'second') filled.second = now.getUTCSeconds();
-        else if (part === 'fractionalSecond') filled.fractionalSecond = now.getUTCMilliseconds() / 1000;
+        else if (part === 'nanoseconds') filled.nanoseconds = now.getUTCMilliseconds() * 1_000_000;
       }
     }
 
@@ -195,13 +193,11 @@ export class TimeValue implements TimeParts {
       parts = this._fill(parts, options.fill, requiredParts);
     }
 
-    // Convert fractional seconds to nanoseconds for Temporal
+    // Direct mapping to Temporal (nanoseconds property maps to nanosecond)
     const temporalParts: any = { ...parts };
-    if (temporalParts.fractionalSecond !== undefined) {
-      // Truncate to 9 decimal places and convert to nanoseconds
-      const truncatedFractional = Math.floor(temporalParts.fractionalSecond * 1_000_000_000) / 1_000_000_000;
-      temporalParts.nanosecond = Math.round(truncatedFractional * 1_000_000_000);
-      delete temporalParts.fractionalSecond;
+    if (temporalParts.nanoseconds !== undefined) {
+      temporalParts.nanosecond = temporalParts.nanoseconds;
+      delete temporalParts.nanoseconds;
     }
 
     return (target as any).from(temporalParts);
@@ -226,7 +222,7 @@ export class TimeValue implements TimeParts {
     const hour = parts.hour!;
     const minute = parts.minute!;
     const second = parts.second!;
-    const millisecond = parts.fractionalSecond ? Math.round(parts.fractionalSecond * 1000) : 0;
+    const millisecond = parts.nanoseconds ? Math.floor(parts.nanoseconds / 1_000_000) : 0;
 
     return new Date(Date.UTC(1970, 0, 1, hour, minute, second, millisecond));
   }
