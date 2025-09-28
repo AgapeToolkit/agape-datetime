@@ -6,6 +6,8 @@ import { InvalidDayOfMonth } from '../pattern/errors/invalid-day-of-month';
 import { InvalidWeekdayError } from '../pattern/errors/invalid-weekday';
 import { InvalidTimeZoneError } from '../pattern/errors/invalid-timezone-error';
 import { InvalidTimeZoneOffsetError } from '../pattern/errors/invalid-timezone-offset-error';
+import { Temporal as TemporalPolyfill } from '@js-temporal/polyfill';
+import { setTemporal } from '@agape/temporal';
 
 describe('DateTimeValue', () => {
   describe('Constructor', () => {
@@ -513,6 +515,238 @@ describe('DateTimeValue', () => {
       // Test with a fresh instance to ensure no existing parts
       const freshDtv = new DateTimeValue();
       expect(() => freshDtv.set({ weekday: 8 })).toThrow();
+    });
+  });
+
+  describe('Temporal Conversion Methods', () => {
+    beforeEach(() => {
+      setTemporal(TemporalPolyfill);
+    });
+
+    afterEach(() => {
+      setTemporal(null);
+    });
+
+    it('should have all temporal conversion methods', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15, hour: 14, minute: 30, second: 45 });
+      
+      expect(typeof dtv.toPlainDate).toBe('function');
+      expect(typeof dtv.toPlainTime).toBe('function');
+      expect(typeof dtv.toPlainDateTime).toBe('function');
+      expect(typeof dtv.toPlainYearMonth).toBe('function');
+      expect(typeof dtv.toPlainMonthDay).toBe('function');
+      expect(typeof dtv.toZonedDateTime).toBe('function');
+      expect(typeof dtv.toInstant).toBe('function');
+      expect(typeof dtv.toTimeZone).toBe('function');
+      expect(typeof dtv.toDate).toBe('function');
+    });
+
+    it('should convert to Temporal.PlainDate', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15 });
+      const plainDate = dtv.toPlainDate();
+      expect(plainDate.year).toBe(2025);
+      expect(plainDate.month).toBe(1);
+      expect(plainDate.day).toBe(15);
+    });
+
+    it('should convert to Temporal.PlainTime', () => {
+      const dtv = new DateTimeValue({ hour: 14, minute: 30, second: 45 });
+      const plainTime = dtv.toPlainTime();
+      expect(plainTime.hour).toBe(14);
+      expect(plainTime.minute).toBe(30);
+      expect(plainTime.second).toBe(45);
+    });
+
+    it('should convert to Temporal.PlainDateTime', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15, hour: 14, minute: 30, second: 45 });
+      const plainDateTime = dtv.toPlainDateTime();
+      expect(plainDateTime.year).toBe(2025);
+      expect(plainDateTime.month).toBe(1);
+      expect(plainDateTime.day).toBe(15);
+      expect(plainDateTime.hour).toBe(14);
+      expect(plainDateTime.minute).toBe(30);
+      expect(plainDateTime.second).toBe(45);
+    });
+
+    it('should convert to Temporal.ZonedDateTime', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15, hour: 14, minute: 30, second: 45 });
+      const zonedDateTime = dtv.toZonedDateTime({ timeZone: 'UTC' });
+      expect(zonedDateTime.year).toBe(2025);
+      expect(zonedDateTime.month).toBe(1);
+      expect(zonedDateTime.day).toBe(15);
+      expect(zonedDateTime.hour).toBe(14);
+      expect(zonedDateTime.minute).toBe(30);
+      expect(zonedDateTime.second).toBe(45);
+      expect(zonedDateTime.timeZoneId).toBe('UTC');
+    });
+
+    it('should convert to Temporal.Instant', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15, hour: 14, minute: 30, second: 45 });
+      const instant = dtv.toInstant({ timeZone: 'UTC' });
+      expect(instant).toBeDefined();
+      expect(typeof instant.epochNanoseconds).toBe('bigint');
+    });
+
+    it('should convert to Temporal.TimeZone', () => {
+      const dtv = new DateTimeValue({ timeZone: 'America/New_York' });
+      const timeZone = dtv.toTimeZone();
+      expect(timeZone.id).toBe('America/New_York');
+    });
+
+    it('should convert to Temporal.TimeZone with options', () => {
+      const dtv = new DateTimeValue({ timeZone: 'America/New_York' });
+      const timeZone = dtv.toTimeZone({ timeZone: 'Europe/London' });
+      expect(timeZone.id).toBe('Europe/London');
+    });
+
+    it('should throw error when no timeZone available for Temporal.TimeZone', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15 });
+      expect(() => dtv.toTimeZone()).toThrow('Cannot create Temporal.TimeZone, timeZone is required');
+    });
+
+    it('should use default timeZone when fill strategy provided', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15 });
+      const timeZone = dtv.toTimeZone({ fill: 'current' });
+      expect(timeZone).toBeDefined();
+      expect(timeZone.id).toBeDefined();
+    });
+
+    it('should convert to Date object with UTC timezone', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15, hour: 14, minute: 30, second: 45 });
+      const date = dtv.toDate({ timeZone: 'UTC' });
+      expect(date).toBeInstanceOf(Date);
+      expect(date.getUTCFullYear()).toBe(2025);
+      expect(date.getUTCMonth()).toBe(0); // January is 0
+      expect(date.getUTCDate()).toBe(15);
+      expect(date.getUTCHours()).toBe(14);
+      expect(date.getUTCMinutes()).toBe(30);
+      expect(date.getUTCSeconds()).toBe(45);
+    });
+
+    it('should convert to Date object with system timezone', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1, day: 15, hour: 14, minute: 30, second: 45 });
+      const date = dtv.toDate();
+      expect(date).toBeInstanceOf(Date);
+      expect(date.getFullYear()).toBe(2025);
+      expect(date.getMonth()).toBe(0); // January is 0
+      expect(date.getDate()).toBe(15);
+      expect(date.getHours()).toBe(14);
+      expect(date.getMinutes()).toBe(30);
+      expect(date.getSeconds()).toBe(45);
+    });
+
+    it('should convert to Date object with timezone offset', () => {
+      const dtv = new DateTimeValue({ 
+        year: 2025, 
+        month: 1, 
+        day: 15, 
+        hour: 14, 
+        minute: 30, 
+        second: 45,
+        timeZoneOffset: '-05:00'
+      });
+      const date = dtv.toDate();
+      expect(date).toBeInstanceOf(Date);
+      // The date should be adjusted for the -05:00 offset
+      expect(date.getUTCFullYear()).toBe(2025);
+      expect(date.getUTCMonth()).toBe(0);
+      expect(date.getUTCDate()).toBe(15);
+      expect(date.getUTCHours()).toBe(19); // 14 + 5 hours
+      expect(date.getUTCMinutes()).toBe(30);
+      expect(date.getUTCSeconds()).toBe(45);
+    });
+
+    it('should handle fractional seconds in Date conversion', () => {
+      const dtv = new DateTimeValue({ 
+        year: 2025, 
+        month: 1, 
+        day: 15, 
+        hour: 14, 
+        minute: 30, 
+        second: 45,
+        fractionalSecond: 0.123
+      });
+      const date = dtv.toDate({ timeZone: 'UTC' });
+      expect(date).toBeInstanceOf(Date);
+      expect(date.getUTCMilliseconds()).toBe(123);
+    });
+
+    it('should throw error when insufficient data for Date conversion', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1 });
+      expect(() => dtv.toDate()).toThrow('Cannot create Date, insufficient data');
+    });
+
+    it('should use fill strategy when insufficient data', () => {
+      const dtv = new DateTimeValue({ year: 2025, month: 1 });
+      const date = dtv.toDate({ fill: 'current' });
+      expect(date).toBeInstanceOf(Date);
+      expect(date.getFullYear()).toBe(2025);
+      expect(date.getMonth()).toBe(0);
+    });
+
+    it('should handle DST disambiguation with "earlier" option', () => {
+      // Spring forward: 2:30 AM doesn't exist, should become 3:30 AM
+      const dtv = new DateTimeValue({ 
+        year: 2024, 
+        month: 3, 
+        day: 10, // DST transition day in US
+        hour: 2, 
+        minute: 30, 
+        second: 0 
+      });
+      
+      const zonedDateTime = dtv.toZonedDateTime({ 
+        timeZone: 'America/New_York', 
+        disambiguate: 'earlier' 
+      });
+      
+      // The "earlier" option should give us the time before the DST transition
+      // In spring forward, 2:30 AM EST becomes 3:30 AM EDT
+      // So "earlier" should give us 1:30 AM EST (which is 2:30 AM EDT)
+      expect(zonedDateTime.hour).toBe(1);
+      expect(zonedDateTime.minute).toBe(30);
+    });
+
+    it('should handle DST disambiguation with "later" option', () => {
+      // Fall back: 2:30 AM exists twice, should use the later one
+      const dtv = new DateTimeValue({ 
+        year: 2024, 
+        month: 11, 
+        day: 3, // DST transition day in US
+        hour: 2, 
+        minute: 30, 
+        second: 0 
+      });
+      
+      const zonedDateTime = dtv.toZonedDateTime({ 
+        timeZone: 'America/New_York', 
+        disambiguate: 'later' 
+      });
+      
+      expect(zonedDateTime.hour).toBe(2);
+      expect(zonedDateTime.minute).toBe(30);
+    });
+
+    it('should not use disambiguation when timeZoneOffset is provided', () => {
+      const dtv = new DateTimeValue({ 
+        year: 2024, 
+        month: 3, 
+        day: 10,
+        hour: 2, 
+        minute: 30, 
+        second: 0,
+        timeZoneOffset: '-05:00' // EST offset
+      });
+      
+      const zonedDateTime = dtv.toZonedDateTime({ 
+        timeZone: 'America/New_York', 
+        disambiguate: 'earlier' 
+      });
+      
+      // Should use the exact time with the provided offset, not disambiguate
+      // The timeZoneOffset forces it to use EST, so 2:30 AM EST becomes 3:30 AM EDT
+      expect(zonedDateTime.hour).toBe(3);
+      expect(zonedDateTime.minute).toBe(30);
     });
   });
 });

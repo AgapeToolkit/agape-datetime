@@ -1,6 +1,6 @@
 import { DateTimeParts } from './datetime-parts';
 import { FillStrategy } from './fill-strategy';
 
-export interface FillDateTimeParts extends DateTimeParts {
+export interface ToDateOptions extends DateTimeParts {
   fill?: FillStrategy;
 }
