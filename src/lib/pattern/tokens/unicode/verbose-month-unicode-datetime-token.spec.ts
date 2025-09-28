@@ -18,48 +18,57 @@ describe('VerboseMonthUnicodeDateTimeToken', () => {
   });
 
   describe('en-US', () => {
+    const defaultOptions = {
+      locale: 'en-US',
+      case: 'default' as const,
+      elastic: true,
+      flexible: true,
+      limitRange: false,
+      unicode: false
+    };
+
     describe('getRegex', () => {
       it('should produce a regex with default options', () => {
-        const regex = token.getRegex({ locale: 'en-US' });
+        const regex = token.getRegex({ ...defaultOptions, case: 'default' });
         expect(regex).toBe('Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec');
       })
       it('should produce a lowercase regex', () => {
-        const regex = token.getRegex({ locale: 'en-US', case: 'lowercase' });
+        const regex = token.getRegex({ ...defaultOptions, case: 'lowercase' });
         expect(regex).toBe('jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec');
       })
       it('should produce an uppercase regex', () => {
-        const regex = token.getRegex({ locale: 'en-US', case: 'uppercase' });
+        const regex = token.getRegex({ ...defaultOptions, case: 'uppercase' });
         expect(regex).toBe('JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC');
       })
       it('should produce an insensitive regex', () => {
-        const regex = token.getRegex({ locale: 'en-US', case: 'insensitive' });
+        const regex = token.getRegex({ ...defaultOptions, case: 'insensitive' });
         expect(regex).toBe('jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec');
       })
     })
     describe('resolve', () => {
       it('should resolve the value', () => {
-        expect(token.resolve('Jan')).toEqual({ month: 1 });
+        expect(token.resolve('Jan', defaultOptions)).toEqual({ month: 1 });
       })
       it('should resolve the value', () => {
-        expect(token.resolve('Feb')).toEqual({ month: 2 });
+        expect(token.resolve('Feb', defaultOptions)).toEqual({ month: 2 });
       })
       it('should resolve the value', () => {
-        expect(token.resolve('Mar')).toEqual({ month: 3 });
+        expect(token.resolve('Mar', defaultOptions)).toEqual({ month: 3 });
       })
       it('should resolve the value', () => {
-        expect(token.resolve('Dec')).toEqual({ month: 12 });
+        expect(token.resolve('Dec', defaultOptions)).toEqual({ month: 12 });
       })
       it('should not resolve the value', () => {
-        expect(() => token.resolve('jan')).toThrowError();
+        expect(() => token.resolve('jan', defaultOptions)).toThrowError();
       })
       it('should resolve a lowercase month', () => {
-        expect(token.resolve('jan', { case: 'lowercase'})).toEqual({ month: 1 });
+        expect(token.resolve('jan', { ...defaultOptions, case: 'lowercase'})).toEqual({ month: 1 });
       })
       it('should resolve an uppercase month', () => {
-        expect(token.resolve('JAN', { case: 'uppercase'})).toEqual({ month: 1 });
+        expect(token.resolve('JAN', { ...defaultOptions, case: 'uppercase'})).toEqual({ month: 1 });
       })
       it('should resolve an uppercase month', () => {
-        expect(token.resolve('jAn', { case: 'insensitive'})).toEqual({ month: 1 });
+        expect(token.resolve('jAn', { ...defaultOptions, case: 'insensitive'})).toEqual({ month: 1 });
       })
     })
   })

@@ -6,12 +6,12 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should parse Before Common Era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US' });
         const value = pattern.parse('Before Common Era');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse Common Era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US' });
         const value = pattern.parse('Common Era');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should fail lowercase before common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US' });
@@ -36,12 +36,12 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should parse BEFORE COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'uppercase' });
         const value = pattern.parse('BEFORE COMMON ERA');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'uppercase' });
         const value = pattern.parse('COMMON ERA');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should fail lowercase Before Common Era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'uppercase' });
@@ -52,12 +52,12 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should parse before common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'lowercase' });
         const value = pattern.parse('before common era');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'lowercase' });
         const value = pattern.parse('common era');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should fail uppercase BEFORE COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'lowercase' });
@@ -68,27 +68,27 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should parse before common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('before common era');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('common era');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BEFORE COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('BEFORE COMMON ERA');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('COMMON ERA');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse Before Common Era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('Before Common Era');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
     });
   });
@@ -98,12 +98,12 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should parse Before Common Era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US' });
         const value = pattern.parse('Before Common Era');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse Common Era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US' });
         const value = pattern.parse('Common Era');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should fail lowercase before common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US' });
@@ -128,12 +128,12 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should parse BEFORE COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'uppercase' });
         const value = pattern.parse('BEFORE COMMON ERA');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'uppercase' });
         const value = pattern.parse('COMMON ERA');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should fail lowercase Before Common Era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'uppercase' });
@@ -144,12 +144,12 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should parse before common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'lowercase' });
         const value = pattern.parse('before common era');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'lowercase' });
         const value = pattern.parse('common era');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should fail uppercase BEFORE COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'lowercase' });
@@ -160,22 +160,22 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should parse before common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('before common era');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse common era', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('common era');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BEFORE COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('BEFORE COMMON ERA');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse COMMON ERA', () => {
         const pattern = new DateTimePattern('gggg', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('COMMON ERA');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });

@@ -32,34 +32,36 @@ describe('VerboseWeekdayUnicodeDateTimeToken', () => {
         expect(regex).toBe('MON|TUE|WED|THU|FRI|SAT|SUN');
       })
       it('should produce an insensitive regex', () => {
-        const regex = token.getRegex({ locale: 'en-US', case: 'insensitive, elastic: true, flexible: true, limitRange: false, unicode: false  });
+        const regex = token.getRegex({ locale: 'en-US', case: 'insensitive', elastic: true, flexible: true, limitRange: false, unicode: false  });
         expect(regex).toBe('mon|tue|wed|thu|fri|sat|sun');
       })
     })
     describe('resolve', () => {
+      const defaultOptions = { locale: 'en-US', case: 'default' as const, elastic: true, flexible: true, limitRange: false, unicode: false };
+      
       it('should resolve the value Mon', () => {
-        expect(token.resolve('Mon')).toEqual({ weekday: 1 });
+        expect(token.resolve('Mon', defaultOptions)).toEqual({ weekday: 1 });
       })
       it('should resolve the value Tue', () => {
-        expect(token.resolve('Tue')).toEqual({ weekday: 2 });
+        expect(token.resolve('Tue', defaultOptions)).toEqual({ weekday: 2 });
       })
       it('should resolve the value Wed', () => {
-        expect(token.resolve('Wed')).toEqual({ weekday: 3 });
+        expect(token.resolve('Wed', defaultOptions)).toEqual({ weekday: 3 });
       })
       it('should resolve the value Sun', () => {
-        expect(token.resolve('Sun')).toEqual({ weekday: 7 });
+        expect(token.resolve('Sun', defaultOptions)).toEqual({ weekday: 7 });
       })
       it('should not resolve the value', () => {
-        expect(() => token.resolve('jan')).toThrowError();
+        expect(() => token.resolve('jan', defaultOptions)).toThrowError();
       })
       it('should resolve a lowercase weekday', () => {
-        expect(token.resolve('mon', { case: 'lowercase'})).toEqual({ weekday: 1 });
+        expect(token.resolve('mon', { locale: 'en-US', case: 'lowercase' as const, elastic: true, flexible: true, limitRange: false, unicode: false })).toEqual({ weekday: 1 });
       })
       it('should resolve an uppercase weekday', () => {
-        expect(token.resolve('MON', { case: 'uppercase'})).toEqual({ weekday: 1 });
+        expect(token.resolve('MON', { locale: 'en-US', case: 'uppercase' as const, elastic: true, flexible: true, limitRange: false, unicode: false })).toEqual({ weekday: 1 });
       })
       it('should resolve an uppercase weekday', () => {
-        expect(token.resolve('mOn', { case: 'insensitive'})).toEqual({ weekday: 1 });
+        expect(token.resolve('mOn', { locale: 'en-US', case: 'insensitive' as const, elastic: true, flexible: true, limitRange: false, unicode: false })).toEqual({ weekday: 1 });
       })
     })
   })

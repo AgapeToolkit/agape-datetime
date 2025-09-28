@@ -6,12 +6,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US' });
         const value = pattern.parse('AD');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BC', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US' });
         const value = pattern.parse('BC');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail BCE', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US' });
@@ -44,7 +44,7 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'uppercase' });
         const value = pattern.parse('AD');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should fail lowercase ad', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'uppercase' });
@@ -55,12 +55,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse ad', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'lowercase' });
         const value = pattern.parse('ad');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse bc', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'lowercase' });
         const value = pattern.parse('bc');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'lowercase' });
@@ -71,27 +71,27 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse ad', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('ad');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse bc', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('bc');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('AD');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BC', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('BC');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse Ad', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('Ad');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -100,12 +100,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse d.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US' });
         const value = pattern.parse('d.C.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse a.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US' });
         const value = pattern.parse('a.C.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail BCE', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US' });
@@ -138,12 +138,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse D.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'uppercase' });
         const value = pattern.parse('D.C.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse A.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'uppercase' });
         const value = pattern.parse('A.C.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase d.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'uppercase' });
@@ -154,12 +154,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse d.c.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'lowercase' });
         const value = pattern.parse('d.c.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse a.c.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'lowercase' });
         const value = pattern.parse('a.c.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase D.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'lowercase' });
@@ -170,27 +170,27 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse d.c.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('d.c.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse a.c.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('a.c.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse D.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('D.C.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse A.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('A.C.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse d.C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('d.C.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -200,12 +200,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK' });
         const value = pattern.parse('AD');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BC', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK' });
         const value = pattern.parse('BC');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail BCE', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK' });
@@ -238,12 +238,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'uppercase' });
         const value = pattern.parse('AD');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BC', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'uppercase' });
         const value = pattern.parse('BC');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase ad', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'uppercase' });
@@ -254,12 +254,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse ad', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'lowercase' });
         const value = pattern.parse('ad');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse bc', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'lowercase' });
         const value = pattern.parse('bc');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'lowercase' });
@@ -270,27 +270,27 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse ad', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('ad');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse bc', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('bc');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('AD');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BC', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('BC');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse Ad', () => {
         const pattern = new DateTimePattern('G', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('Ad');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -300,12 +300,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse н. э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU' });
         const value = pattern.parse('н. э.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse до н. э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU' });
         const value = pattern.parse('до н. э.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU' });
@@ -338,12 +338,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse Н. Э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'uppercase' });
         const value = pattern.parse('Н. Э.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse ДО Н. Э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'uppercase' });
         const value = pattern.parse('ДО Н. Э.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase н. э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'uppercase' });
@@ -354,12 +354,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse н. э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'lowercase' });
         const value = pattern.parse('н. э.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse до н. э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'lowercase' });
         const value = pattern.parse('до н. э.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase Н. Э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'lowercase' });
@@ -370,27 +370,27 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse н. э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('н. э.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse до н. э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('до н. э.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse Н. Э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('Н. Э.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse ДО Н. Э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('ДО Н. Э.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse Н. э.', () => {
         const pattern = new DateTimePattern('G', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('Н. э.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -400,12 +400,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse 紀元前', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP' });
         const value = pattern.parse('紀元前');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP' });
@@ -438,41 +438,41 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP', case: 'uppercase' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse 紀元前', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP', case: 'uppercase' });
         const value = pattern.parse('紀元前');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
     });
     describe('lowercase', () => {
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP', case: 'lowercase' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse 紀元前', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP', case: 'lowercase' });
         const value = pattern.parse('紀元前');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
     });
     describe('case insensitive', () => {
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP', case: 'insensitive' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse 紀元前', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP', case: 'insensitive' });
         const value = pattern.parse('紀元前');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('G', { locale: 'ja-JP', case: 'insensitive' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -482,12 +482,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse n. Chr.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE' });
         const value = pattern.parse('n. Chr.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse v. Chr.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE' });
         const value = pattern.parse('v. Chr.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE' });
@@ -520,12 +520,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse N. CHR.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'uppercase' });
         const value = pattern.parse('N. CHR.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse V. CHR.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'uppercase' });
         const value = pattern.parse('V. CHR.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase n. Chr.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'uppercase' });
@@ -536,12 +536,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse n. chr.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'lowercase' });
         const value = pattern.parse('n. chr.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse v. chr.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'lowercase' });
         const value = pattern.parse('v. chr.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase N. CHR.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'lowercase' });
@@ -552,27 +552,27 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse n. chr.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('n. chr.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse v. chr.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('v. chr.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse N. CHR.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('N. CHR.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse V. CHR.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('V. CHR.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse n. Chr.', () => {
         const pattern = new DateTimePattern('G', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('n. Chr.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -582,12 +582,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse ap. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR' });
         const value = pattern.parse('ap. J.-C.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse av. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR' });
         const value = pattern.parse('av. J.-C.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail AD', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR' });
@@ -620,12 +620,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse AP. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'uppercase' });
         const value = pattern.parse('AP. J.-C.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse AV. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'uppercase' });
         const value = pattern.parse('AV. J.-C.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase ap. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'uppercase' });
@@ -636,12 +636,12 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse ap. j.-c.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'lowercase' });
         const value = pattern.parse('ap. j.-c.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse av. j.-c.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'lowercase' });
         const value = pattern.parse('av. j.-c.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase AP. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'lowercase' });
@@ -652,27 +652,27 @@ describe('DateTimePattern - eraShort', () => {
       it('should parse ap. j.-c.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('ap. j.-c.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse av. j.-c.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('av. j.-c.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse AP. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('AP. J.-C.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse AV. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('AV. J.-C.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse ap. J.-C.', () => {
         const pattern = new DateTimePattern('G', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('ap. J.-C.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });

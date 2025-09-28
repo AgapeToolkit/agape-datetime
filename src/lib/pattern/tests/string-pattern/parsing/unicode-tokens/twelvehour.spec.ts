@@ -27,6 +27,6 @@ describe('DateTimePattern - twelvehour', () => {
     expect(value.month).toBe(3);
     expect(value.day).toBe(1);
     expect(value.year).toBe(2025);
-    expect(value.resolved.dayPeriod).toBe(1);
+    expect(value.getDayPeriod()).toBe(1);
   });
 });

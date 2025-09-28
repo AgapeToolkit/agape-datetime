@@ -5,17 +5,17 @@ describe('DateTimePattern - weekdayNarrow', () => {
     it('should parse S (default case)', () => {
       const pattern = new DateTimePattern('DDDDD', { locale: 'en-US' });
       const value = pattern.parse('S');
-      expect(value.weekday).toBe(7);
+      expect(value.weekday).toBe(6);
     });
     it('should parse S (Saturday, uppercase)', () => {
       const pattern = new DateTimePattern('DDDDD', { locale: 'en-US', case: 'uppercase' });
       const value = pattern.parse('S');
-      expect(value.weekday).toBe(7);
+      expect(value.weekday).toBe(6);
     });
     it('should parse s (Saturday, lowercase)', () => {
       const pattern = new DateTimePattern('DDDDD', { locale: 'en-US', case: 'lowercase' });
       const value = pattern.parse('s');
-      expect(value.weekday).toBe(7);
+      expect(value.weekday).toBe(6);
     });
     it('should parse s (Saturday, case insensitive)', () => {
       const pattern = new DateTimePattern('DDDDD', { locale: 'en-US', case: 'insensitive' });
@@ -54,7 +54,7 @@ describe('DateTimePattern - weekdayNarrow', () => {
     it('should parse Sunday (default case)', () => {
       const pattern = new DateTimePattern('DDDDD', { locale: 'es-US' });
       const value = pattern.parse('D');
-      expect(value.weekday).toBe(6);
+      expect(value.weekday).toBe(7);
     });
     it('should parse Sunday (uppercase)', () => {
       const pattern = new DateTimePattern('DDDDD', { locale: 'es-US', case: 'uppercase' });
@@ -283,7 +283,7 @@ describe('DateTimePattern - weekdayNarrow', () => {
     it('should parse Sunday (default case)', () => {
       const pattern = new DateTimePattern('DDDDD', { locale: 'fr-FR' });
       const value = pattern.parse('D');
-      expect(value.weekday).toBe(6);
+      expect(value.weekday).toBe(7);
     });
     it('should parse Sunday (uppercase)', () => {
       const pattern = new DateTimePattern('DDDDD', { locale: 'fr-FR', case: 'uppercase' });

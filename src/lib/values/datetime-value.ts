@@ -99,6 +99,14 @@ export class DateTimeValue implements DateTimeParts {
     if (!isNil(this.resolvedParts?.dayPeriod)) return this.resolvedParts.dayPeriod;
   }
 
+  get resolved(): ResolvedDateTimeParts | undefined {
+    return this.resolvedParts;
+  }
+
+  get parsed(): ParsedDateTimeParts | undefined {
+    return this.parsedParts;
+  }
+
   constructor(parts?: DateTimeParts | DateTimeValue) {
     if (!parts) return;
 

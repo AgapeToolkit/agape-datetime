@@ -16,16 +16,25 @@ describe('ElasticCalendarYearUnicodeDateTimeToken', () => {
   })
 
   describe('getRegex', () => {
+    const defaultOptions = {
+      locale: 'en-US',
+      case: 'lowercase' as const,
+      elastic: true,
+      flexible: true,
+      limitRange: false,
+      unicode: false
+    };
+
     it('should produce a regex with default options', () => {
-      const regex = token.getRegex(null, 4);
+      const regex = token.getRegex(defaultOptions, 4);
       expect(regex).toBe('\\d{3,}[1-9]');
     })
     it('should produce a fix width regex', () => {
-      const regex = token.getRegex({ elastic: false }, 4);
+      const regex = token.getRegex({ ...defaultOptions, elastic: false }, 4);
       expect(regex).toBe('\\d{3}[1-9]');
     })
     it('should produce an elastic width regex', () => {
-      const regex = token.getRegex({ elastic: true }, 4);
+      const regex = token.getRegex({ ...defaultOptions, elastic: true }, 4);
       expect(regex).toBe('\\d{3,}[1-9]');
     })
   })

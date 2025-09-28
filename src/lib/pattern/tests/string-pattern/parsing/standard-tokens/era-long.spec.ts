@@ -6,12 +6,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse Anno Domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US' });
         const value = pattern.parse('Anno Domini');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse Before Christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US' });
         const value = pattern.parse('Before Christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase anno domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US' });
@@ -44,12 +44,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse ANNO DOMINI', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'uppercase' });
         const value = pattern.parse('ANNO DOMINI');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BEFORE CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'uppercase' });
         const value = pattern.parse('BEFORE CHRIST');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase anno domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'uppercase' });
@@ -60,12 +60,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse anno domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'lowercase' });
         const value = pattern.parse('anno domini');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse before christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'lowercase' });
         const value = pattern.parse('before christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase ANNO DOMINI', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'lowercase' });
@@ -76,27 +76,27 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse anno domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('anno domini');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse before christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('before christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse ANNO DOMINI', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('ANNO DOMINI');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BEFORE CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('BEFORE CHRIST');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse Anno Domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-US', case: 'insensitive' });
         const value = pattern.parse('Anno Domini');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -106,12 +106,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse después de Cristo', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US' });
         const value = pattern.parse('después de Cristo');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse antes de Cristo', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US' });
         const value = pattern.parse('antes de Cristo');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase después de cristo', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US' });
@@ -144,12 +144,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse DESPUÉS DE CRISTO', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'uppercase' });
         const value = pattern.parse('DESPUÉS DE CRISTO');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse ANTES DE CRISTO', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'uppercase' });
         const value = pattern.parse('ANTES DE CRISTO');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase después de cristo', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'uppercase' });
@@ -160,12 +160,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse después de cristo', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'lowercase' });
         const value = pattern.parse('después de cristo');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse antes de cristo', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'lowercase' });
         const value = pattern.parse('antes de cristo');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase DESPUÉS DE CRISTO', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'lowercase' });
@@ -176,22 +176,22 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse después de cristo', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('después de cristo');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse antes de cristo', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('antes de cristo');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse DESPUÉS DE CRISTO', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('DESPUÉS DE CRISTO');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse ANTES DE CRISTO', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'es-US', case: 'insensitive' });
         const value = pattern.parse('ANTES DE CRISTO');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
     });
   });
@@ -201,12 +201,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse Anno Domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK' });
         const value = pattern.parse('Anno Domini');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse Before Christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK' });
         const value = pattern.parse('Before Christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase anno domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK' });
@@ -239,12 +239,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse ANNO DOMINI', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'uppercase' });
         const value = pattern.parse('ANNO DOMINI');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BEFORE CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'uppercase' });
         const value = pattern.parse('BEFORE CHRIST');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase anno domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'uppercase' });
@@ -255,12 +255,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse anno domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'lowercase' });
         const value = pattern.parse('anno domini');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse before christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'lowercase' });
         const value = pattern.parse('before christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase ANNO DOMINI', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'lowercase' });
@@ -271,27 +271,27 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse anno domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('anno domini');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse before christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('before christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse ANNO DOMINI', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('ANNO DOMINI');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse BEFORE CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('BEFORE CHRIST');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse Anno Domini', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'en-UK', case: 'insensitive' });
         const value = pattern.parse('Anno Domini');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -301,12 +301,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse от Рождества Христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
         const value = pattern.parse('от Рождества Христова');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse до Рождества Христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
         const value = pattern.parse('до Рождества Христова');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase от рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU' });
@@ -339,12 +339,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse ОТ РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'uppercase' });
         const value = pattern.parse('ОТ РОЖДЕСТВА ХРИСТОВА');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse ДО РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'uppercase' });
         const value = pattern.parse('ДО РОЖДЕСТВА ХРИСТОВА');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase от рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'uppercase' });
@@ -355,12 +355,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse от рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'lowercase' });
         const value = pattern.parse('от рождества христова');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse до рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'lowercase' });
         const value = pattern.parse('до рождества христова');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase ОТ РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'lowercase' });
@@ -371,22 +371,22 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse от рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('от рождества христова');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse до рождества христова', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('до рождества христова');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse ОТ РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('ОТ РОЖДЕСТВА ХРИСТОВА');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse ДО РОЖДЕСТВА ХРИСТОВА', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ru-RU', case: 'insensitive' });
         const value = pattern.parse('ДО РОЖДЕСТВА ХРИСТОВА');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
     });
   });
@@ -396,12 +396,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse 紀元前', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP' });
         const value = pattern.parse('紀元前');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail AD', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP' });
@@ -434,41 +434,41 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP', case: 'uppercase' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse 紀元前', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP', case: 'uppercase' });
         const value = pattern.parse('紀元前');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
     });
     describe('lowercase', () => {
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP', case: 'lowercase' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse 紀元前', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP', case: 'lowercase' });
         const value = pattern.parse('紀元前');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
     });
     describe('case insensitive', () => {
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP', case: 'insensitive' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse 紀元前', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP', case: 'insensitive' });
         const value = pattern.parse('紀元前');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse 西暦', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'ja-JP', case: 'insensitive' });
         const value = pattern.parse('西暦');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -478,12 +478,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse n. Chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
         const value = pattern.parse('n. Chr.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse v. Chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
         const value = pattern.parse('v. Chr.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase n. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE' });
@@ -516,12 +516,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse N. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'uppercase' });
         const value = pattern.parse('N. CHR.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse V. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'uppercase' });
         const value = pattern.parse('V. CHR.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase n. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'uppercase' });
@@ -532,12 +532,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse n. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'lowercase' });
         const value = pattern.parse('n. chr.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse v. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'lowercase' });
         const value = pattern.parse('v. chr.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase N. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'lowercase' });
@@ -548,27 +548,27 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse n. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('n. chr.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse v. chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('v. chr.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse N. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('N. CHR.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse V. CHR.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('V. CHR.');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse n. Chr.', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'de-DE', case: 'insensitive' });
         const value = pattern.parse('n. Chr.');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });
@@ -578,12 +578,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse après Jésus-Christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR' });
         const value = pattern.parse('après Jésus-Christ');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse avant Jésus-Christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR' });
         const value = pattern.parse('avant Jésus-Christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase après jésus-christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR' });
@@ -616,12 +616,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse APRÈS JÉSUS-CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'uppercase' });
         const value = pattern.parse('APRÈS JÉSUS-CHRIST');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse AVANT JÉSUS-CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'uppercase' });
         const value = pattern.parse('AVANT JÉSUS-CHRIST');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail lowercase après jésus-christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'uppercase' });
@@ -632,12 +632,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse après jésus-christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'lowercase' });
         const value = pattern.parse('après jésus-christ');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse avant jésus-christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'lowercase' });
         const value = pattern.parse('avant jésus-christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should fail uppercase APRÈS JÉSUS-CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'lowercase' });
@@ -648,27 +648,27 @@ describe('DateTimePattern - eraLong', () => {
       it('should parse après jésus-christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('après jésus-christ');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse avant jésus-christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('avant jésus-christ');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse APRÈS JÉSUS-CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('APRÈS JÉSUS-CHRIST');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
       it('should parse AVANT JÉSUS-CHRIST', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('AVANT JÉSUS-CHRIST');
-        expect(value.resolved.era).toBe(0);
+        expect(value.getEra()).toBe(0);
       });
       it('should parse après Jésus-Christ', () => {
         const pattern = new DateTimePattern('GGGG', { locale: 'fr-FR', case: 'insensitive' });
         const value = pattern.parse('après Jésus-Christ');
-        expect(value.resolved.era).toBe(1);
+        expect(value.getEra()).toBe(1);
       });
     });
   });

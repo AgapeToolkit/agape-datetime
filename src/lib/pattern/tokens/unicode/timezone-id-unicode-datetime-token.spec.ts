@@ -20,23 +20,31 @@ describe('TimeZoneIdUnicodeDateTimeToken', () => {
 
   describe('getRegex', () => {
     it('should produce a regex with default options', () => {
-      const regex = token.getRegex();
+      const defaultOptions = {
+        locale: 'en-US',
+        case: 'default' as const,
+        elastic: false,
+        flexible: false,
+        limitRange: false,
+        unicode: false
+      };
+      const regex = token.getRegex(defaultOptions);
       expect(regex).toBe('?:UTC|GMT|[A-Za-z][A-Za-z0-9._+-]*(?:\\/[A-Za-z0-9._+-]+)+)');
     })
   })
 
   describe('resolve', () => {
     it('should resolve the value', () => {
-      expect(token.resolve('America/New_York')).toEqual({ timezoneId: 'America/New_York' });
+      expect(token.resolve('America/New_York')).toEqual({ timeZone: 'America/New_York' });
     })
     it('should resolve a lowercase value', () => {
-      expect(token.resolve('america/new_york')).toEqual({ timezoneId: 'America/New_York' });
+      expect(token.resolve('america/new_york')).toEqual({ timeZone: 'America/New_York' });
     })
     it('should resolve an uppercase value', () => {
-      expect(token.resolve('AMERICA/NEW_YORK')).toEqual({ timezoneId: 'America/New_York' });
+      expect(token.resolve('AMERICA/NEW_YORK')).toEqual({ timeZone: 'America/New_York' });
     })
     it('should resolve a padded number', () => {
-      expect(token.resolve('AmErIcA/NeW_YoRk')).toEqual({ timezoneId: 'America/New_York' });
+      expect(token.resolve('AmErIcA/NeW_YoRk')).toEqual({ timeZone: 'America/New_York' });
     })
   })
 })

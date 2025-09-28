@@ -16,9 +16,18 @@ describe('VerboseEraUnicodeDateTimeToken', () => {
       variation: 'short'
     });
 
+    const defaultOptions = {
+      locale: 'en-US',
+      case: 'default' as const,
+      elastic: true,
+      flexible: true,
+      limitRange: false,
+      unicode: false
+    };
+
     describe('getRegex', () => {
       it('should produce a regex', () => {
-        const regex = token.getRegex({ locale: 'en-US' });
+        const regex = token.getRegex(defaultOptions);
         expect(regex).toBe('BC|AD');
         console.log(regex);
       })
@@ -26,8 +35,8 @@ describe('VerboseEraUnicodeDateTimeToken', () => {
 
     describe('resolve', () => {
       it('should resolve the values', () => {
-        expect(token.resolve('BC', { locale: 'en-US' })).toEqual({ era: 0 });
-        expect(token.resolve('AD', { locale: 'en-US' })).toEqual({ era: 1 });
+        expect(token.resolve('BC', defaultOptions)).toEqual({ era: 0 });
+        expect(token.resolve('AD', defaultOptions)).toEqual({ era: 1 });
       })
     })
   })
@@ -40,9 +49,18 @@ describe('VerboseEraUnicodeDateTimeToken', () => {
       common: true
     });
 
+    const defaultOptions = {
+      locale: 'en-US',
+      case: 'default' as const,
+      elastic: true,
+      flexible: true,
+      limitRange: false,
+      unicode: false
+    };
+
     describe('getRegex', () => {
       it('should produce a regex', () => {
-        const regex = token.getRegex({ locale: 'en-US' });
+        const regex = token.getRegex(defaultOptions);
         expect(regex).toBe('BCE|CE');
         console.log(regex);
       })
@@ -50,8 +68,8 @@ describe('VerboseEraUnicodeDateTimeToken', () => {
 
     describe('resolveValue', () => {
       it('should resolve the values', () => {
-        expect(token.resolve('BCE', { locale: 'en-US' })).toEqual({ era: 0 });
-        expect(token.resolve('CE', { locale: 'en-US' })).toEqual({ era: 1 });
+        expect(token.resolve('BCE', defaultOptions)).toEqual({ era: 0 });
+        expect(token.resolve('CE', defaultOptions)).toEqual({ era: 1 });
       })
     })
   })

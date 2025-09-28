@@ -47,8 +47,8 @@ describe('MonthNames', () => {
       const long = instance.long;
       
       expect(long).toHaveLength(12);
-      expect(long[0]).toMatch(/January|Enero|Январь|1|Januar|janvier/i);
-      expect(long[11]).toMatch(/December|Diciembre|Декабрь|12|Dezember|décembre/i);
+      expect(long[0]).toMatch(/January|Enero|января|1|Januar|janvier/i);
+      expect(long[11]).toMatch(/December|Diciembre|декабря|12|Dezember|décembre/i);
     });
 
     test.each(testCases)('should handle case %s correctly', (caseType) => {
