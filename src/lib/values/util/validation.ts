@@ -15,6 +15,12 @@ export function validateNormalizedValue(parts: DateTimeParts) {
   }
 
   if (parts.weekday) {
+    // First validate that weekday is in valid range (1-7)
+    if (parts.weekday < 1 || parts.weekday > 7) {
+      throw new InvalidWeekdayError();
+    }
+    
+    // Then validate that weekday matches the actual day of week for the date
     const { valid } = isValidDayOfWeek(parts);
     if (!valid) {
       throw new InvalidWeekdayError();

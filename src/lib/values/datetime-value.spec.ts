@@ -400,19 +400,21 @@ describe('DateTimeValue', () => {
         nanosecondsTimestamp: BigInt('1737034245500000000')
       });
 
-      // Test that properties are accessible
-      expect(dtv.year).toBe(2025);
-      expect(dtv.month).toBe(1);
-      expect(dtv.day).toBe(15);
-      expect(dtv.hour).toBe(14);
-      expect(dtv.minute).toBe(30);
-      expect(dtv.second).toBe(45);
-      expect(dtv.fractionalSecond).toBe(500);
-      expect(dtv.timeZone).toBe('America/New_York');
-      expect(dtv.timeZoneOffset).toBe('-05:00');
-      expect(dtv.secondsTimestamp).toBe(1737034245);
-      expect(dtv.millisecondsTimestamp).toBe(1737034245500);
-      expect(dtv.nanosecondsTimestamp).toBe(BigInt('1737034245500000000'));
+      const spread: DateTimeParts = {...dtv };
+
+      // Test that properties are accessible via spread operator
+      expect(spread.year).toBe(2025);
+      expect(spread.month).toBe(1);
+      expect(spread.day).toBe(15);
+      expect(spread.hour).toBe(14);
+      expect(spread.minute).toBe(30);
+      expect(spread.second).toBe(45);
+      expect(spread.fractionalSecond).toBe(500);
+      expect(spread.timeZone).toBe('America/New_York');
+      expect(spread.timeZoneOffset).toBe('-05:00');
+      expect(spread.secondsTimestamp).toBe(1737034245);
+      expect(spread.millisecondsTimestamp).toBe(1737034245500);
+      expect(spread.nanosecondsTimestamp).toBe(BigInt('1737034245500000000'));
     });
 
     it('should not include private properties in enumeration', () => {
@@ -421,10 +423,8 @@ describe('DateTimeValue', () => {
 
       // The private properties should not be enumerable
       expect(enumerableProps).not.toContain('parts');
-      // Note: resolvedParts and parsedParts are currently enumerable due to implementation details
-      // This test documents the current behavior
-      expect(enumerableProps).toContain('resolvedParts');
-      expect(enumerableProps).toContain('parsedParts');
+      expect(enumerableProps).not.toContain('resolvedParts');
+      expect(enumerableProps).not.toContain('parsedParts');
     });
   });
 
@@ -508,7 +508,7 @@ describe('DateTimeValue', () => {
 
       // Test with a fresh instance to ensure no existing parts
       const freshDtv = new DateTimeValue();
-      expect(() => freshDtv.set({ weekday: 8 })).not.toThrow();
+      expect(() => freshDtv.set({ weekday: 8 })).toThrow();
     });
   });
 });

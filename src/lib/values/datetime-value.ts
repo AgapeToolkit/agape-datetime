@@ -7,6 +7,11 @@ import { normalizeDateTimeParts } from './util/normalize';
 import { PopulatedDateTimePatternOptions } from '../pattern/types/populated-datetime-pattern-options';
 import { validateNormalizedValue } from './util/validation';
 
+// Make all DateTimeParts properties enumerable on this instance
+const enumerableProps: (keyof DateTimeParts)[] = ['year', 'month', 'day', 'hour',
+  'minute', 'second', 'fractionalSecond', 'timeZone', 'timeZoneOffset',
+  'secondsTimestamp', 'millisecondsTimestamp', 'nanosecondsTimestamp'];
+
 export class DateTimeValue implements DateTimeParts {
 
   private parts: DateTimeParts = {};
@@ -73,36 +78,47 @@ export class DateTimeValue implements DateTimeParts {
   }
 
   constructor(parts?: DateTimeParts | DateTimeValue) {
-    if (!parts) return;
-
-    if (parts instanceof DateTimeValue) {
-      Object.defineProperty(this, 'parts', {
-        value: parts.parts,
-        writable: true,
-        configurable: true,
-        enumerable: false,
-      });
-      Object.defineProperty(this, 'resolvedParts', {
-        value: parts.resolvedParts,
-        writable: true,
-        configurable: true,
-        enumerable: false,
-      });
-      Object.defineProperty(this, 'parsedParts', {
-        value: parts.parsedParts,
-        writable: true,
-        configurable: true,
-        enumerable: false,
-      });
-      return;
+    for (const key of enumerableProps) {
+      const descriptor = Object.getOwnPropertyDescriptor(DateTimeValue.prototype, key);
+      if (descriptor?.get) {
+        Object.defineProperty(this, key, {
+          ...descriptor,
+          enumerable: true
+        });
+      }
     }
 
+    // Ensure private properties are non-enumerable
     Object.defineProperty(this, 'parts', {
       value: {},
       writable: true,
       configurable: true,
       enumerable: false,
     });
+
+    Object.defineProperty(this, 'resolvedParts', {
+      value: undefined,
+      writable: true,
+      configurable: true,
+      enumerable: false,
+    });
+
+    Object.defineProperty(this, 'parsedParts', {
+      value: undefined,
+      writable: true,
+      configurable: true,
+      enumerable: false,
+    });
+
+    if (!parts) return;
+
+    if (parts instanceof DateTimeValue) {
+      this.parts = parts.parts;
+      this.resolvedParts = parts.resolvedParts;
+      this.parsedParts = parts.parsedParts;
+      return;
+    }
+
     this.set(parts);
   }
 
@@ -115,33 +131,9 @@ export class DateTimeValue implements DateTimeParts {
     const resolvedParts: ResolvedDateTimeParts = resolveDateTimeParts(parsedParts, options);
     const normalizedParts: DateTimeParts = normalizeDateTimeParts(resolvedParts, options);
     const dtv = new DateTimeValue();
-    dtv.parts = normalizedParts
-    Object.defineProperty(dtv, 'resolvedParts', {
-      value: resolvedParts,
-      writable: true,
-      configurable: true,
-      enumerable: false,
-    });
-    Object.defineProperty(dtv, 'parsedParts', {
-      value: parsedParts,
-      writable: true,
-      configurable: true,
-      enumerable: false,
-    });
+    dtv.parts = normalizedParts;
+    dtv.resolvedParts = resolvedParts;
+    dtv.parsedParts = parsedParts;
     return dtv;
-  }
-}
-
-const enumerableProps: (keyof DateTimeValue)[] = ['year', 'month', 'day', 'hour',
-  'minute', 'second', 'fractionalSecond', 'timeZone', 'timeZoneOffset',
-  'secondsTimestamp', 'millisecondsTimestamp', 'nanosecondsTimestamp'];
-
-for (const key of enumerableProps) {
-  const descriptor = Object.getOwnPropertyDescriptor(DateTimeValue.prototype, key);
-  if (descriptor?.get) {
-    Object.defineProperty(DateTimeValue.prototype, key, {
-      ...descriptor,
-      enumerable: true
-    });
   }
 }
