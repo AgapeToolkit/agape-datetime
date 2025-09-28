@@ -10,6 +10,21 @@ import { InvalidTimeZoneOffsetError } from '../../pattern/errors/invalid-timezon
 let skippedValidationCount = 0;
 export function validateNormalizedValue(parts: DateTimeParts) {
 
+  // Validate hour
+  if (parts.hour !== undefined && (parts.hour < 0 || parts.hour > 23)) {
+    throw new RangeError(`Invalid hour ${parts.hour}, acceptable range 0 through 23`);
+  }
+
+  // Validate minute
+  if (parts.minute !== undefined && (parts.minute < 0 || parts.minute > 59)) {
+    throw new RangeError(`Invalid minute ${parts.minute}, acceptable range 0 through 59`);
+  }
+
+  // Validate second
+  if (parts.second !== undefined && (parts.second < 0 || parts.second > 59)) {
+    throw new RangeError(`Invalid second ${parts.second}, acceptable range 0 through 59`);
+  }
+
   if(!isValidDayOfMonth(parts)) {
     throw new InvalidDayOfMonth();
   }

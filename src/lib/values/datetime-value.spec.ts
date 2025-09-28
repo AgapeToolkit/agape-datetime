@@ -964,11 +964,8 @@ describe('DateTimeValue', () => {
 
     it('should throw error for invalid string', () => {
       expect(() => DateTimeValue.from('invalid')).toThrow('Cannot parse datetime string: invalid');
-      // Note: DateTimeValue.from() bypasses validation for performance, so invalid values like month 13 are allowed
-      const dtv = DateTimeValue.from('2025-13-01');
-      expect(dtv.year).toBe(2025);
-      expect(dtv.month).toBe(13);
-      expect(dtv.day).toBe(1);
+      // String parsing should validate and throw for invalid data
+      expect(() => DateTimeValue.from('2025-13-01')).toThrow('Invalid month 13, acceptable range 1 through 12');
     });
   });
 });
