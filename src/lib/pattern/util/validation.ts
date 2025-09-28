@@ -67,28 +67,6 @@ export function isValidTimeZone(timeZone: string): boolean {
 //   return sign * totalMinutes;
 // }
 
-export function datePartsToWallClockDateTime(parts: DateTimeParts,): string {
-  if (parts.year === undefined || parts.month === undefined || parts.day === undefined) {
-    throw new Error("Year, month, and day are required");
-  }
-
-  const yearSign = parts.year >= 0 ? "+" : "-";
-  const year = Math.abs(parts.year).toString().padStart(4, "0");
-  const month = (parts.month ?? 1).toString().padStart(2, "0");
-  const day = (parts.day ?? 1).toString().padStart(2, "0");
-
-  const hour = (parts.hour ?? 0).toString().padStart(2, "0");
-  const minute = (parts.minute ?? 0).toString().padStart(2, "0");
-  const second = (parts.second ?? 0).toString().padStart(2, "0");
-
-  let fractional = "";
-  if (parts.fractionalSecond !== undefined && parts.fractionalSecond !== 0) {
-    fractional = "." + parts.fractionalSecond.toString();
-  }
-
-  return `${yearSign}${year}-${month}-${day}T${hour}:${minute}:${second}${fractional}`;
-}
-
 export function isValidOffset(parts: DateTimeParts): boolean {
   if (
     parts.year === undefined ||
@@ -100,8 +78,17 @@ export function isValidOffset(parts: DateTimeParts): boolean {
     return true;
   }
 
-  const isoWallClock = datePartsToWallClockDateTime(parts);
-  const plain = Temporal.PlainDateTime.from(isoWallClock);
+  const plain = Temporal.PlainDateTime.from({
+    year: parts.year,
+    month: parts.month,
+    day: parts.day,
+    hour: parts.hour ?? 0,
+    minute: parts.minute ?? 0,
+    second: parts.second ?? 0,
+    millisecond: parts.fractionalSecond ? Math.round(parts.fractionalSecond * 1000) : 0,
+    microsecond: parts.fractionalSecond ? Math.round((parts.fractionalSecond * 1000000) % 1000) : 0,
+    nanosecond: parts.fractionalSecond ? Math.round((parts.fractionalSecond * 1000000000) % 1000) : 0
+  });
 
   const tz = Temporal.TimeZone.from(parts.timeZone);
 

@@ -7,7 +7,7 @@ import { InvalidWeekdayError } from '../pattern/errors/invalid-weekday';
 import { InvalidTimeZoneError } from '../pattern/errors/invalid-timezone-error';
 import { InvalidTimeZoneOffsetError } from '../pattern/errors/invalid-timezone-offset-error';
 import { Temporal as TemporalPolyfill } from '@js-temporal/polyfill';
-import { setTemporal } from '@agape/temporal';
+import { setTemporal, Temporal } from '@agape/temporal';
 
 describe('DateTimeValue', () => {
   describe('Constructor', () => {
@@ -747,6 +747,228 @@ describe('DateTimeValue', () => {
       // The timeZoneOffset forces it to use EST, so 2:30 AM EST becomes 3:30 AM EDT
       expect(zonedDateTime.hour).toBe(3);
       expect(zonedDateTime.minute).toBe(30);
+    });
+  });
+
+  describe('from() static method', () => {
+    beforeEach(() => {
+      setTemporal(TemporalPolyfill);
+    });
+
+    afterEach(() => {
+      setTemporal(null);
+    });
+
+    it('should create from DateTimeValue instance', () => {
+      const original = new DateTimeValue({ year: 2025, month: 1, day: 15 });
+      const copy = DateTimeValue.from(original);
+      expect(copy.year).toBe(2025);
+      expect(copy.month).toBe(1);
+      expect(copy.day).toBe(15);
+      expect(copy).not.toBe(original); // Should be a new instance
+    });
+
+    it('should create from DateTimeParts object', () => {
+      const parts = { year: 2025, month: 1, day: 15, hour: 14, minute: 30 };
+      const dtv = DateTimeValue.from(parts);
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+    });
+
+    it('should create from Date object', () => {
+      const date = new Date('2025-01-15T14:30:45.123Z');
+      const dtv = DateTimeValue.from(date);
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+      expect(dtv.fractionalSecond).toBeCloseTo(0.123, 3);
+    });
+
+    it('should create from Temporal.PlainDate', () => {
+      const plainDate = Temporal.PlainDate.from('2025-01-15');
+      const dtv = DateTimeValue.from(plainDate);
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+    });
+
+    it('should create from Temporal.PlainTime', () => {
+      const plainTime = Temporal.PlainTime.from('14:30:45.123');
+      const dtv = DateTimeValue.from(plainTime);
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+      expect(dtv.fractionalSecond).toBeCloseTo(0.123, 3);
+    });
+
+    it('should create from Temporal.PlainDateTime', () => {
+      const plainDateTime = Temporal.PlainDateTime.from('2025-01-15T14:30:45.123');
+      const dtv = DateTimeValue.from(plainDateTime);
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+      expect(dtv.fractionalSecond).toBeCloseTo(0.123, 3);
+    });
+
+    it('should create from Temporal.ZonedDateTime', () => {
+      const zonedDateTime = Temporal.ZonedDateTime.from('2025-01-15T14:30:45.123[Asia/Kolkata]');
+      const dtv = DateTimeValue.from(zonedDateTime);
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+      expect(dtv.fractionalSecond).toBeCloseTo(0.123, 3);
+      expect(dtv.timeZone).toBe('Asia/Calcutta');
+      expect(dtv.timeZoneOffset).toBeDefined();
+    });
+
+    it('should create from Temporal.Instant', () => {
+      const instant = Temporal.Instant.from('2025-01-15T14:30:45Z');
+      const dtv = DateTimeValue.from(instant);
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+      expect(dtv.timeZone).toBe('UTC');
+    });
+
+    it('should create from Temporal.PlainYearMonth', () => {
+      const plainYearMonth = Temporal.PlainYearMonth.from('2025-01');
+      const dtv = DateTimeValue.from(plainYearMonth);
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+    });
+
+    it('should create from Temporal.PlainMonthDay', () => {
+      const plainMonthDay = Temporal.PlainMonthDay.from('01-15');
+      const dtv = DateTimeValue.from(plainMonthDay);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+    });
+
+    it('should throw error for unsupported input', () => {
+      expect(() => DateTimeValue.from(null)).toThrow('Cannot create DateTimeValue from input: null');
+      expect(() => DateTimeValue.from(123)).toThrow('Cannot create DateTimeValue from input: 123');
+    });
+  });
+
+  describe('from() string parsing', () => {
+    it('should parse year only', () => {
+      const dtv = DateTimeValue.from('2025');
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBeUndefined();
+      expect(dtv.day).toBeUndefined();
+    });
+
+    it('should parse year with sign', () => {
+      const dtv = DateTimeValue.from('+2025');
+      expect(dtv.year).toBe(2025);
+      
+      const dtvNeg = DateTimeValue.from('-2025');
+      expect(dtvNeg.year).toBe(-2025);
+    });
+
+    it('should parse month-day', () => {
+      const dtv = DateTimeValue.from('01-15');
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      
+      const dtv2 = DateTimeValue.from('12-25');
+      expect(dtv2.month).toBe(12);
+      expect(dtv2.day).toBe(25);
+    });
+
+    it('should parse time', () => {
+      const dtv = DateTimeValue.from('14:30');
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBeUndefined();
+    });
+
+    it('should parse time with seconds', () => {
+      const dtv = DateTimeValue.from('14:30:45');
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+    });
+
+    it('should parse time with fractional seconds', () => {
+      const dtv = DateTimeValue.from('14:30:45.123');
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+      expect(dtv.fractionalSecond).toBeCloseTo(0.123, 3);
+    });
+
+    it('should parse year-month', () => {
+      const dtv = DateTimeValue.from('2025-01');
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBeUndefined();
+    });
+
+    it('should parse date', () => {
+      const dtv = DateTimeValue.from('2025-01-15');
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+    });
+
+    it('should parse full ISO datetime', () => {
+      const dtv = DateTimeValue.from('2025-01-15T14:30:45.123+05:00[UTC]');
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+      expect(dtv.fractionalSecond).toBeCloseTo(0.123, 3);
+      expect(dtv.timeZoneOffset).toBe('+05:00');
+      expect(dtv.timeZone).toBe('UTC');
+    });
+
+    it('should parse ISO datetime without timezone', () => {
+      const dtv = DateTimeValue.from('2025-01-15T14:30:45.123');
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      expect(dtv.hour).toBe(14);
+      expect(dtv.minute).toBe(30);
+      expect(dtv.second).toBe(45);
+      expect(dtv.fractionalSecond).toBeCloseTo(0.123, 3);
+    });
+
+    it('should handle non-padded values', () => {
+      const dtv = DateTimeValue.from('2025-1-15T4:5:6.7');
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(1);
+      expect(dtv.day).toBe(15);
+      expect(dtv.hour).toBe(4);
+      expect(dtv.minute).toBe(5);
+      expect(dtv.second).toBe(6);
+      expect(dtv.fractionalSecond).toBeCloseTo(0.7, 1);
+    });
+
+    it('should throw error for invalid string', () => {
+      expect(() => DateTimeValue.from('invalid')).toThrow('Cannot parse datetime string: invalid');
+      // Note: DateTimeValue.from() bypasses validation for performance, so invalid values like month 13 are allowed
+      const dtv = DateTimeValue.from('2025-13-01');
+      expect(dtv.year).toBe(2025);
+      expect(dtv.month).toBe(13);
+      expect(dtv.day).toBe(1);
     });
   });
 });
