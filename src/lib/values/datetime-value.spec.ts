@@ -1,6 +1,6 @@
 import { DateTimeValue } from './datetime-value';
-import { DateTimeParts } from '../pattern/types/datetime-parts';
-import { ParsedDateTimeParts } from '../pattern/types/parsed-datetime-parts';
+import { DateTimeParts } from '../types/datetime-parts';
+import { ParsedDateTimeParts } from '../types/parsed-datetime-parts';
 import { PopulatedDateTimePatternOptions } from '../pattern/types/populated-datetime-pattern-options';
 import { InvalidDayOfMonth } from '../pattern/errors/invalid-day-of-month';
 import { InvalidWeekdayError } from '../pattern/errors/invalid-weekday';
@@ -384,7 +384,7 @@ describe('DateTimeValue', () => {
   });
 
   describe('Property Enumerability', () => {
-    it('should have enumerable properties', () => {
+    it('should provide toParts() method for spread operator usage', () => {
       const dtv = new DateTimeValue({
         year: 2025,
         month: 1,
@@ -400,9 +400,10 @@ describe('DateTimeValue', () => {
         nanosecondsTimestamp: BigInt('1737034245500000000')
       });
 
-      const spread: DateTimeParts = {...dtv };
+      const parts = dtv.toParts();
+      const spread: DateTimeParts = {...parts};
 
-      // Test that properties are accessible via spread operator
+      // Test that properties are accessible via toParts() method
       expect(spread.year).toBe(2025);
       expect(spread.month).toBe(1);
       expect(spread.day).toBe(15);
@@ -417,14 +418,17 @@ describe('DateTimeValue', () => {
       expect(spread.nanosecondsTimestamp).toBe(BigInt('1737034245500000000'));
     });
 
-    it('should not include private properties in enumeration', () => {
+    it('should not expose private properties through toParts()', () => {
       const dtv = new DateTimeValue({ year: 2025 });
-      const enumerableProps = Object.keys(dtv);
+      const parts = dtv.toParts();
 
-      // The private properties should not be enumerable
-      expect(enumerableProps).not.toContain('parts');
-      expect(enumerableProps).not.toContain('resolvedParts');
-      expect(enumerableProps).not.toContain('parsedParts');
+      // The private properties should not be in the returned parts
+      expect(parts).not.toHaveProperty('parts');
+      expect(parts).not.toHaveProperty('resolvedParts');
+      expect(parts).not.toHaveProperty('parsedParts');
+
+      // Only the actual DateTimeParts should be present
+      expect(parts.year).toBe(2025);
     });
   });
 

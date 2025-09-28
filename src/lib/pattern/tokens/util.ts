@@ -1,7 +1,7 @@
 import { hasTemporal, Temporal } from '@agape/temporal';
 import { DateOutOfRangeError } from '../errors/date-out-of-range-error';
 import { JS_MAX_YEAR, JS_MIN_YEAR } from '../constants';
-import { ResolvedDateTimeParts } from '../types/resolved-datetime-parts';
+import { ResolvedDateTimeParts } from '../../types/resolved-datetime-parts';
 
 export function escapeRegex(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[\u00A0\u202F]/g, '[ \\u00A0\\u202F]');

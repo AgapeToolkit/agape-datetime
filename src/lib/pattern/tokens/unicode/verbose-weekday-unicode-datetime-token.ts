@@ -4,7 +4,7 @@ import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-
 import { WeekdayNames } from '../../../names';
 import { buildRegexFromNames, getIsoWeekdayFromResolvedDateParts } from '../util';
 import { VerboseDateTimePartVariation } from '../../types/verbose-datetime-part-variaion';
-import { ResolvedDateTimeParts } from '../../types/resolved-datetime-parts';
+import { ResolvedDateTimeParts } from '../../../types/resolved-datetime-parts';
 
 export class VerboseWeekdayUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken {
 

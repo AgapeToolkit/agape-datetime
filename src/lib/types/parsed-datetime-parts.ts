@@ -1,4 +1,4 @@
-import { PopulatedDateTimePatternOptions } from './populated-datetime-pattern-options';
+import { PopulatedDateTimePatternOptions } from '../pattern/types/populated-datetime-pattern-options';
 
 export interface ParsedDateTimeParts {
   eraShort?: string;

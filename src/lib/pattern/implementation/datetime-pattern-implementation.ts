@@ -1,11 +1,11 @@
 import { DestructuredDateTimePatternPart } from '../types/destructured-datetime-pattern-part';
-import { DateTimeParts } from '../types/datetime-parts';
+import { DateTimeParts } from '../../types/datetime-parts';
 import { DateTimePatternOptions } from '../types/datetime-pattern-options';
 import { ElasticNumberUnicodeDateTimeToken } from '../tokens/unicode/elastic-number-unicode-datetime-token';
 import { LiteralDateTimeToken } from '../tokens/literal-datetime-token';
 import { DateTimePatternMatchError } from '../errors/datetime-pattern-match-error';
-import { ParsedDateTimeParts } from '../types/parsed-datetime-parts';
-import { ResolvedDateTimeParts } from '../types/resolved-datetime-parts';
+import { ParsedDateTimeParts } from '../../types/parsed-datetime-parts';
+import { ResolvedDateTimeParts } from '../../types/resolved-datetime-parts';
 import { UnicodeDateTimeToken } from '../tokens/unicode/unicode-datetime-token';
 import { unicodeDateTimeTokenDefinitions } from '../token-definitions/unicode-datetime-token-definitions';
 import { datetimeTokenResolveOrder } from '../token-definitions/datetime-token-resolve-order';

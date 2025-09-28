@@ -1,5 +1,5 @@
 import { Temporal } from '@agape/temporal';
-import { DateTimeParts } from '../types/datetime-parts';
+import { DateTimeParts } from '../../types/datetime-parts';
 
 export function isValidDayOfMonth<T extends {year?: number, month?: number, day?: number}>(dateParts: T) {
   const {year, month, day} = dateParts;

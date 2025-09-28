@@ -1,5 +1,5 @@
-import { ParsedDateTimeParts } from '../../pattern/types/parsed-datetime-parts';
-import { ResolvedDateTimeParts } from '../../pattern/types/resolved-datetime-parts';
+import { ParsedDateTimeParts } from '../../types/parsed-datetime-parts';
+import { ResolvedDateTimeParts } from '../../types/resolved-datetime-parts';
 import { datetimeTokenResolveOrder } from '../../pattern/token-definitions/datetime-token-resolve-order';
 import { UnicodeDateTimeToken } from '../../pattern/tokens/unicode/unicode-datetime-token';
 import { unicodeDateTimeTokenDefinitions } from '../../pattern/token-definitions/unicode-datetime-token-definitions';
