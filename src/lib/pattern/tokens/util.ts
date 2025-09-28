@@ -50,13 +50,13 @@ function getIsoYearFromResolvedDateParts(parts: ResolvedDateTimeParts) {
 
 
 export function resolvedDatePartsDateTimeIsoString(parts: ResolvedDateTimeParts, output: 'date' | 'datetime' = 'datetime') {
-  const { month=1, day=1, hour = 0, minute = 0, second = 0, fractionalSecond = 0 } = parts;
+  const { month=1, day=1, hour = 0, minute = 0, second = 0, nanoseconds = 0 } = parts;
 
   const year = getIsoYearFromResolvedDateParts(parts) ?? new Date().getFullYear();
 
   const date = `${year < 0 ? '-' : '+'}${String(Math.abs(year)).padStart(6,"0")}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
   if (output === 'date') return date;
 
-  const time = `${String(hour) === "24"?"00":String(hour).padStart(2,"0")}:${String(minute).padStart(2,"0")}:${String(second).padStart(2, "0")}.${String(Math.round(fractionalSecond*1000)).padStart(3,'0')}`;
+  const time = `${String(hour) === "24"?"00":String(hour).padStart(2,"0")}:${String(minute).padStart(2,"0")}:${String(second).padStart(2, "0")}.${String(Math.floor(nanoseconds / 1_000_000)).padStart(3,'0')}`;
   return `${date}T${time}`;
 }

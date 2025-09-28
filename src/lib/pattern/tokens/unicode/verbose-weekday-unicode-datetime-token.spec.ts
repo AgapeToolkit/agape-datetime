@@ -20,19 +20,19 @@ describe('VerboseWeekdayUnicodeDateTimeToken', () => {
   describe('en-US', () => {
     describe('getRegex', () => {
       it('should produce a regex with default options', () => {
-        const regex = token.getRegex({ locale: 'en-US' });
+        const regex = token.getRegex({ locale: 'en-US', case: 'default', elastic: true, flexible: true, limitRange: false, unicode: false  });
         expect(regex).toBe('Mon|Tue|Wed|Thu|Fri|Sat|Sun');
       })
       it('should produce a lowercase regex', () => {
-        const regex = token.getRegex({ locale: 'en-US', case: 'lowercase' });
+        const regex = token.getRegex({ locale: 'en-US', case: 'lowercase', elastic: true, flexible: true, limitRange: false, unicode: false });
         expect(regex).toBe('mon|tue|wed|thu|fri|sat|sun');
       })
       it('should produce an uppercase regex', () => {
-        const regex = token.getRegex({ locale: 'en-US', case: 'uppercase' });
+        const regex = token.getRegex({ locale: 'en-US', case: 'uppercase', elastic: true, flexible: true, limitRange: false, unicode: false  });
         expect(regex).toBe('MON|TUE|WED|THU|FRI|SAT|SUN');
       })
       it('should produce an insensitive regex', () => {
-        const regex = token.getRegex({ locale: 'en-US', case: 'insensitive' });
+        const regex = token.getRegex({ locale: 'en-US', case: 'insensitive, elastic: true, flexible: true, limitRange: false, unicode: false  });
         expect(regex).toBe('mon|tue|wed|thu|fri|sat|sun');
       })
     })

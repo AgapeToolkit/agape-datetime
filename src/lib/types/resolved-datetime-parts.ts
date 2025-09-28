@@ -11,7 +11,7 @@ export interface ResolvedDateTimeParts {
   hour?: number;
   minute?: number;
   second?: number;
-  fractionalSecond?: number;
+  nanoseconds?: number;
   timeZoneOffset?: string;
   timeZone?: string;
   timeZoneNameShort?: string;

@@ -5,27 +5,27 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should parse January (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-US' });
       const value = pattern.parse('Jan');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (uppercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-US', case: 'uppercase' });
       const value = pattern.parse('JAN');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (lowercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-US', case: 'lowercase' });
       const value = pattern.parse('jan');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (case insensitive)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-US', case: 'insensitive' });
       const value = pattern.parse('jAn');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse December (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-US' });
       const value = pattern.parse('Dec');
-      expect(value.normalized.month).toBe(12);
+      expect(value.month).toBe(12);
     });
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-US' });
@@ -42,14 +42,14 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'en-US' });
       const value = pattern.parse('Jan 05, 2025');
-      expect(value.normalized.month).toBe(1);
-      expect(value.normalized.day).toBe(5);
-      expect(value.normalized.year).toBe(2025);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
     });
     it('should normalize the month', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'en-US' });
       const value = pattern.parse('Jan 05, 2025');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
   });
 
@@ -57,27 +57,27 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should parse January (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'es-US' });
       const value = pattern.parse('ene');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (uppercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'es-US', case: 'uppercase' });
       const value = pattern.parse('ENE');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (lowercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'es-US', case: 'lowercase' });
       const value = pattern.parse('ene');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (case insensitive)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'es-US', case: 'insensitive' });
       const value = pattern.parse('EnE');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse December (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'es-US' });
       const value = pattern.parse('dic');
-      expect(value.normalized.month).toBe(12);
+      expect(value.month).toBe(12);
     });
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'es-US' });
@@ -90,14 +90,14 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'es-US' });
       const value = pattern.parse('ene 05, 2025');
-      expect(value.normalized.month).toBe(1);
-      expect(value.normalized.day).toBe(5);
-      expect(value.normalized.year).toBe(2025);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
     });
     it('should normalize the month', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'es-US' });
       const value = pattern.parse('ene 05, 2025');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
   });
 
@@ -105,27 +105,27 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should parse January (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-UK' });
       const value = pattern.parse('Jan');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (uppercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-UK', case: 'uppercase' });
       const value = pattern.parse('JAN');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (lowercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-UK', case: 'lowercase' });
       const value = pattern.parse('jan');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (case insensitive)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-UK', case: 'insensitive' });
       const value = pattern.parse('jAn');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse December (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-UK' });
       const value = pattern.parse('Dec');
-      expect(value.normalized.month).toBe(12);
+      expect(value.month).toBe(12);
     });
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'en-UK' });
@@ -142,14 +142,14 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'en-UK' });
       const value = pattern.parse('Jan 05, 2025');
-      expect(value.normalized.month).toBe(1);
-      expect(value.normalized.day).toBe(5);
-      expect(value.normalized.year).toBe(2025);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
     });
     it('should normalize the month', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'en-UK' });
       const value = pattern.parse('Jan 05, 2025');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
   });
 
@@ -157,27 +157,27 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should parse January (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'ru-RU' });
       const value = pattern.parse('янв.');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (uppercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'ru-RU', case: 'uppercase' });
       const value = pattern.parse('ЯНВ.');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (lowercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'ru-RU', case: 'lowercase' });
       const value = pattern.parse('янв.');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (case insensitive)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'ru-RU', case: 'insensitive' });
       const value = pattern.parse('ЯнВ.');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse December (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'ru-RU' });
       const value = pattern.parse('дек.');
-      expect(value.normalized.month).toBe(12);
+      expect(value.month).toBe(12);
     });
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'ru-RU' });
@@ -190,14 +190,14 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'ru-RU' });
       const value = pattern.parse('янв. 05, 2025');
-      expect(value.normalized.month).toBe(1);
-      expect(value.normalized.day).toBe(5);
-      expect(value.normalized.year).toBe(2025);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
     });
     it('should normalize the month', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'ru-RU' });
       const value = pattern.parse('янв. 05, 2025');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
   });
 
@@ -205,27 +205,27 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should parse January (default case)', () => {
       const pattern = new DateTimePattern('LLL月', { locale: 'ja-JP' });
       const value = pattern.parse('1月');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (uppercase)', () => {
       const pattern = new DateTimePattern('LLL月', { locale: 'ja-JP', case: 'uppercase' });
       const value = pattern.parse('1月');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (lowercase)', () => {
       const pattern = new DateTimePattern('LLL月', { locale: 'ja-JP', case: 'lowercase' });
       const value = pattern.parse('1月');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (case insensitive)', () => {
       const pattern = new DateTimePattern('LLL月', { locale: 'ja-JP', case: 'insensitive' });
       const value = pattern.parse('1月');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse December (default case)', () => {
       const pattern = new DateTimePattern('LLL月', { locale: 'ja-JP' });
       const value = pattern.parse('12月');
-      expect(value.normalized.month).toBe(12);
+      expect(value.month).toBe(12);
     });
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLL月', { locale: 'ja-JP' });
@@ -234,14 +234,14 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLL月 DD, YYYY', { locale: 'ja-JP' });
       const value = pattern.parse('1月 05, 2025');
-      expect(value.normalized.month).toBe(1);
-      expect(value.normalized.day).toBe(5);
-      expect(value.normalized.year).toBe(2025);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
     });
     it('should normalize the month', () => {
       const pattern = new DateTimePattern('LLL月 DD, YYYY', { locale: 'ja-JP' });
       const value = pattern.parse('1月 05, 2025');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
   });
 
@@ -249,27 +249,27 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should parse January (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'de-DE' });
       const value = pattern.parse('Jan');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (uppercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'de-DE', case: 'uppercase' });
       const value = pattern.parse('JAN');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (lowercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'de-DE', case: 'lowercase' });
       const value = pattern.parse('jan');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (case insensitive)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'de-DE', case: 'insensitive' });
       const value = pattern.parse('jAn');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse December (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'de-DE' });
       const value = pattern.parse('Dez');
-      expect(value.normalized.month).toBe(12);
+      expect(value.month).toBe(12);
     });
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'de-DE' });
@@ -282,14 +282,14 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'de-DE' });
       const value = pattern.parse('Jan 05, 2025');
-      expect(value.normalized.month).toBe(1);
-      expect(value.normalized.day).toBe(5);
-      expect(value.normalized.year).toBe(2025);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
     });
     it('should normalize the month', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'de-DE' });
       const value = pattern.parse('Jan 05, 2025');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
   });
 
@@ -297,27 +297,27 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should parse January (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'fr-FR' });
       const value = pattern.parse('janv.');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (uppercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'fr-FR', case: 'uppercase' });
       const value = pattern.parse('JANV.');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (lowercase)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'fr-FR', case: 'lowercase' });
       const value = pattern.parse('janv.');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse January (case insensitive)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'fr-FR', case: 'insensitive' });
       const value = pattern.parse('jAnV.');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
     it('should parse December (default case)', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'fr-FR' });
       const value = pattern.parse('déc.');
-      expect(value.normalized.month).toBe(12);
+      expect(value.month).toBe(12);
     });
     it('should fail incorrect month', () => {
       const pattern = new DateTimePattern('LLL', { locale: 'fr-FR' });
@@ -330,14 +330,14 @@ describe('DateTimePattern - monthStandaloneShort', () => {
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'fr-FR' });
       const value = pattern.parse('janv. 05, 2025');
-      expect(value.normalized.month).toBe(1);
-      expect(value.normalized.day).toBe(5);
-      expect(value.normalized.year).toBe(2025);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
     });
     it('should normalize the month', () => {
       const pattern = new DateTimePattern('LLL DD, YYYY', { locale: 'fr-FR' });
       const value = pattern.parse('janv. 05, 2025');
-      expect(value.normalized.month).toBe(1);
+      expect(value.month).toBe(1);
     });
   });
 });

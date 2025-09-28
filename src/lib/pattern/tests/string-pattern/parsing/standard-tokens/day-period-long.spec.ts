@@ -20,8 +20,8 @@ describe('DateTimePattern - dayPeriodLong', () => {
       it('should be part of a valid time', () => {
         const pattern = new DateTimePattern('h:mm aaaa', { locale: 'en-US' });
         const value = pattern.parse('6:30 a.m.');
-        expect(value.normalized.hour).toBe(6);
-        expect(value.normalized.minute).toBe(30);
+        expect(value.hour).toBe(6);
+        expect(value.minute).toBe(30);
         expect(value.resolved.dayPeriod).toBe(0);
       });
     });

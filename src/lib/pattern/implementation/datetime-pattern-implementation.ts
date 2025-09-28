@@ -36,7 +36,7 @@ export class DateTimePatternImplementation {
 
   parse(value: string): DateTimeValue {
     const parsedDateTimeParts: ParsedDateTimeParts = this.parseValue(value);
-    const datetime: DateTimeValue = DateTimeValue.fromParsed(parsedDateTimeParts)
+    const datetime: DateTimeValue = DateTimeValue.fromParsed(this.options, parsedDateTimeParts)
 
     const outOfRange = !isYearInRange(datetime);
     if(this.options.limitRange && outOfRange) {

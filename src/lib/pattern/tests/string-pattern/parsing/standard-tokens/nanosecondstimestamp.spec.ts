@@ -5,7 +5,7 @@ describe('DateTimePattern - nanosecondsTimestamp', () => {
     it('should parse nanoseconds timestamp pattern', () => {
       const pattern = new DateTimePattern('N');
       const value = pattern.parse('1735689600');
-      expect(value.normalized.nanosecondsTimestamp).toBe(1735689600);
+      expect(value.nanosecondsTimestamp).toBe(1735689600);
     });
     it('should fail with a + sign', () => {
       const pattern = new DateTimePattern('N');
@@ -20,12 +20,12 @@ describe('DateTimePattern - nanosecondsTimestamp', () => {
     it('should parse nanoseconds timestamp pattern with a +', () => {
       const pattern = new DateTimePattern('+N');
       const value = pattern.parse('+1735689600');
-      expect(value.normalized.nanosecondsTimestamp).toBe(1735689600);
+      expect(value.nanosecondsTimestamp).toBe(1735689600);
     });
     it('should parse nanoseconds timestamp pattern with a -', () => {
       const pattern = new DateTimePattern('+N');
       const value = pattern.parse('-1735689600');
-      expect(value.normalized.nanosecondsTimestamp).toBe(-1735689600);
+      expect(value.nanosecondsTimestamp).toBe(-1735689600);
     });
     it('should fail without a sign', () => {
       const pattern = new DateTimePattern('+N');
@@ -36,12 +36,12 @@ describe('DateTimePattern - nanosecondsTimestamp', () => {
     it('should parse nanoseconds timestamp without a sign', () => {
       const pattern = new DateTimePattern('-N');
       const value = pattern.parse('1735689600');
-      expect(value.normalized.nanosecondsTimestamp).toBe(1735689600);
+      expect(value.nanosecondsTimestamp).toBe(1735689600);
     });
     it('should parse nanoseconds timestamp pattern with a -', () => {
       const pattern = new DateTimePattern('-N');
       const value = pattern.parse('-1735689600');
-      expect(value.normalized.nanosecondsTimestamp).toBe(-1735689600);
+      expect(value.nanosecondsTimestamp).toBe(-1735689600);
     });
     it('should fail with a + sign', () => {
       const pattern = new DateTimePattern('-N');

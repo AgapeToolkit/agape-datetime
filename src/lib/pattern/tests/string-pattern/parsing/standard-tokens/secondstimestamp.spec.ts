@@ -5,7 +5,7 @@ describe('DateTimePattern - secondsTimestamp', () => {
     it('should parse seconds timestamp pattern', () => {
       const pattern = new DateTimePattern('t');
       const value = pattern.parse('1735689600');
-      expect(value.normalized.secondsTimestamp).toBe(1735689600);
+      expect(value.secondsTimestamp).toBe(1735689600);
     });
     it('should fail with a + sign', () => {
       const pattern = new DateTimePattern('t');
@@ -20,12 +20,12 @@ describe('DateTimePattern - secondsTimestamp', () => {
     it('should parse seconds timestamp pattern with a +', () => {
       const pattern = new DateTimePattern('+t');
       const value = pattern.parse('+1735689600');
-      expect(value.normalized.secondsTimestamp).toBe(1735689600);
+      expect(value.secondsTimestamp).toBe(1735689600);
     });
     it('should parse seconds timestamp pattern with a -', () => {
       const pattern = new DateTimePattern('+t');
       const value = pattern.parse('-1735689600');
-      expect(value.normalized.secondsTimestamp).toBe(-1735689600);
+      expect(value.secondsTimestamp).toBe(-1735689600);
     });
     it('should fail without a sign', () => {
       const pattern = new DateTimePattern('+t');
@@ -36,12 +36,12 @@ describe('DateTimePattern - secondsTimestamp', () => {
     it('should parse seconds timestamp without a sign', () => {
       const pattern = new DateTimePattern('-t');
       const value = pattern.parse('1735689600');
-      expect(value.normalized.secondsTimestamp).toBe(1735689600);
+      expect(value.secondsTimestamp).toBe(1735689600);
     });
     it('should parse seconds timestamp pattern with a -', () => {
       const pattern = new DateTimePattern('-t');
       const value = pattern.parse('-1735689600');
-      expect(value.normalized.secondsTimestamp).toBe(-1735689600);
+      expect(value.secondsTimestamp).toBe(-1735689600);
     });
     it('should fail with a + sign', () => {
       const pattern = new DateTimePattern('-t');

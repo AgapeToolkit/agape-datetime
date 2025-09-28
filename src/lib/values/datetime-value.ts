@@ -48,6 +48,10 @@ export class DateTimeValue implements DateTimeParts {
     return this.parts.day;
   }
 
+  get weekday(): number | undefined {
+    return this.parts.weekday;
+  }
+
   get hour(): number | undefined {
     return this.parts.hour;
   }

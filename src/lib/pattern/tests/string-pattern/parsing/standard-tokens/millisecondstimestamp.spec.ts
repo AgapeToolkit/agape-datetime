@@ -5,7 +5,7 @@ describe('DateTimePattern - millisecondsTimestamp', () => {
     it('should parse milliseconds timestamp pattern', () => {
       const pattern = new DateTimePattern('n');
       const value = pattern.parse('1735689600');
-      expect(value.normalized.millisecondsTimestamp).toBe(1735689600);
+      expect(value.millisecondsTimestamp).toBe(1735689600);
     });
     it('should fail with a + sign', () => {
       const pattern = new DateTimePattern('n');
@@ -20,12 +20,12 @@ describe('DateTimePattern - millisecondsTimestamp', () => {
     it('should parse milliseconds timestamp pattern with a +', () => {
       const pattern = new DateTimePattern('+n');
       const value = pattern.parse('+1735689600');
-      expect(value.normalized.millisecondsTimestamp).toBe(1735689600);
+      expect(value.millisecondsTimestamp).toBe(1735689600);
     });
     it('should parse milliseconds timestamp pattern with a -', () => {
       const pattern = new DateTimePattern('+n');
       const value = pattern.parse('-1735689600');
-      expect(value.normalized.millisecondsTimestamp).toBe(-1735689600);
+      expect(value.millisecondsTimestamp).toBe(-1735689600);
     });
     it('should fail without a sign', () => {
       const pattern = new DateTimePattern('+n');
@@ -36,12 +36,12 @@ describe('DateTimePattern - millisecondsTimestamp', () => {
     it('should parse milliseconds timestamp without a sign', () => {
       const pattern = new DateTimePattern('-n');
       const value = pattern.parse('1735689600');
-      expect(value.normalized.millisecondsTimestamp).toBe(1735689600);
+      expect(value.millisecondsTimestamp).toBe(1735689600);
     });
     it('should parse milliseconds timestamp pattern with a -', () => {
       const pattern = new DateTimePattern('-n');
       const value = pattern.parse('-1735689600');
-      expect(value.normalized.millisecondsTimestamp).toBe(-1735689600);
+      expect(value.millisecondsTimestamp).toBe(-1735689600);
     });
     it('should fail with a + sign', () => {
       const pattern = new DateTimePattern('-n');

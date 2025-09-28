@@ -32,12 +32,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'en-US' });
         const value = pattern.parse('01/01/2025 Anno Domini');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'en-US' });
         const value = pattern.parse('01/01/2025 Before Christ');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
@@ -132,12 +132,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'es-US' });
         const value = pattern.parse('01/01/2025 después de Cristo');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'es-US' });
         const value = pattern.parse('01/01/2025 antes de Cristo');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
@@ -227,12 +227,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'en-UK' });
         const value = pattern.parse('01/01/2025 Anno Domini');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'en-UK' });
         const value = pattern.parse('01/01/2025 Before Christ');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
@@ -327,12 +327,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'ru-RU' });
         const value = pattern.parse('01/01/2025 от Рождества Христова');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'ru-RU' });
         const value = pattern.parse('01/01/2025 до Рождества Христова');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
@@ -422,12 +422,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'ja-JP' });
         const value = pattern.parse('01/01/2025 西暦');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'ja-JP' });
         const value = pattern.parse('01/01/2025 紀元前');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
@@ -504,12 +504,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'de-DE' });
         const value = pattern.parse('01/01/2025 n. Chr.');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'de-DE' });
         const value = pattern.parse('01/01/2025 v. Chr.');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
@@ -604,12 +604,12 @@ describe('DateTimePattern - eraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'fr-FR' });
         const value = pattern.parse('01/01/2025 après Jésus-Christ');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy GGGG', { locale: 'fr-FR' });
         const value = pattern.parse('01/01/2025 avant Jésus-Christ');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {

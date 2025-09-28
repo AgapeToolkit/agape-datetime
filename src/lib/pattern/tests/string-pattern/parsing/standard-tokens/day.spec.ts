@@ -4,7 +4,7 @@ describe('DateTimePattern - day', () => {
   it('should parse a day', () => {
     const pattern = new DateTimePattern('D', { locale: 'ru-RU' });
     const value = pattern.parse('1');
-    expect(value.normalized.day).toBe(1);
+    expect(value.day).toBe(1);
   });
   it('should fail if day out of range', () => {
     const pattern = new DateTimePattern('D', { locale: 'ru-RU' });
@@ -13,7 +13,7 @@ describe('DateTimePattern - day', () => {
   it('should parse a day padded', () => {
     const pattern = new DateTimePattern('D', { locale: 'ru-RU' });
     const value = pattern.parse('01');
-    expect(value.normalized.day).toBe(1);
+    expect(value.day).toBe(1);
   });
   it('should be invalid if padded and flexible is false', () => {
     const pattern = new DateTimePattern('D', { locale: 'ru-RU', flexible: false });
@@ -22,8 +22,8 @@ describe('DateTimePattern - day', () => {
   it('should be valid as part of a date', () => {
     const pattern = new DateTimePattern('M/D/Y', { locale: 'ru-RU', flexible: false });
     const value = pattern.parse('1/1/2025');
-    expect(value.normalized.month).toBe(1);
-    expect(value.normalized.day).toBe(1);
-    expect(value.normalized.year).toBe(2025);
+    expect(value.month).toBe(1);
+    expect(value.day).toBe(1);
+    expect(value.year).toBe(2025);
   });
 });

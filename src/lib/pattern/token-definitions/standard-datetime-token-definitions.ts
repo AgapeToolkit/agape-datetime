@@ -112,7 +112,7 @@ export const unicodeTokensToUseInStandardPatterns = [
   'minutePadded',
   'second',
   'secondPadded',
-  'fractionalSecond',
+  'nanoseconds',
   'timeZoneOffsetZ',
   'timeZoneOffsetWithZ_X',
   'timeZoneOffsetWithZ_XX',

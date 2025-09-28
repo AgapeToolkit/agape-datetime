@@ -43,7 +43,7 @@ export interface ParsedDateTimeParts {
   minutePadded?: string;
   second?: string;
   secondPadded?: string;
-  fractionalSecond?: string;
+  nanoseconds?: string;
   timeZoneOffsetZ?: string;
   timeZoneOffsetWithZ_X?: string;
   timeZoneOffsetWithZ_XX?: string;

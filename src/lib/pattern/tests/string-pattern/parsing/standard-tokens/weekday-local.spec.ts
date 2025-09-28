@@ -5,17 +5,17 @@ describe('DateTimePattern - weekdayLocal', () => {
     it('should parse local weekday 1 (Sunday) and normalize to ISO weekday 7', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-US' });
       const value = pattern.parse('1');
-      expect(value.normalized.weekday).toBe(7); // ISO: Sunday
+      expect(value.weekday).toBe(7); // ISO: Sunday
     });
     it('should parse local weekday 2 (Monday) and normalize to ISO weekday 1', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-US' });
       const value = pattern.parse('2');
-      expect(value.normalized.weekday).toBe(1); // ISO: Monday
+      expect(value.weekday).toBe(1); // ISO: Monday
     });
     it('should parse local weekday 7 (Saturday) and normalize to ISO weekday 6', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-US' });
       const value = pattern.parse('7');
-      expect(value.normalized.weekday).toBe(6); // ISO: Saturday
+      expect(value.weekday).toBe(6); // ISO: Saturday
     });
     it('should fail if local weekday out of range', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-US' });
@@ -24,7 +24,7 @@ describe('DateTimePattern - weekdayLocal', () => {
     it('should be valid padded', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-US' });
       const value = pattern.parse('01');
-      expect(value.normalized.weekday).toBe(7); // ISO: Sunday
+      expect(value.weekday).toBe(7); // ISO: Sunday
     });
     it('should be invalid if not flexible and padded', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-US', flexible: false });
@@ -33,7 +33,7 @@ describe('DateTimePattern - weekdayLocal', () => {
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('e MMM D YYYY', { locale: 'en-US' });
       const value = pattern.parse('4 Jan 1 2025'); // Wednesday
-      expect(value.normalized.weekday).toBe(3); // ISO: Wednesday
+      expect(value.weekday).toBe(3); // ISO: Wednesday
     });
   });
 
@@ -41,17 +41,17 @@ describe('DateTimePattern - weekdayLocal', () => {
     it('should parse local weekday 1 (Monday) and normalize to ISO weekday 1', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-GB' });
       const value = pattern.parse('1');
-      expect(value.normalized.weekday).toBe(1); // ISO: Monday
+      expect(value.weekday).toBe(1); // ISO: Monday
     });
     it('should parse local weekday 7 (Sunday) and normalize to ISO weekday 7', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-GB' });
       const value = pattern.parse('7');
-      expect(value.normalized.weekday).toBe(7); // ISO: Sunday
+      expect(value.weekday).toBe(7); // ISO: Sunday
     });
     it('should parse local weekday 3 (Wednesday) and normalize to ISO weekday 3', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-GB' });
       const value = pattern.parse('3');
-      expect(value.normalized.weekday).toBe(3); // ISO: Wednesday
+      expect(value.weekday).toBe(3); // ISO: Wednesday
     });
     it('should fail if local weekday out of range', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-GB' });
@@ -60,12 +60,12 @@ describe('DateTimePattern - weekdayLocal', () => {
     it('should be valid padded', () => {
       const pattern = new DateTimePattern('e', { locale: 'en-GB' });
       const value = pattern.parse('01');
-      expect(value.normalized.weekday).toBe(1); // ISO: Monday
+      expect(value.weekday).toBe(1); // ISO: Monday
     });
     it('should be part of a valid date', () => {
       const pattern = new DateTimePattern('e MMM D YYYY', { locale: 'en-GB' });
       const value = pattern.parse('3 Jan 1 2025'); // Wednesday
-      expect(value.normalized.weekday).toBe(3); // ISO: Wednesday
+      expect(value.weekday).toBe(3); // ISO: Wednesday
     });
   });
 
@@ -73,12 +73,12 @@ describe('DateTimePattern - weekdayLocal', () => {
     it('should parse local weekday 1 (Monday) and normalize to ISO weekday 1', () => {
       const pattern = new DateTimePattern('e', { locale: 'de-DE' });
       const value = pattern.parse('1');
-      expect(value.normalized.weekday).toBe(1); // ISO: Monday
+      expect(value.weekday).toBe(1); // ISO: Monday
     });
     it('should parse local weekday 7 (Sunday) and normalize to ISO weekday 7', () => {
       const pattern = new DateTimePattern('e', { locale: 'de-DE' });
       const value = pattern.parse('7');
-      expect(value.normalized.weekday).toBe(7); // ISO: Sunday
+      expect(value.weekday).toBe(7); // ISO: Sunday
     });
     it('should fail if local weekday out of range', () => {
       const pattern = new DateTimePattern('e', { locale: 'de-DE' });
@@ -90,17 +90,17 @@ describe('DateTimePattern - weekdayLocal', () => {
     it('should parse local weekday 1 (Sunday) and normalize to ISO weekday 7', () => {
       const pattern = new DateTimePattern('e', { locale: 'ar-SA' });
       const value = pattern.parse('1');
-      expect(value.normalized.weekday).toBe(7); // ISO: Sunday
+      expect(value.weekday).toBe(7); // ISO: Sunday
     });
     it('should parse local weekday 2 (Monday) and normalize to ISO weekday 1', () => {
       const pattern = new DateTimePattern('e', { locale: 'ar-SA' });
       const value = pattern.parse('2');
-      expect(value.normalized.weekday).toBe(1); // ISO: Monday
+      expect(value.weekday).toBe(1); // ISO: Monday
     });
     it('should parse local weekday 7 (Saturday) and normalize to ISO weekday 6', () => {
       const pattern = new DateTimePattern('e', { locale: 'ar-SA' });
       const value = pattern.parse('7');
-      expect(value.normalized.weekday).toBe(6); // ISO: Saturday
+      expect(value.weekday).toBe(6); // ISO: Saturday
     });
     it('should fail if local weekday out of range', () => {
       const pattern = new DateTimePattern('e', { locale: 'ar-SA' });
@@ -122,7 +122,7 @@ describe('DateTimePattern - weekdayLocal', () => {
           it(`should parse local weekday ${localDay} and normalize to ISO weekday ${isoDay}`, () => {
             const pattern = new DateTimePattern('e', { locale });
             const value = pattern.parse(localDay);
-            expect(value.normalized.weekday).toBe(isoDay);
+            expect(value.weekday).toBe(isoDay);
           });
         });
       });

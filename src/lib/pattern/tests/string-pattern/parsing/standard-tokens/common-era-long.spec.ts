@@ -24,12 +24,12 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy gggg', { locale: 'en-US' });
         const value = pattern.parse('01/01/2025 Common Era');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy gggg', { locale: 'en-US' });
         const value = pattern.parse('01/01/2025 Before Common Era');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
@@ -116,12 +116,12 @@ describe('DateTimePattern - commonEraLong', () => {
       it('should be part of a valid date', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy gggg', { locale: 'es-US' });
         const value = pattern.parse('01/01/2025 Common Era');
-        expect(value.normalized.year).toBe(2025);
+        expect(value.year).toBe(2025);
       });
       it('should normalize the year using the era', () => {
         const pattern = new DateTimePattern('MM/DD/yyyy gggg', { locale: 'es-US' });
         const value = pattern.parse('01/01/2025 Before Common Era');
-        expect(value.normalized.year).toBe(-2024);
+        expect(value.year).toBe(-2024);
       });
     });
     describe('uppercase', () => {
