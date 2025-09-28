@@ -637,7 +637,7 @@ describe('DateTimePattern', () => {
     });
 
     it('should parse timezone name short pattern', () => {
-      const pattern = new DateTimePattern('yyyy-MM-dd HH:mm:ss z', { unicode: true });
+      const pattern = new DateTimePattern('yyyy-MM-dd HH:mm:ss zzz', { unicode: true });
       const value = pattern.parse('2025-01-01 14:30:45 PST');
       expect(value.year).toBe(2025);
       expect(value.month).toBe(1);

@@ -9,15 +9,15 @@ describe('TimeValue', () => {
       expect(tv.hour).toBeUndefined();
       expect(tv.minute).toBeUndefined();
       expect(tv.second).toBeUndefined();
-      expect(tv.nanoseconds).toBeUndefined();
+      expect(tv.nanosecond).toBeUndefined();
     });
 
     it('should create instance with TimeParts', () => {
-      const tv = new TimeValue({ hour: 14, minute: 30, second: 45, nanoseconds: 0.123 });
+      const tv = new TimeValue({ hour: 14, minute: 30, second: 45, nanosecond: 0.123 });
       expect(tv.hour).toBe(14);
       expect(tv.minute).toBe(30);
       expect(tv.second).toBe(45);
-      expect(tv.nanoseconds).toBe(0.123);
+      expect(tv.nanosecond).toBe(0.123);
     });
 
     it('should copy from another TimeValue instance', () => {
@@ -36,15 +36,15 @@ describe('TimeValue', () => {
       expect(tv.hour).toBeUndefined();
       expect(tv.minute).toBeUndefined();
       expect(tv.second).toBeUndefined();
-      expect(tv.nanoseconds).toBeUndefined();
+      expect(tv.nanosecond).toBeUndefined();
     });
 
     it('should return set values', () => {
-      const tv = new TimeValue({ hour: 14, minute: 30, second: 45, nanoseconds: 123456789 });
+      const tv = new TimeValue({ hour: 14, minute: 30, second: 45, nanosecond: 123456789 });
       expect(tv.hour).toBe(14);
       expect(tv.minute).toBe(30);
       expect(tv.second).toBe(45);
-      expect(tv.nanoseconds).toBe(123456789);
+      expect(tv.nanosecond).toBe(123456789);
     });
   });
 
@@ -131,7 +131,7 @@ describe('TimeValue', () => {
       expect(tv.hour).toBe(14);
       expect(tv.minute).toBe(30);
       expect(tv.second).toBe(45);
-      expect(tv.nanoseconds).toBe(123000000);
+      expect(tv.nanosecond).toBe(123000000);
     });
 
     it('should create from Temporal.PlainTime', () => {
@@ -140,8 +140,8 @@ describe('TimeValue', () => {
       expect(tv.hour).toBe(14);
       expect(tv.minute).toBe(30);
       expect(tv.second).toBe(45);
-      // Direct mapping of nanoseconds
-      expect(tv.nanoseconds).toBe(plainTime.nanosecond);
+      // Direct mapping of nanosecond
+      expect(tv.nanosecond).toBe(plainTime.nanosecond);
     });
 
     it('should throw error for unsupported input', () => {
@@ -170,7 +170,7 @@ describe('TimeValue', () => {
       expect(tv.hour).toBe(14);
       expect(tv.minute).toBe(30);
       expect(tv.second).toBe(45);
-      expect(tv.nanoseconds).toBe(123000000);
+      expect(tv.nanosecond).toBe(123000000);
     });
 
     it('should handle non-padded values', () => {
@@ -185,7 +185,7 @@ describe('TimeValue', () => {
       expect(tv.hour).toBe(14);
       expect(tv.minute).toBe(30);
       expect(tv.second).toBe(45);
-      expect(tv.nanoseconds).toBe(700000000);
+      expect(tv.nanosecond).toBe(700000000);
     });
 
     it('should throw error for invalid string', () => {
@@ -211,8 +211,8 @@ describe('TimeValue', () => {
       expect(plainTime.second).toBe(45);
     });
 
-    it('should convert nanoseconds to nanoseconds', () => {
-      const tv = new TimeValue({ hour: 14, minute: 30, second: 45, nanoseconds: 123456789 });
+    it('should convert nanosecond to nanosecond', () => {
+      const tv = new TimeValue({ hour: 14, minute: 30, second: 45, nanosecond: 123456789 });
       const plainTime = tv.toPlainTime();
       expect(plainTime.hour).toBe(14);
       expect(plainTime.minute).toBe(30);
@@ -249,8 +249,8 @@ describe('TimeValue', () => {
       expect(date.getUTCFullYear()).toBe(1970); // Epoch year
     });
 
-    it('should handle nanoseconds', () => {
-      const tv = new TimeValue({ hour: 14, minute: 30, second: 45, nanoseconds: 123000000 });
+    it('should handle nanosecond', () => {
+      const tv = new TimeValue({ hour: 14, minute: 30, second: 45, nanosecond: 123000000 });
       const date = tv.toDate();
       expect(date.getUTCMilliseconds()).toBe(123);
     });

@@ -14,10 +14,17 @@ export class FractionalSecondUnicodeDateTimeToken extends ElasticNumberUnicodeDa
     super(params);
   }
 
+  // getRegex(options?: PopulatedDateTimePatternOptions | null | undefined, length: number = 1) {
+  //   if (length <= 0) throw new Error('length must be positive');
+  //   const elastic = options?.elastic ?? true;
+  //   return elastic
+  //     ? `\\d{${length},}`
+  //     : `\\d{${length}}`;
+  // }
+
   resolve(value: string, options?: PopulatedDateTimePatternOptions) {
-    // Convert fractional part to nanoseconds (pad to 9 digits, then truncate)
-    const paddedFractional = value.padEnd(9, '0').substring(0, 9);
-    return { 'nanosecond': parseInt(paddedFractional, 10) };
+    const nanosecond = Number(`.${value}`) * 1_000_000_000;
+    return { nanosecond };
   }
 
 }

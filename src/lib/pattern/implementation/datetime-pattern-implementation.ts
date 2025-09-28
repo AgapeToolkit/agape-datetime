@@ -64,6 +64,8 @@ export class DateTimePatternImplementation {
   private parseValue(value: string): ParsedDateTimeParts {
     this.regex ??= this.getRegex();
 
+    console.log(">>>>>>>", this.regex)
+
     const match = value.match(this.regex);
     if (!match) throw new DateTimePatternMatchError();
 

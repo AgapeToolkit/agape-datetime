@@ -45,4 +45,8 @@ export const datetimeTokenResolveOrder: Partial<Record<keyof typeof unicodeDateT
   'second': 10,
   'secondPadded': 10,
   'nanosecond': 11,
+  'timeZoneNameShort': 12,
+  'timeZoneNameLong': 12,
+  'timeZoneNameShortGeneric': 12,
+  'timeZoneNameLongGeneric': 12,
 }

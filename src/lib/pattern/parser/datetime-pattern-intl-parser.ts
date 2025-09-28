@@ -218,17 +218,19 @@ export class DateTimePatternIntlParser extends DateTimePatternParser {
       case 'long':
         return unicodeDateTimeTokenDefinitions.timeZoneNameLong;
       case 'shortOffset':
+        // GMT-X
         // TODO: Need shortOffset token - currently using timeZoneNameShort
         return unicodeDateTimeTokenDefinitions.timeZoneNameShort;
       case 'longOffset':
+        // GMT-XXX
         // TODO: Need longOffset token - currently using timeZoneNameLong
         return unicodeDateTimeTokenDefinitions.timeZoneNameLong;
       case 'shortGeneric':
-        // TODO: Need shortGeneric token
-        return unicodeDateTimeTokenDefinitions.timeZoneNameShort;
+        // ZZZ
+        return unicodeDateTimeTokenDefinitions.timeZoneNameShortGeneric;
       case 'longGeneric':
-        // TODO: Need longGeneric token
-        return unicodeDateTimeTokenDefinitions.timeZoneNameLong;
+        // ZZZZ
+        return unicodeDateTimeTokenDefinitions.timeZoneNameLongGeneric;
       default:
         return unicodeDateTimeTokenDefinitions.timeZoneNameShort;
     }

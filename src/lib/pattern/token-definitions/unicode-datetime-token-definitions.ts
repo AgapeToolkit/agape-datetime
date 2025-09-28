@@ -314,7 +314,7 @@ export const unicodeDateTimeTokenDefinitions = {
   timeZoneNameShort: new VerboseTimeZoneNameUnicodeDateTimeToken({
     id: 'timeZoneNameShort',
     name: 'timeZoneNameShort',
-    symbol: /z{1,3}/,
+    symbol: /zzz/,
     variation: 'short',
     regex: `(?:[A-Z]{2,5}|(?:UTC|GMT)(?:[+\\u2212-](?:(?:0[0-9]|1[0-4])(?::?[0-5][0-9])?))?)`,
   }),
@@ -323,6 +323,18 @@ export const unicodeDateTimeTokenDefinitions = {
     symbol: 'zzzz',
     variation: 'long',
     regex: `(?:(?:UTC|GMT)(?:[+\\u2212-](?:1[0-4]|0?\\d)(?::[0-5]\\d)?)?|[\\p{L}\\p{M}\\p{N}\\p{Pc}\\p{Pd}\\p{Po} ]{3,})`,
+  }),
+  timeZoneNameShortGeneric: new VerboseTimeZoneNameUnicodeDateTimeToken({
+    id: 'timeZoneNameShortGeneric',
+    symbol: 'ZZZ',
+    variation: 'shortGeneric',
+    regex: `(?:[A-Z]{2,3}|[\\p{L}\\p{M}\\p{N}\\p{Pc}\\p{Pd}\\p{Po} ]{2,4})`,
+  }),
+  timeZoneNameLongGeneric: new VerboseTimeZoneNameUnicodeDateTimeToken({
+    id: 'timeZoneNameLongGeneric',
+    symbol: 'ZZZZ',
+    variation: 'longGeneric',
+    regex: `(?:[\\p{L}\\p{M}\\p{N}\\p{Pc}\\p{Pd}\\p{Po} ]{3,})`,
   }),
   secondsTimestamp: new ElasticNumberUnicodeDateTimeToken({
     id: 'secondsTimestamp',

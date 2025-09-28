@@ -1,6 +1,6 @@
 import { Properties } from '@agape/types';
 import { VerboseUnicodeDateTimeToken } from './verbose-unicode-datetime-token';
-import { VerboseDateTimePartVariation } from '../../types/verbose-datetime-part-variaion';
+import { TimeZoneNameVariation } from '../../types/verbose-datetime-part-variaion';
 import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 import { TimeZoneNames } from '../../../names';
 import { InvalidTimeZoneNameError } from '../../errors/invalid-timezone-name-error';
@@ -13,7 +13,7 @@ export class VerboseTimeZoneNameUnicodeDateTimeToken extends VerboseUnicodeDateT
 
   readonly symbol!: string | RegExp;
 
-  readonly variation!: VerboseDateTimePartVariation;
+  readonly variation!: TimeZoneNameVariation;
 
   readonly regex!: string;
 

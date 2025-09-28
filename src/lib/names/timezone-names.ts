@@ -18,6 +18,10 @@ export class TimeZoneNames extends Names {
   private _short?: readonly string[];
   private _shortNamesMap?: Record<string, TimeZoneNameRecord>;
   private _narrow?: readonly string[];
+  private _shortGeneric?: readonly string[];
+  private _shortGenericNamesMap?: Record<string, TimeZoneNameRecord>;
+  private _longGeneric?: readonly string[];
+  private _longGenericNamesMap?: Record<string, TimeZoneNameRecord>;
 
   get long(): readonly string[] {
     if (this._long) return this._long;
@@ -70,24 +74,103 @@ export class TimeZoneNames extends Names {
     return this._narrow;
   }
 
-  getOffset(variation: 'long' | 'short' | 'narrow', timeZoneName: string) {
-    const set = variation === 'long' ? this.longNamesMap : this.shortNamesMap;
+  get shortGeneric(): readonly string[] {
+    if (this._shortGeneric) return this._shortGeneric;
+
+    if (this.case === 'default') {
+      this._shortGeneric = Object.keys(this.shortGenericNamesMap);
+    } else {
+      const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
+      this._shortGeneric = this.applyCase(defaultInstance.shortGeneric);
+    }
+
+    return this._shortGeneric;
+  }
+
+  get shortGenericNamesMap(): Record<string, TimeZoneNameRecord> {
+    if (this._shortGenericNamesMap) return this._shortGenericNamesMap;
+    this._shortGenericNamesMap = this.getTimeZoneNames('shortGeneric');
+    return this._shortGenericNamesMap;
+  }
+
+  get longGeneric(): readonly string[] {
+    if (this._longGeneric) return this._longGeneric;
+
+    if (this.case === 'default') {
+      this._longGeneric = Object.keys(this.longGenericNamesMap);
+    } else {
+      const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
+      this._longGeneric = this.applyCase(defaultInstance.longGeneric);
+    }
+
+    return this._longGeneric;
+  }
+
+  get longGenericNamesMap(): Record<string, TimeZoneNameRecord> {
+    if (this._longGenericNamesMap) return this._longGenericNamesMap;
+    this._longGenericNamesMap = this.getTimeZoneNames('longGeneric');
+    return this._longGenericNamesMap;
+  }
+
+  getOffset(variation: 'long' | 'short' | 'narrow' | 'shortGeneric' | 'longGeneric', timeZoneName: string) {
+    let set: Record<string, TimeZoneNameRecord>;
+    switch (variation) {
+      case 'long':
+        set = this.longNamesMap;
+        break;
+      case 'short':
+        set = this.shortNamesMap;
+        break;
+      case 'narrow':
+        set = this.shortNamesMap; // narrow uses short names
+        break;
+      case 'shortGeneric':
+        set = this.shortGenericNamesMap;
+        break;
+      case 'longGeneric':
+        set = this.longGenericNamesMap;
+        break;
+    }
     return set[timeZoneName]?.offset;
   }
 
-  getTimeZoneId(variation: 'long' | 'short' | 'narrow', timeZoneName: string, date: Date): string | undefined {
-    const map = variation === 'long' ? this.longNamesMap : this.shortNamesMap;
+  getTimeZoneId(variation: 'long' | 'short' | 'narrow' | 'shortGeneric' | 'longGeneric', timeZoneName: string, date: Date): string | undefined {
+    let map: Record<string, TimeZoneNameRecord>;
+    let intlVariation: string;
+    
+    switch (variation) {
+      case 'long':
+        map = this.longNamesMap;
+        intlVariation = 'long';
+        break;
+      case 'short':
+        map = this.shortNamesMap;
+        intlVariation = 'short';
+        break;
+      case 'narrow':
+        map = this.shortNamesMap; // narrow uses short names
+        intlVariation = 'short';
+        break;
+      case 'shortGeneric':
+        map = this.shortGenericNamesMap;
+        intlVariation = 'shortGeneric';
+        break;
+      case 'longGeneric':
+        map = this.longGenericNamesMap;
+        intlVariation = 'longGeneric';
+        break;
+    }
+    
     const record: TimeZoneNameRecord = map[timeZoneName];
-    const intlVariation = variation === 'long' ? 'long': 'short';
     for (const timeZone of record.timeZones) {
-      const intl = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: intlVariation });
+      const intl = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: intlVariation as any });
       const name = intl.formatToParts(date).find(part => part.type === 'timeZoneName')?.value;
       if (name === timeZoneName) return timeZone;
     }
     return undefined;
   }
 
-  private getTimeZoneNames(variation: 'long' | 'short'): Record<string, TimeZoneNameRecord> {
+  private getTimeZoneNames(variation: 'long' | 'short' | 'shortGeneric' | 'longGeneric'): Record<string, TimeZoneNameRecord> {
     const timeZoneNameDetails = this.getTimeZoneNameDetails(variation);
     const timeZoneNames: Record<string, TimeZoneNameRecord> = {};
     for (const timeZoneNameDetail of timeZoneNameDetails) {
@@ -102,7 +185,7 @@ export class TimeZoneNames extends Names {
     return timeZoneNames;
   }
 
-  private getTimeZoneNameDetails(variation: 'long' | 'short'): TimeZoneNameDetail[] {
+  private getTimeZoneNameDetails(variation: 'long' | 'short' | 'shortGeneric' | 'longGeneric'): TimeZoneNameDetail[] {
     const timeZoneNameDetails: TimeZoneNameDetail[] = [];
 
     if (hasTemporal()) {
@@ -110,7 +193,7 @@ export class TimeZoneNames extends Names {
       const summer = Temporal.Instant.from('2025-01-01T00:00:00.000Z');
 
       for (const timeZone of (Intl as any).supportedValuesOf('timeZone')) {
-        const intlFormat = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: variation });
+        const intlFormat = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: variation as any });
         const winterTimeZoneNameDetails = this.getTimeZoneNameDetailInstant(intlFormat, timeZone, winter);
         const summerTimeZoneNameDetails = this.getTimeZoneNameDetailInstant(intlFormat, timeZone, summer);
         if (winterTimeZoneNameDetails.timeZoneName === summerTimeZoneNameDetails.timeZoneName) {
@@ -125,7 +208,7 @@ export class TimeZoneNames extends Names {
       const winter = new Date('2025-01-01T00:00:00.000Z');
       const summer =  new Date('2025-07-15T00:00:00.000Z');
 
-      for (const timeZone of (Intl as any).supportedValuesOf('timeZone')) {
+      for (const timeZone of Intl.supportedValuesOf('timeZone')) {
         const intlFormat = new Intl.DateTimeFormat(this.locale, { timeZone, timeZoneName: variation });
         const winterTimeZoneNameDetails = this.getTimeZoneNameDetailLegacy(intlFormat, timeZone, winter);
         const summerTimeZoneNameDetails = this.getTimeZoneNameDetailLegacy(intlFormat, timeZone, summer);
