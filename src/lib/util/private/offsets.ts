@@ -1,24 +1,22 @@
+import { Temporal } from '@agape/temporal';
 
 export function getOffsetLegacyDate(date: Date, timeZone: string): string {
-  // Simplified implementation for legacy date offset calculation
   const formatter = new Intl.DateTimeFormat('en', {
     timeZone: timeZone,
     timeZoneName: 'longOffset'
   });
 
   const parts = formatter.formatToParts(date);
-  const offset = parts.find(part => part.type === 'timeZoneName')?.value || '+00:00';
-  return offset;
+  return parts.find(part => part.type === 'timeZoneName')?.value || '+00:00';
 }
 
-export function getOffsetTemporal(instant: any, timeZone: string): string {
-  // Simplified implementation for temporal offset calculation
+export function getOffsetTemporal(instant: Temporal.Instant, timeZone: string): string {
   const formatter = new Intl.DateTimeFormat('en', {
     timeZone: timeZone,
     timeZoneName: 'longOffset'
   });
 
-  const parts = formatter.formatToParts(instant);
-  const offset = parts.find(part => part.type === 'timeZoneName')?.value || '+00:00';
-  return offset;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const parts = formatter.formatToParts(instant as any);
+  return parts.find(part => part.type === 'timeZoneName')?.value || '+00:00';
 }

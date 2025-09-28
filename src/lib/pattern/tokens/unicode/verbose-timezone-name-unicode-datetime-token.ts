@@ -1,7 +1,7 @@
 import { Properties } from '@agape/types';
 import { VerboseUnicodeDateTimeToken } from './verbose-unicode-datetime-token';
 import { VerboseDateTimePartVariation } from '../../types/verbose-datetime-part-variaion';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 import { TimeZoneNames } from '../../../names';
 import { InvalidTimeZoneNameError } from '../../errors/invalid-timezone-name-error';
 
@@ -22,13 +22,13 @@ export class VerboseTimeZoneNameUnicodeDateTimeToken extends VerboseUnicodeDateT
     Object.assign(this, params);
   }
 
-  getRegex(options: DateTimePatternImplementationOptions): string {
+  getRegex(options: PopulatedDateTimePatternOptions): string {
     if (options.case === 'uppercase') return this.regex.toLocaleUpperCase(options.locale);
     if (options.case === 'lowercase' || options.case === 'insensitive') return this.regex.toLocaleLowerCase(options.locale);
     return this.regex;
   }
 
-  resolve(value: string, options: DateTimePatternImplementationOptions): { timeZoneOffset: string } {
+  resolve(value: string, options: PopulatedDateTimePatternOptions): { timeZoneOffset: string } {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const timeZoneNames = TimeZoneNames.get({locale: options.locale, case: namesCase});
 

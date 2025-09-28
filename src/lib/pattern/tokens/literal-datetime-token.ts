@@ -1,5 +1,5 @@
 import { DateTimeToken } from './datetime-token';
-import { DateTimePatternImplementationOptions } from '../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../types/populated-datetime-pattern-options';
 import { escapeRegex } from './util';
 
 export class LiteralDateTimeToken extends DateTimeToken {
@@ -11,7 +11,7 @@ export class LiteralDateTimeToken extends DateTimeToken {
     this.value = value;
   }
 
-  getRegex(options: DateTimePatternImplementationOptions): string {
+  getRegex(options: PopulatedDateTimePatternOptions): string {
     let value = this.value;
     if (options?.case) {
       if (options.case === 'lowercase' || options.case === 'insensitive') value = value.toLocaleLowerCase(options.locale);

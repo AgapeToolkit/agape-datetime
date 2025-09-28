@@ -1,6 +1,6 @@
 import { Properties } from '@agape/types';
 import { SymbolUnicodeDateTimeToken } from './symbol-unicode-datetime-token';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 import { DateTimePatternOptions } from '../../types/datetime-pattern-options';
 import { InvalidTimeZoneError } from '../../errors/invalid-timezone-error';
 
@@ -21,7 +21,7 @@ export class TimeZoneIdUnicodeDateTimeToken extends SymbolUnicodeDateTimeToken {
     Object.assign(this, params);
   }
 
-  getRegex(options: DateTimePatternImplementationOptions): string {
+  getRegex(options: PopulatedDateTimePatternOptions): string {
     if (options.case === 'lowercase' || options.case === 'insensitive') return this.regex.toLocaleLowerCase('en-US');
     if (options.case === 'uppercase') return this.regex.toLocaleUpperCase('en-US');
     return this.regex;

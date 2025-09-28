@@ -1,6 +1,6 @@
-import { DateTimePatternImplementationOptions } from './types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from './types/populated-datetime-pattern-options';
 
-export const DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS: DateTimePatternImplementationOptions = {
+export const DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS: PopulatedDateTimePatternOptions = {
   locale: '',
 
   case: 'default',

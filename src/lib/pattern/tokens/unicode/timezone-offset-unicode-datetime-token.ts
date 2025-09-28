@@ -1,6 +1,6 @@
 import { Properties } from '@agape/types';
 import { SymbolUnicodeDateTimeToken } from './symbol-unicode-datetime-token';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 
 export class TimeZoneOffsetUnicodeDateTimeToken extends SymbolUnicodeDateTimeToken {
 
@@ -17,15 +17,15 @@ export class TimeZoneOffsetUnicodeDateTimeToken extends SymbolUnicodeDateTimeTok
     Object.assign(this, params);
   }
 
-  getRegex(options?: DateTimePatternImplementationOptions): string {
+  getRegex(options?: PopulatedDateTimePatternOptions): string {
     if (!options?.case || options?.case === 'default') return this.regex;
     if (options.case === 'lowercase' || options.case === 'insensitive') return this.regex.toLocaleLowerCase('en-US');
     if (options.case === 'uppercase') return this.regex.toLocaleUpperCase('en-US');
     return this.regex;
   }
 
-  resolve(value: string, options?: DateTimePatternImplementationOptions): object {
-    if (value === 'Z' || value === 'z') return { timeZoneOffset: "+00:00", isUtc: true };
+  resolve(value: string, options?: PopulatedDateTimePatternOptions): { timeZoneOffset: string, timeZone?: string } {
+    if (value === 'Z' || value === 'z') return { timeZoneOffset: "+00:00", timeZone: 'UTC' };
 
     let timeZoneOffset: string;
     if (!value.includes(':')) {

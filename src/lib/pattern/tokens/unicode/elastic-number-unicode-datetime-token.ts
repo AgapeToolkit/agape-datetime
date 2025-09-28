@@ -1,8 +1,8 @@
 import { Properties } from '@agape/types';
 import { UnicodeDateTimeToken } from './unicode-datetime-token';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
-import { DestructuredDateTimePatternPart } from '@agape/datetime';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 import { LiteralDateTimeToken } from '../literal-datetime-token';
+import { DestructuredDateTimePatternPart } from '../../types/destructured-datetime-pattern-part';
 
 export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
 
@@ -19,7 +19,7 @@ export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
     Object.assign(this, params);
   }
 
-  getRegex(options?: DateTimePatternImplementationOptions | null | undefined, length: number=1) {
+  getRegex(options?: PopulatedDateTimePatternOptions | null | undefined, length: number=1) {
     if (length <= 0) throw new Error('length must be positive');
     const elastic = options?.elastic ?? true;
     const prefixRegex = !this.prefix
@@ -32,7 +32,7 @@ export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
       : `${prefixRegex}\\d{${length}}`;
   }
 
-  resolve(value: string, options?: DateTimePatternImplementationOptions): object {
+  resolve(value: string, options?: PopulatedDateTimePatternOptions): object {
     const n = value.startsWith('+') ? value.slice(1) : value;
     const number = Number(n);
     return { [this.name ?? this.id]: Object.is(number, -0) ? 0 : number  };
@@ -44,7 +44,7 @@ export class ElasticNumberUnicodeDateTimeToken extends UnicodeDateTimeToken {
     return testString.length;
   }
 
-  getTokenRegex(options?: DateTimePatternImplementationOptions) {
+  getTokenRegex(options?: PopulatedDateTimePatternOptions) {
     const prefix = !this.prefix
       ? ''
       : this.prefix === '+'

@@ -1,5 +1,5 @@
 import { Temporal } from '@agape/temporal';
-import { DateTimeParts } from '../../types/datetime-parts';
+import { DateTimeParts } from '../types/datetime-parts';
 
 export function isValidDayOfMonth<T extends {year?: number, month?: number, day?: number}>(dateParts: T) {
   const {year, month, day} = dateParts;
@@ -40,6 +40,7 @@ export function isValidTimeZone(timeZone: string): boolean {
     throw new Error('Time zones are not available in this environment');
   }
 
+  if (timeZone === 'UTC') return true;
   if (SUPPORTED_ZONES) return SUPPORTED_ZONES.has(timeZone);
 
   try {

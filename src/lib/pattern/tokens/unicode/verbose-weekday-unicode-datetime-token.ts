@@ -1,6 +1,6 @@
 import { Properties } from '@agape/types';
 import { VerboseUnicodeDateTimeToken } from './verbose-unicode-datetime-token';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 import { WeekdayNames } from '../../../names';
 import { buildRegexFromNames, getIsoWeekdayFromResolvedDateParts } from '../util';
 import { VerboseDateTimePartVariation } from '../../types/verbose-datetime-part-variaion';
@@ -24,14 +24,14 @@ export class VerboseWeekdayUnicodeDateTimeToken extends VerboseUnicodeDateTimeTo
     this.standalone ??= false;
   }
 
-  getRegex(options: DateTimePatternImplementationOptions): string {
+  getRegex(options: PopulatedDateTimePatternOptions): string {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const weekdayNames = WeekdayNames.get({locale: options.locale, case: namesCase, standalone: this.standalone});
     const weekdays = weekdayNames[this.variation];
     return buildRegexFromNames(weekdays);
   }
 
-  resolve(value: string, options: DateTimePatternImplementationOptions, parts?: ResolvedDateTimeParts): { weekday: number } {
+  resolve(value: string, options: PopulatedDateTimePatternOptions, parts?: ResolvedDateTimeParts): { weekday: number } {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const weekdayNames = WeekdayNames.get({locale: options.locale, case: namesCase, standalone: this.standalone});
     const weekdays = weekdayNames[this.variation];

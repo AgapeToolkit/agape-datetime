@@ -589,7 +589,7 @@ describe('DateTimePattern', () => {
       expect(value.normalized.hour).toBe(14);
       expect(value.normalized.minute).toBe(30);
       expect(value.normalized.second).toBe(45);
-      expect(value.normalized.isUtc).toBe(true);
+      expect(value.normalized.timeZone).toBe('UTC');
     });
 
     it('should parse timezone offset X pattern', () => {

@@ -11,6 +11,5 @@ export interface DateTimeParts {
   timeZoneOffset?: string;
   secondsTimestamp?: number;
   millisecondsTimestamp?: number;
-  nanosecondsTimestamp?: number;
-  isUtc?: boolean;
+  nanosecondsTimestamp?: bigint;
 }

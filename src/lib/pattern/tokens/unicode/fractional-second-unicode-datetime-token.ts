@@ -1,6 +1,6 @@
 import { Properties } from '@agape/types';
 import { ElasticNumberUnicodeDateTimeToken } from './elastic-number-unicode-datetime-token';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 
 export class FractionalSecondUnicodeDateTimeToken extends ElasticNumberUnicodeDateTimeToken {
 
@@ -14,7 +14,7 @@ export class FractionalSecondUnicodeDateTimeToken extends ElasticNumberUnicodeDa
     super(params);
   }
 
-  resolve(value: string, options?: DateTimePatternImplementationOptions) {
+  resolve(value: string, options?: PopulatedDateTimePatternOptions) {
     return { [this.name ?? this.id ]: Number(`.${value}`) };
   }
 

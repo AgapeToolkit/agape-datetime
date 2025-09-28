@@ -1,7 +1,7 @@
 import { Properties } from '@agape/types';
 import { VerboseUnicodeDateTimeToken } from './verbose-unicode-datetime-token';
 import { VerboseDateTimePartVariation } from '../../types/verbose-datetime-part-variaion';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 import { buildRegexFromNames } from '../util';
 import { MonthNames } from '../../../names';
 
@@ -22,14 +22,14 @@ export class VerboseMonthUnicodeDateTimeToken extends VerboseUnicodeDateTimeToke
     this.standalone ??= false;
   }
 
-  getRegex(options: DateTimePatternImplementationOptions): string {
+  getRegex(options: PopulatedDateTimePatternOptions): string {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const monthNames = MonthNames.get({locale: options.locale, case: namesCase, standalone: this.standalone});
     const months = monthNames[this.variation];
     return buildRegexFromNames(months);
   }
 
-  resolve(value: string, options: DateTimePatternImplementationOptions): { month: number } {
+  resolve(value: string, options: PopulatedDateTimePatternOptions): { month: number } {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const monthNames = MonthNames.get({locale: options.locale, case: namesCase, standalone: this.standalone});
     const months = monthNames[this.variation];

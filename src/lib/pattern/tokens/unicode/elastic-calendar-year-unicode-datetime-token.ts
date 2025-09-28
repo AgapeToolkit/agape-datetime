@@ -1,6 +1,6 @@
 import { Properties } from '@agape/types';
 import { ElasticNumberUnicodeDateTimeToken } from './elastic-number-unicode-datetime-token';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 
 export class ElasticCalendarYearUnicodeDateTimeToken extends ElasticNumberUnicodeDateTimeToken {
 
@@ -8,7 +8,7 @@ export class ElasticCalendarYearUnicodeDateTimeToken extends ElasticNumberUnicod
     super(options);
   }
 
-  getRegex(options: DateTimePatternImplementationOptions | null | undefined, length: number=1) {
+  getRegex(options: PopulatedDateTimePatternOptions | null | undefined, length: number=1) {
     if (length === 0) throw new Error('length must be positive');
     const elastic = options?.elastic ?? true;
 
@@ -17,7 +17,7 @@ export class ElasticCalendarYearUnicodeDateTimeToken extends ElasticNumberUnicod
       : `\\d{${length - 1}}[1-9]`;
   }
 
-  resolve(value: string, options?: DateTimePatternImplementationOptions): object {
+  resolve(value: string, options?: PopulatedDateTimePatternOptions): object {
     return { calendarYear: Number(value) };
   }
 }

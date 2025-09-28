@@ -2,7 +2,7 @@ import { Properties } from '@agape/types';
 import { VerboseUnicodeDateTimeToken } from './verbose-unicode-datetime-token';
 import { VerboseDateTimePartVariation } from '../../types/verbose-datetime-part-variaion';
 import { CommonEraNames, EraNames } from '../../../names';
-import { DateTimePatternImplementationOptions } from '../../types/datetime-pattern-implementation-options';
+import { PopulatedDateTimePatternOptions } from '../../types/populated-datetime-pattern-options';
 import { buildRegexFromNames } from '../util';
 
 export class VerboseEraUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken {
@@ -21,7 +21,7 @@ export class VerboseEraUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken 
     Object.assign(this, params);
   }
 
-  getRegex(options: DateTimePatternImplementationOptions): string {
+  getRegex(options: PopulatedDateTimePatternOptions): string {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
 
     const eraNames = this.common
@@ -32,7 +32,7 @@ export class VerboseEraUnicodeDateTimeToken extends VerboseUnicodeDateTimeToken 
     return buildRegexFromNames(eras);
   }
 
-  resolve(value: string, options: DateTimePatternImplementationOptions): { era: number } {
+  resolve(value: string, options: PopulatedDateTimePatternOptions): { era: number } {
     const namesCase = options.case === 'insensitive' ? 'lowercase' : options.case;
     const eraNames = this.common
       ? CommonEraNames.get({locale: options.locale, case: namesCase})
