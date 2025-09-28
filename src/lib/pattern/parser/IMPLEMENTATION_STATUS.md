@@ -20,7 +20,7 @@
 - [x] **Second tokens** - `second`, `secondPadded`
 - [x] **Day period tokens** - All variations (`dayPeriod`, `dayPeriodShort`, etc.)
 - [x] **Time zone name tokens** - `timeZoneNameShort`, `timeZoneNameLong`
-- [x] **Fractional second tokens** - Basic implementation using `nanoseconds`
+- [x] **Fractional second tokens** - Basic implementation using `nanosecond`
 
 ### Testing
 - [x] **Comprehensive test suite** - 11 test cases covering all major scenarios
@@ -38,7 +38,7 @@
 
 ### Token Coverage
 - [ ] **2-digit year token** - Currently uses `calendarYear`, need `year2Digit`
-- [ ] **Fractional second tokens** - Need digit-specific tokens (`fractionalSecond1`, `fractionalSecond2`, `fractionalSecond3`)
+- [ ] **Fractional second tokens** - Need digit-specific tokens (`nanosecond1`, `nanosecond2`, `nanosecond3`)
 - [ ] **Timezone offset tokens** - Need `timeZoneNameShortOffset`, `timeZoneNameLongOffset`
 - [ ] **Timezone generic tokens** - Need `timeZoneNameShortGeneric`, `timeZoneNameLongGeneric`
 

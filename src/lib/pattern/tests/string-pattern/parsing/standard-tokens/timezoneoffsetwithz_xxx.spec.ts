@@ -36,7 +36,7 @@ describe('DateTimePattern - timeZoneOffsetWithZ_XXX', () => {
     expect(value.hour).toBe(12);
     expect(value.minute).toBe(0);
     expect(value.second).toBe(0);
-    expect(value.nanoseconds).toBe(0);
+    expect(value.nanosecond).toBe(0);
   });
   it('should fail +0530', () => {
     const pattern = new DateTimePattern('XXX', { locale: 'en-US' });

@@ -17,7 +17,7 @@ export class FractionalSecondUnicodeDateTimeToken extends ElasticNumberUnicodeDa
   resolve(value: string, options?: PopulatedDateTimePatternOptions) {
     // Convert fractional part to nanoseconds (pad to 9 digits, then truncate)
     const paddedFractional = value.padEnd(9, '0').substring(0, 9);
-    return { 'nanoseconds': parseInt(paddedFractional, 10) };
+    return { 'nanosecond': parseInt(paddedFractional, 10) };
   }
 
 }

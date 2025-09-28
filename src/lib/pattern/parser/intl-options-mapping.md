@@ -27,7 +27,7 @@ This document provides a comprehensive mapping of all Intl.DateTimeFormat option
 | `second` | `"numeric"`, `"2-digit"` | `"numeric"` | `second`, `secondPadded` | ✅ Implemented |
 | `timeZoneName` | `"short"`, `"long"`, `"shortOffset"`, `"longOffset"`, `"shortGeneric"`, `"longGeneric"` | - | Various timezone tokens | ⚠️ Missing offset/generic tokens |
 | `dayPeriod` | `"narrow"`, `"short"`, `"long"` | - | `dayPeriodNarrow`, `dayPeriodShort`, `dayPeriodLong` | ✅ Implemented |
-| `fractionalSecondDigits` | `1`, `2`, `3` | - | `nanoseconds` | ⚠️ Needs digit-specific tokens |
+| `fractionalSecondDigits` | `1`, `2`, `3` | - | `nanosecond` | ⚠️ Needs digit-specific tokens |
 
 ### Advanced Options
 
@@ -53,7 +53,7 @@ The system distinguishes between standalone and contextual tokens for months and
 
 ### High Priority
 1. **2-digit Year Token**: Need `year2Digit` token for `year: "2-digit"`
-2. **Fractional Second Tokens**: Need `fractionalSecond1`, `fractionalSecond2`, `fractionalSecond3` tokens
+2. **Fractional Second Tokens**: Need `nanosecond1`, `nanosecond2`, `nanosecond3` tokens
 3. **Timezone Offset Tokens**: Need `timeZoneNameShortOffset`, `timeZoneNameLongOffset` tokens
 4. **Timezone Generic Tokens**: Need `timeZoneNameShortGeneric`, `timeZoneNameLongGeneric` tokens
 

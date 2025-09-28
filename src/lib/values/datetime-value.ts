@@ -25,7 +25,7 @@ import { getTimeZone, getSystemTimeZone } from '@agape/locale';
 import { Class } from '@agape/types';
 
 
-const DEFAULT_PARTS_TO_FILL: Array<keyof DateTimeParts> = ['year', 'month', 'day', 'hour', 'minute', 'second', 'nanoseconds']
+const DEFAULT_PARTS_TO_FILL: Array<keyof DateTimeParts> = ['year', 'month', 'day', 'hour', 'minute', 'second', 'nanosecond']
 
 
 
@@ -64,8 +64,8 @@ export class DateTimeValue implements DateTimeParts {
     return this.parts.second;
   }
 
-  get nanoseconds(): number | undefined {
-    return this.parts.nanoseconds;
+  get nanosecond(): number | undefined {
+    return this.parts.nanosecond;
   }
 
   get timeZone(): string | undefined {
@@ -194,7 +194,7 @@ export class DateTimeValue implements DateTimeParts {
           parts.second = parseInt(second, 10);
           // Convert fractional part to nanoseconds (pad to 9 digits, then truncate)
           const paddedFractional = fractional.padEnd(9, '0').substring(0, 9);
-          parts.nanoseconds = parseInt(paddedFractional, 10);
+          parts.nanosecond = parseInt(paddedFractional, 10);
         } else {
           parts.second = parseInt(secondPart, 10);
         }
@@ -227,7 +227,7 @@ export class DateTimeValue implements DateTimeParts {
         if (isoMatch[9]) {
           // Convert fractional part to nanoseconds (pad to 9 digits, then truncate)
           const paddedFractional = isoMatch[9].padEnd(9, '0').substring(0, 9);
-          parts.nanoseconds = parseInt(paddedFractional, 10);
+          parts.nanosecond = parseInt(paddedFractional, 10);
         }
 
         if (isoMatch[10]) {
@@ -253,7 +253,7 @@ export class DateTimeValue implements DateTimeParts {
       hour: date.getUTCHours(),
       minute: date.getUTCMinutes(),
       second: date.getUTCSeconds(),
-      nanoseconds: date.getUTCMilliseconds() * 1_000_000
+      nanosecond: date.getUTCMilliseconds() * 1_000_000
     };
     const dtv = new DateTimeValue();
     dtv.parts = parts;
@@ -276,7 +276,7 @@ export class DateTimeValue implements DateTimeParts {
       hour: plainTime.hour,
       minute: plainTime.minute,
       second: plainTime.second,
-      nanoseconds: plainTime.nanosecond
+      nanosecond: plainTime.nanosecond
     };
     const dtv = new DateTimeValue();
     dtv.parts = parts;
@@ -291,7 +291,7 @@ export class DateTimeValue implements DateTimeParts {
       hour: plainDateTime.hour,
       minute: plainDateTime.minute,
       second: plainDateTime.second,
-      nanoseconds: plainDateTime.nanosecond
+      nanosecond: plainDateTime.nanosecond
     };
     const dtv = new DateTimeValue();
     dtv.parts = parts;
@@ -306,7 +306,7 @@ export class DateTimeValue implements DateTimeParts {
       hour: zonedDateTime.hour,
       minute: zonedDateTime.minute,
       second: zonedDateTime.second,
-      nanoseconds: zonedDateTime.nanosecond,
+      nanosecond: zonedDateTime.nanosecond,
       timeZone: zonedDateTime.timeZoneId,
       timeZoneOffset: zonedDateTime.offset
     };
@@ -419,8 +419,8 @@ export class DateTimeValue implements DateTimeParts {
           case 'second':
             filled.second = 0;
             break;
-          case 'nanoseconds':
-            filled.nanoseconds = 0;
+          case 'nanosecond':
+            filled.nanosecond = 0;
             break;
         }
       }
@@ -447,8 +447,8 @@ export class DateTimeValue implements DateTimeParts {
           case 'second':
             filled.second = 59;
             break;
-          case 'nanoseconds':
-            filled.nanoseconds = 999999999;
+          case 'nanosecond':
+            filled.nanosecond = 999999999;
             break;
         }
       }
@@ -507,11 +507,10 @@ export class DateTimeValue implements DateTimeParts {
       parts = this._fill(parts, options.fill, requiredParts);
     }
 
-    // Direct mapping to Temporal (nanoseconds property maps to nanosecond)
+    // Direct mapping to Temporal (nanosecond property maps to nanosecond)
     const temporalParts: any = { ...parts };
-    if (temporalParts.nanoseconds !== undefined) {
-      temporalParts.nanosecond = temporalParts.nanoseconds;
-      delete temporalParts.nanoseconds;
+    if (temporalParts.nanosecond !== undefined) {
+      temporalParts.nanosecond = temporalParts.nanosecond;
     }
 
     // Only use disambiguation if no timeZoneOffset is provided
@@ -563,10 +562,10 @@ export class DateTimeValue implements DateTimeParts {
         // Get the base milliseconds from Temporal
         const baseMilliseconds = Number(instant.epochMilliseconds);
 
-        // Get fractional milliseconds from the original nanoseconds
+        // Get fractional milliseconds from the original nanosecond
         const fillParts = options ? omit(options, ['fill']) : {};
         const originalParts: DateTimeParts = { ...fillParts, ...this.parts };
-        const fractionalMilliseconds = originalParts.nanoseconds ? Math.floor(originalParts.nanoseconds / 1_000_000) : 0;
+        const fractionalMilliseconds = originalParts.nanosecond ? Math.floor(originalParts.nanosecond / 1_000_000) : 0;
 
         const date = new Date(baseMilliseconds);
         // Set the fractional milliseconds manually
@@ -603,7 +602,7 @@ export class DateTimeValue implements DateTimeParts {
       const hour = parts.hour!;
       const minute = parts.minute!;
       const second = parts.second!;
-      const millisecond = parts.nanoseconds ? Math.floor(parts.nanoseconds / 1_000_000) : 0;
+      const millisecond = parts.nanosecond ? Math.floor(parts.nanosecond / 1_000_000) : 0;
 
 
       return new Date(Date.UTC(year, month, day, hour, minute, second, millisecond));
@@ -615,7 +614,7 @@ export class DateTimeValue implements DateTimeParts {
       const hour = parts.hour!;
       const minute = parts.minute!;
       const second = parts.second!;
-      const millisecond = parts.nanoseconds ? Math.floor(parts.nanoseconds / 1_000_000) : 0;
+      const millisecond = parts.nanosecond ? Math.floor(parts.nanosecond / 1_000_000) : 0;
 
 
       return new Date(year, month, day, hour, minute, second, millisecond);
@@ -627,7 +626,7 @@ export class DateTimeValue implements DateTimeParts {
       const hour = parts.hour!;
       const minute = parts.minute!;
       const second = parts.second!;
-      const millisecond = parts.nanoseconds ? Math.floor(parts.nanoseconds / 1_000_000) : 0;
+      const millisecond = parts.nanosecond ? Math.floor(parts.nanosecond / 1_000_000) : 0;
 
       // Parse offset (e.g., "-05:00" or "+02:30")
       const offsetMatch = parts.timeZoneOffset.match(/^([+-])(\d{2}):(\d{2})$/);
@@ -651,7 +650,7 @@ export class DateTimeValue implements DateTimeParts {
       const hour = parts.hour!;
       const minute = parts.minute!;
       const second = parts.second!;
-      const millisecond = parts.nanoseconds ? Math.floor(parts.nanoseconds / 1_000_000) : 0;
+      const millisecond = parts.nanosecond ? Math.floor(parts.nanosecond / 1_000_000) : 0;
 
       // Create a date in the target timezone by using Intl.DateTimeFormat
       const testDate = new Date(year, month, day, hour, minute, second, millisecond);

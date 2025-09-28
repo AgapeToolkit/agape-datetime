@@ -44,7 +44,7 @@ The `DateTimePatternIntlParser` provides comprehensive mapping from Intl.DateTim
 - **Second**: Maps to `second` or `secondPadded` tokens
 - **Day Period**: Maps to `dayPeriod`, `dayPeriodShort`, `dayPeriodLong`, `dayPeriodNarrow` tokens
 - **Time Zone Name**: Maps to `timeZoneNameShort`, `timeZoneNameLong` tokens
-- **Fractional Second**: Maps to `nanoseconds` token (digit-specific tokens needed)
+- **Fractional Second**: Maps to `nanosecond` token (digit-specific tokens needed)
 
 #### Context Detection
 The parser automatically detects whether to use standalone or contextual tokens for months and weekdays by analyzing the format structure:
@@ -60,7 +60,7 @@ The parser automatically detects whether to use standalone or contextual tokens 
 
 ### High Priority
 1. **2-digit Year Token**: Need `year2Digit` token for `year: "2-digit"`
-2. **Fractional Second Tokens**: Need `fractionalSecond1`, `fractionalSecond2`, `fractionalSecond3` tokens
+2. **Fractional Second Tokens**: Need `nanosecond1`, `nanosecond2`, `nanosecond3` tokens
 3. **Timezone Offset Tokens**: Need `timeZoneNameShortOffset`, `timeZoneNameLongOffset` tokens
 4. **Timezone Generic Tokens**: Need `timeZoneNameShortGeneric`, `timeZoneNameLongGeneric` tokens
 

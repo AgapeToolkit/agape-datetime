@@ -237,7 +237,7 @@ export class DateTimePatternIntlParser extends DateTimePatternParser {
   private mapFractionalSecondToken(_value: string, _fractionalSecondDigits?: number): UnicodeDateTimeToken {
     // TODO: Need fractional second tokens based on digits count
     // Currently using nanoseconds token for all cases
-    return unicodeDateTimeTokenDefinitions.nanoseconds;
+    return unicodeDateTimeTokenDefinitions.nanosecond;
   }
 
   private isStandaloneContext(allParts: Intl.DateTimeFormatPart[] | undefined, _type: string): boolean {

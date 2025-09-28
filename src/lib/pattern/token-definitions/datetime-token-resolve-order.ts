@@ -44,5 +44,5 @@ export const datetimeTokenResolveOrder: Partial<Record<keyof typeof unicodeDateT
   'minutePadded': 9,
   'second': 10,
   'secondPadded': 10,
-  'nanoseconds': 11,
+  'nanosecond': 11,
 }

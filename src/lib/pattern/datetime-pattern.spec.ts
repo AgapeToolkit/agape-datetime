@@ -183,7 +183,7 @@ describe('DateTimePattern', () => {
       expect(value.hour).toBe(14);
       expect(value.minute).toBe(30);
       expect(value.second).toBe(45);
-      expect(value.nanoseconds).toBe(123000000);
+      expect(value.nanosecond).toBe(123000000);
     });
   });
 
@@ -686,7 +686,7 @@ describe('DateTimePattern', () => {
       expect(value.hour).toBe(14);
       expect(value.minute).toBe(30);
       expect(value.second).toBe(45);
-      expect(value.nanoseconds).toBe(123000000);
+      expect(value.nanosecond).toBe(123000000);
     });
 
     it('should parse custom format with multiple separators', () => {

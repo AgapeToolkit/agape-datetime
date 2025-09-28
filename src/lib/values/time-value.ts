@@ -26,8 +26,8 @@ export class TimeValue implements TimeParts {
     return this.parts.second;
   }
 
-  get nanoseconds(): number | undefined {
-    return this.parts.nanoseconds;
+  get nanosecond(): number | undefined {
+    return this.parts.nanosecond;
   }
 
   getDayPeriod(): number | undefined {
@@ -103,7 +103,7 @@ export class TimeValue implements TimeParts {
       parts.second = second;
       // Convert fractional part to nanoseconds (pad to 9 digits, then truncate)
       const paddedFractional = fractionalPart.padEnd(9, '0').substring(0, 9);
-      parts.nanoseconds = parseInt(paddedFractional, 10);
+      parts.nanosecond = parseInt(paddedFractional, 10);
     } else {
       throw new Error(`Cannot parse time string: ${input}`);
     }
@@ -116,7 +116,7 @@ export class TimeValue implements TimeParts {
       hour: date.getUTCHours(),
       minute: date.getUTCMinutes(),
       second: date.getUTCSeconds(),
-      nanoseconds: date.getUTCMilliseconds() * 1_000_000 // Convert milliseconds to nanoseconds
+      nanosecond: date.getUTCMilliseconds() * 1_000_000 // Convert milliseconds to nanoseconds
     };
     const dtv = new TimeValue();
     dtv.parts = parts;
@@ -128,7 +128,7 @@ export class TimeValue implements TimeParts {
       hour: plainTime.hour,
       minute: plainTime.minute,
       second: plainTime.second,
-      nanoseconds: plainTime.nanosecond
+      nanosecond: plainTime.nanosecond
     };
     const dtv = new TimeValue();
     dtv.parts = parts;
@@ -157,7 +157,7 @@ export class TimeValue implements TimeParts {
         if (part === 'hour') filled.hour = 0;
         else if (part === 'minute') filled.minute = 0;
         else if (part === 'second') filled.second = 0;
-        else if (part === 'nanoseconds') filled.nanoseconds = 0;
+        else if (part === 'nanosecond') filled.nanosecond = 0;
       }
     } else if (strategy === 'end') {
       for (const part of partsToFill) {
@@ -165,7 +165,7 @@ export class TimeValue implements TimeParts {
         if (part === 'hour') filled.hour = 23;
         else if (part === 'minute') filled.minute = 59;
         else if (part === 'second') filled.second = 59;
-        else if (part === 'nanoseconds') filled.nanoseconds = 999999999;
+        else if (part === 'nanosecond') filled.nanosecond = 999999999;
       }
     } else if (strategy === 'current') {
       const now = new Date();
@@ -174,7 +174,7 @@ export class TimeValue implements TimeParts {
         if (part === 'hour') filled.hour = now.getUTCHours();
         else if (part === 'minute') filled.minute = now.getUTCMinutes();
         else if (part === 'second') filled.second = now.getUTCSeconds();
-        else if (part === 'nanoseconds') filled.nanoseconds = now.getUTCMilliseconds() * 1_000_000;
+        else if (part === 'nanosecond') filled.nanosecond = now.getUTCMilliseconds() * 1_000_000;
       }
     }
 
@@ -193,11 +193,10 @@ export class TimeValue implements TimeParts {
       parts = this._fill(parts, options.fill, requiredParts);
     }
 
-    // Direct mapping to Temporal (nanoseconds property maps to nanosecond)
+    // Direct mapping to Temporal (nanosecond property maps to nanosecond)
     const temporalParts: any = { ...parts };
-    if (temporalParts.nanoseconds !== undefined) {
-      temporalParts.nanosecond = temporalParts.nanoseconds;
-      delete temporalParts.nanoseconds;
+    if (temporalParts.nanosecond !== undefined) {
+      temporalParts.nanosecond = temporalParts.nanosecond;
     }
 
     return (target as any).from(temporalParts);
@@ -222,7 +221,7 @@ export class TimeValue implements TimeParts {
     const hour = parts.hour!;
     const minute = parts.minute!;
     const second = parts.second!;
-    const millisecond = parts.nanoseconds ? Math.floor(parts.nanoseconds / 1_000_000) : 0;
+    const millisecond = parts.nanosecond ? Math.floor(parts.nanosecond / 1_000_000) : 0;
 
     return new Date(Date.UTC(1970, 0, 1, hour, minute, second, millisecond));
   }

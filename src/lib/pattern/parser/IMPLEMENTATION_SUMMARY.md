@@ -23,7 +23,7 @@ We have successfully implemented a comprehensive `DateTimePatternIntlParser` tha
    - **Second tokens**: `second`, `secondPadded`
    - **Day period tokens**: All variations (`dayPeriod`, `dayPeriodShort`, etc.)
    - **Time zone name tokens**: `timeZoneNameShort`, `timeZoneNameLong`
-   - **Fractional second tokens**: Basic implementation using `nanoseconds`
+   - **Fractional second tokens**: Basic implementation using `nanosecond`
 
 3. **Smart Context Detection**
    - Automatically determines standalone vs contextual tokens for months and weekdays

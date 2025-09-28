@@ -247,8 +247,8 @@ export const unicodeDateTimeTokenDefinitions = {
     symbol: 'ss',
     regex: `[0-5][0-9]`,
   }),
-  nanoseconds: new FractionalSecondUnicodeDateTimeToken({
-    id: 'nanoseconds',
+  nanosecond: new FractionalSecondUnicodeDateTimeToken({
+    id: 'nanosecond',
     char: 'S',
   }),
   timeZoneOffsetZ: new TimeZoneOffsetUnicodeDateTimeToken({

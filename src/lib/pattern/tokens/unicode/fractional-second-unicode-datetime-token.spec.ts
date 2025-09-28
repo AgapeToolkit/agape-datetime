@@ -4,14 +4,14 @@ describe('FractionalSecondUnicodeDateTimeToken', () => {
   it('should instantiate', () => {
     expect(
       new FractionalSecondUnicodeDateTimeToken({
-        id: 'nanoseconds',
+        id: 'nanosecond',
         char: 'S'
       })
     ).toBeTruthy();
   })
 
   const token = new FractionalSecondUnicodeDateTimeToken({
-    id: 'nanoseconds',
+    id: 'nanosecond',
     char: 'S'
   })
   describe('getRegex', () => {
@@ -31,10 +31,10 @@ describe('FractionalSecondUnicodeDateTimeToken', () => {
 
   describe('resolve', () => {
     it('should resolve the value', () => {
-      expect(token.resolve('1')).toEqual({ nanoseconds: 100000000 });
+      expect(token.resolve('1')).toEqual({ nanosecond: 100000000 });
     })
     it('should resolve a padded number', () => {
-      expect(token.resolve('00056')).toEqual({ nanoseconds: 560000 });
+      expect(token.resolve('00056')).toEqual({ nanosecond: 560000 });
     })
   })
 

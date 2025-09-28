@@ -19,7 +19,7 @@ describe('DateTimeValue', () => {
       expect(dtv.hour).toBeUndefined();
       expect(dtv.minute).toBeUndefined();
       expect(dtv.second).toBeUndefined();
-      expect(dtv.nanoseconds).toBeUndefined();
+      expect(dtv.nanosecond).toBeUndefined();
       expect(dtv.timeZone).toBeUndefined();
       expect(dtv.timeZoneOffset).toBeUndefined();
       expect(dtv.secondsTimestamp).toBeUndefined();
@@ -35,7 +35,7 @@ describe('DateTimeValue', () => {
         hour: 14,
         minute: 30,
         second: 45,
-        nanoseconds: 500000000,
+        nanosecond: 500000000,
         timeZone: 'America/New_York',
         timeZoneOffset: '-05:00',
         secondsTimestamp: 1737034245,
@@ -50,7 +50,7 @@ describe('DateTimeValue', () => {
       expect(dtv.hour).toBe(14);
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
-      expect(dtv.nanoseconds).toBe(500000000);
+      expect(dtv.nanosecond).toBe(500000000);
       expect(dtv.timeZone).toBe('America/New_York');
       expect(dtv.timeZoneOffset).toBe('-05:00');
       expect(dtv.secondsTimestamp).toBe(1737034245);
@@ -131,7 +131,7 @@ describe('DateTimeValue', () => {
       expect(dtv.hour).toBeUndefined();
       expect(dtv.minute).toBeUndefined();
       expect(dtv.second).toBeUndefined();
-      expect(dtv.nanoseconds).toBeUndefined();
+      expect(dtv.nanosecond).toBeUndefined();
       expect(dtv.timeZone).toBeUndefined();
       expect(dtv.timeZoneOffset).toBeUndefined();
       expect(dtv.secondsTimestamp).toBeUndefined();
@@ -147,7 +147,7 @@ describe('DateTimeValue', () => {
         hour: 14,
         minute: 30,
         second: 45,
-        nanoseconds: 500000000,
+        nanosecond: 500000000,
         timeZone: 'America/New_York',
         timeZoneOffset: '-05:00',
         secondsTimestamp: 1737034245,
@@ -163,7 +163,7 @@ describe('DateTimeValue', () => {
       expect(dtv.hour).toBe(14);
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
-      expect(dtv.nanoseconds).toBe(500000000);
+      expect(dtv.nanosecond).toBe(500000000);
       expect(dtv.timeZone).toBe('America/New_York');
       expect(dtv.timeZoneOffset).toBe('-05:00');
       expect(dtv.secondsTimestamp).toBe(1737034245);
@@ -394,7 +394,7 @@ describe('DateTimeValue', () => {
         hour: 14,
         minute: 30,
         second: 45,
-        nanoseconds: 500000000,
+        nanosecond: 500000000,
         timeZone: 'America/New_York',
         timeZoneOffset: '-05:00',
         secondsTimestamp: 1737034245,
@@ -412,7 +412,7 @@ describe('DateTimeValue', () => {
       expect(spread.hour).toBe(14);
       expect(spread.minute).toBe(30);
       expect(spread.second).toBe(45);
-      expect(spread.nanoseconds).toBe(500000000);
+      expect(spread.nanosecond).toBe(500000000);
       expect(spread.timeZone).toBe('America/New_York');
       expect(spread.timeZoneOffset).toBe('-05:00');
       expect(spread.secondsTimestamp).toBe(1737034245);
@@ -443,7 +443,7 @@ describe('DateTimeValue', () => {
         hour: 0,
         minute: 0,
         second: 0,
-        nanoseconds: 0
+        nanosecond: 0
       });
 
       expect(dtv.year).toBe(0);
@@ -452,7 +452,7 @@ describe('DateTimeValue', () => {
       expect(dtv.hour).toBe(0);
       expect(dtv.minute).toBe(0);
       expect(dtv.second).toBe(0);
-      expect(dtv.nanoseconds).toBe(0);
+      expect(dtv.nanosecond).toBe(0);
     });
 
     it('should handle negative year for era calculation', () => {
@@ -664,7 +664,7 @@ describe('DateTimeValue', () => {
         hour: 14, 
         minute: 30, 
         second: 45,
-        nanoseconds: 123000000
+        nanosecond: 123000000
       });
       const date = dtv.toDate({ timeZone: 'UTC' });
       expect(date).toBeInstanceOf(Date);
@@ -788,8 +788,8 @@ describe('DateTimeValue', () => {
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
       // Note: The polyfill may truncate nanosecond precision
-      expect(dtv.nanoseconds).toBeGreaterThanOrEqual(0);
-      expect(dtv.nanoseconds).toBeLessThanOrEqual(123000000);
+      expect(dtv.nanosecond).toBeGreaterThanOrEqual(0);
+      expect(dtv.nanosecond).toBeLessThanOrEqual(123000000);
     });
 
     it('should create from Temporal.PlainDate', () => {
@@ -807,8 +807,8 @@ describe('DateTimeValue', () => {
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
       // Note: The polyfill may truncate nanosecond precision
-      expect(dtv.nanoseconds).toBeGreaterThanOrEqual(0);
-      expect(dtv.nanoseconds).toBeLessThanOrEqual(123000000);
+      expect(dtv.nanosecond).toBeGreaterThanOrEqual(0);
+      expect(dtv.nanosecond).toBeLessThanOrEqual(123000000);
     });
 
     it('should create from Temporal.PlainDateTime', () => {
@@ -821,8 +821,8 @@ describe('DateTimeValue', () => {
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
       // Note: The polyfill may truncate nanosecond precision
-      expect(dtv.nanoseconds).toBeGreaterThanOrEqual(0);
-      expect(dtv.nanoseconds).toBeLessThanOrEqual(123000000);
+      expect(dtv.nanosecond).toBeGreaterThanOrEqual(0);
+      expect(dtv.nanosecond).toBeLessThanOrEqual(123000000);
     });
 
     it('should create from Temporal.ZonedDateTime', () => {
@@ -835,8 +835,8 @@ describe('DateTimeValue', () => {
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
       // Note: The polyfill may truncate nanosecond precision
-      expect(dtv.nanoseconds).toBeGreaterThanOrEqual(0);
-      expect(dtv.nanoseconds).toBeLessThanOrEqual(123000000);
+      expect(dtv.nanosecond).toBeGreaterThanOrEqual(0);
+      expect(dtv.nanosecond).toBeLessThanOrEqual(123000000);
       expect(dtv.timeZone).toBe('Asia/Calcutta');
       expect(dtv.timeZoneOffset).toBeDefined();
     });
@@ -919,8 +919,8 @@ describe('DateTimeValue', () => {
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
       // Note: The polyfill may truncate nanosecond precision
-      expect(dtv.nanoseconds).toBeGreaterThanOrEqual(0);
-      expect(dtv.nanoseconds).toBeLessThanOrEqual(123000000);
+      expect(dtv.nanosecond).toBeGreaterThanOrEqual(0);
+      expect(dtv.nanosecond).toBeLessThanOrEqual(123000000);
     });
 
     it('should parse year-month', () => {
@@ -946,8 +946,8 @@ describe('DateTimeValue', () => {
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
       // Note: The polyfill may truncate nanosecond precision
-      expect(dtv.nanoseconds).toBeGreaterThanOrEqual(0);
-      expect(dtv.nanoseconds).toBeLessThanOrEqual(123000000);
+      expect(dtv.nanosecond).toBeGreaterThanOrEqual(0);
+      expect(dtv.nanosecond).toBeLessThanOrEqual(123000000);
       expect(dtv.timeZoneOffset).toBe('+05:00');
       expect(dtv.timeZone).toBe('UTC');
     });
@@ -961,8 +961,8 @@ describe('DateTimeValue', () => {
       expect(dtv.minute).toBe(30);
       expect(dtv.second).toBe(45);
       // Note: The polyfill may truncate nanosecond precision
-      expect(dtv.nanoseconds).toBeGreaterThanOrEqual(0);
-      expect(dtv.nanoseconds).toBeLessThanOrEqual(123000000);
+      expect(dtv.nanosecond).toBeGreaterThanOrEqual(0);
+      expect(dtv.nanosecond).toBeLessThanOrEqual(123000000);
     });
 
     it('should handle non-padded values', () => {
@@ -973,7 +973,7 @@ describe('DateTimeValue', () => {
       expect(dtv.hour).toBe(4);
       expect(dtv.minute).toBe(5);
       expect(dtv.second).toBe(6);
-      expect(dtv.nanoseconds).toBe(700000000);
+      expect(dtv.nanosecond).toBe(700000000);
     });
 
     it('should throw error for invalid string', () => {
