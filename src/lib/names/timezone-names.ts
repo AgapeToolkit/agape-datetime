@@ -22,6 +22,10 @@ export class TimeZoneNames extends Names {
   private _shortGenericNamesMap?: Record<string, TimeZoneNameRecord>;
   private _longGeneric?: readonly string[];
   private _longGenericNamesMap?: Record<string, TimeZoneNameRecord>;
+  private _shortOffset?: readonly string[];
+  private _shortOffsetNamesMap?: Record<string, TimeZoneNameRecord>;
+  private _longOffset?: readonly string[];
+  private _longOffsetNamesMap?: Record<string, TimeZoneNameRecord>;
 
   get long(): readonly string[] {
     if (this._long) return this._long;
@@ -112,7 +116,45 @@ export class TimeZoneNames extends Names {
     return this._longGenericNamesMap;
   }
 
-  getOffset(variation: 'long' | 'short' | 'narrow' | 'shortGeneric' | 'longGeneric', timeZoneName: string) {
+  get shortOffset(): readonly string[] {
+    if (this._shortOffset) return this._shortOffset;
+
+    if (this.case === 'default') {
+      this._shortOffset = Object.keys(this.shortOffsetNamesMap);
+    } else {
+      const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
+      this._shortOffset = this.applyCase(defaultInstance.shortOffset);
+    }
+
+    return this._shortOffset;
+  }
+
+  get shortOffsetNamesMap(): Record<string, TimeZoneNameRecord> {
+    if (this._shortOffsetNamesMap) return this._shortOffsetNamesMap;
+    this._shortOffsetNamesMap = this.getTimeZoneNames('shortOffset');
+    return this._shortOffsetNamesMap;
+  }
+
+  get longOffset(): readonly string[] {
+    if (this._longOffset) return this._longOffset;
+
+    if (this.case === 'default') {
+      this._longOffset = Object.keys(this.longOffsetNamesMap);
+    } else {
+      const defaultInstance = TimeZoneNames.get({ locale: this.locale, case: 'default' });
+      this._longOffset = this.applyCase(defaultInstance.longOffset);
+    }
+
+    return this._longOffset;
+  }
+
+  get longOffsetNamesMap(): Record<string, TimeZoneNameRecord> {
+    if (this._longOffsetNamesMap) return this._longOffsetNamesMap;
+    this._longOffsetNamesMap = this.getTimeZoneNames('longOffset');
+    return this._longOffsetNamesMap;
+  }
+
+  getOffset(variation: 'long' | 'short' | 'narrow' | 'shortGeneric' | 'longGeneric' | 'shortOffset' | 'longOffset', timeZoneName: string) {
     let set: Record<string, TimeZoneNameRecord>;
     switch (variation) {
       case 'long':
@@ -130,11 +172,17 @@ export class TimeZoneNames extends Names {
       case 'longGeneric':
         set = this.longGenericNamesMap;
         break;
+      case 'shortOffset':
+        set = this.shortOffsetNamesMap;
+        break;
+      case 'longOffset':
+        set = this.longOffsetNamesMap;
+        break;
     }
     return set[timeZoneName]?.offset;
   }
 
-  getTimeZoneId(variation: 'long' | 'short' | 'narrow' | 'shortGeneric' | 'longGeneric', timeZoneName: string, date: Date): string | undefined {
+  getTimeZoneId(variation: 'long' | 'short' | 'narrow' | 'shortGeneric' | 'longGeneric' | 'shortOffset' | 'longOffset', timeZoneName: string, date: Date): string | undefined {
     let map: Record<string, TimeZoneNameRecord>;
     let intlVariation: string;
     
@@ -159,6 +207,14 @@ export class TimeZoneNames extends Names {
         map = this.longGenericNamesMap;
         intlVariation = 'longGeneric';
         break;
+      case 'shortOffset':
+        map = this.shortOffsetNamesMap;
+        intlVariation = 'shortOffset';
+        break;
+      case 'longOffset':
+        map = this.longOffsetNamesMap;
+        intlVariation = 'longOffset';
+        break;
     }
     
     const record: TimeZoneNameRecord = map[timeZoneName];
@@ -170,7 +226,7 @@ export class TimeZoneNames extends Names {
     return undefined;
   }
 
-  private getTimeZoneNames(variation: 'long' | 'short' | 'shortGeneric' | 'longGeneric'): Record<string, TimeZoneNameRecord> {
+  private getTimeZoneNames(variation: 'long' | 'short' | 'shortGeneric' | 'longGeneric' | 'shortOffset' | 'longOffset'): Record<string, TimeZoneNameRecord> {
     const timeZoneNameDetails = this.getTimeZoneNameDetails(variation);
     const timeZoneNames: Record<string, TimeZoneNameRecord> = {};
     for (const timeZoneNameDetail of timeZoneNameDetails) {
@@ -185,7 +241,7 @@ export class TimeZoneNames extends Names {
     return timeZoneNames;
   }
 
-  private getTimeZoneNameDetails(variation: 'long' | 'short' | 'shortGeneric' | 'longGeneric'): TimeZoneNameDetail[] {
+  private getTimeZoneNameDetails(variation: 'long' | 'short' | 'shortGeneric' | 'longGeneric' | 'shortOffset' | 'longOffset'): TimeZoneNameDetail[] {
     const timeZoneNameDetails: TimeZoneNameDetail[] = [];
 
     if (hasTemporal()) {

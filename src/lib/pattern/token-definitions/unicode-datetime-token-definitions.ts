@@ -9,6 +9,7 @@ import { FractionalSecondUnicodeDateTimeToken } from '../tokens/unicode/fraction
 import { TimeZoneOffsetUnicodeDateTimeToken } from '../tokens/unicode/timezone-offset-unicode-datetime-token';
 import { TimeZoneIdUnicodeDateTimeToken } from '../tokens/unicode/timezone-id-unicode-datetime-token';
 import { VerboseTimeZoneNameUnicodeDateTimeToken } from '../tokens/unicode/verbose-timezone-name-unicode-datetime-token';
+import { GmtOffsetUnicodeDateTimeToken } from '../tokens/unicode/gmt-offset-unicode-datetime-token';
 
 export const unicodeDateTimeTokenDefinitions = {
   eraShort: new VerboseEraUnicodeDateTimeToken({
@@ -335,6 +336,16 @@ export const unicodeDateTimeTokenDefinitions = {
     symbol: 'ZZZZ',
     variation: 'longGeneric',
     regex: `(?:[\\p{L}\\p{M}\\p{N}\\p{Pc}\\p{Pd}\\p{Po} ]{3,})`,
+  }),
+  timeZoneNameShortOffset: new GmtOffsetUnicodeDateTimeToken({
+    id: 'timeZoneNameShortOffset',
+    symbol: 'GMT-X',
+    regex: `GMT[+\\u2212-]\\d{1,2}(?::\\d{2})?`,
+  }),
+  timeZoneNameLongOffset: new GmtOffsetUnicodeDateTimeToken({
+    id: 'timeZoneNameLongOffset',
+    symbol: 'GMT-XXX',
+    regex: `GMT[+\\u2212-]\\d{1,2}(?::\\d{2})?(?::\\d{2})?`,
   }),
   secondsTimestamp: new ElasticNumberUnicodeDateTimeToken({
     id: 'secondsTimestamp',

@@ -12,7 +12,7 @@ export class DateTimePattern {
 
   private implementation!: DateTimePatternImplementation;
 
-  constructor(pattern: string | Intl.DateTimeFormat | object, options: Partial<DateTimePatternOptions> = {}) {
+  constructor(pattern: string | Intl.DateTimeFormat | Intl.DateTimeFormatOptions, options: Partial<DateTimePatternOptions> = {}) {
     const implementationOptions: PopulatedDateTimePatternOptions = {
       ...DATETIME_PATTERN_IMPLEMENTATION_DEFAULT_OPTIONS as PopulatedDateTimePatternOptions,
       ...options as PopulatedDateTimePatternOptions,
@@ -27,7 +27,7 @@ export class DateTimePattern {
       this.implementation = new DateTimePatternImplementation(parser.parts, implementationOptions);
     }
     else {
-      const parser = new DateTimePatternObjectParser(pattern);
+      const parser = new DateTimePatternObjectParser(pattern, implementationOptions.locale);
       this.implementation = new DateTimePatternImplementation(parser.parts, implementationOptions);
     }
   }

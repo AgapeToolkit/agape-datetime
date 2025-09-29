@@ -58,6 +58,10 @@ export interface ParsedDateTimeParts {
   timeZone?: string;
   timeZoneNameShort?: string;
   timeZoneNameLong?: string;
+  timeZoneNameShortGeneric?: string;
+  timeZoneNameLongGeneric?: string;
+  timeZoneNameShortOffset?: string;
+  timeZoneNameLongOffset?: string;
   secondsTimestamp?: string;
   signedSecondsTimestamp?: string;
   negativeSignedSecondsTimestamp?: string;

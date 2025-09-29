@@ -49,4 +49,6 @@ export const datetimeTokenResolveOrder: Partial<Record<keyof typeof unicodeDateT
   'timeZoneNameLong': 12,
   'timeZoneNameShortGeneric': 12,
   'timeZoneNameLongGeneric': 12,
+  'timeZoneNameShortOffset': 12,
+  'timeZoneNameLongOffset': 12,
 }
