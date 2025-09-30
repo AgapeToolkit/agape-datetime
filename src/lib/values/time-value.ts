@@ -7,12 +7,12 @@ import { ResolvedDateTimeParts } from '../types/resolved-datetime-parts';
 import { ParsedDateTimeParts } from '../types/parsed-datetime-parts';
 import { validateNormalizedValue } from './util/validation';
 import { ToPlainTimeOptions } from '../types/to-plain-time-options';
+import { BaseValue } from './base-value';
+import { FillStrategy } from '../types/fill-strategy';
+import { FillOptions } from '../types/fill-datetime-parts';
+import { DateTimeValue } from './datetime-value';
 
-export class TimeValue implements TimeParts {
-
-  private parts: TimeParts = {};
-  private resolvedParts?: ResolvedDateTimeParts;
-  private parsedParts?: ParsedDateTimeParts;
+export class TimeValue extends BaseValue implements TimeParts {
 
   get hour(): number | undefined {
     return this.parts.hour;
@@ -35,22 +35,20 @@ export class TimeValue implements TimeParts {
     if (!isNil(this.resolvedParts?.dayPeriod)) return this.resolvedParts.dayPeriod;
   }
 
-  constructor(parts?: TimeParts | TimeValue) {
+  constructor(parts?: TimeParts) {
+    super();
     if (!parts) return;
 
-    if (parts instanceof TimeValue) {
-      this.parts = parts.parts;
-      this.resolvedParts = parts.resolvedParts;
-      this.parsedParts = parts.parsedParts;
-      return;
-    }
-
-    this.set(parts);
+    this._set(parts);
   }
 
-  static from(input: any): TimeValue {
+  static from(input: Date | Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | Temporal.Instant | TimeValue | DateTimeValue | TimeParts | string): TimeValue {
     if (input instanceof TimeValue) {
-      return new TimeValue(input);
+      return new TimeValue(input.toParts());
+    }
+
+    if (input instanceof DateTimeValue) {
+      return new TimeValue(input.toParts());
     }
 
     if (typeof input === 'string') {
@@ -62,10 +60,17 @@ export class TimeValue implements TimeParts {
     }
 
     // Handle Temporal objects
-    if (typeof Temporal !== 'undefined') {
-      if (input instanceof Temporal.PlainTime) {
-        return TimeValue.fromPlainTime(input);
-      }
+    if (input instanceof Temporal.PlainTime) {
+      return TimeValue.fromPlainTime(input);
+    }
+    if (input instanceof Temporal.PlainDateTime) {
+      return TimeValue.fromPlainDateTime(input);
+    }
+    if (input instanceof Temporal.ZonedDateTime) {
+      return TimeValue.fromZonedDateTime(input);
+    }
+    if (input instanceof Temporal.Instant) {
+      return TimeValue.fromInstant(input);
     }
 
     // Handle TimeParts object
@@ -135,9 +140,48 @@ export class TimeValue implements TimeParts {
     return dtv;
   }
 
+  private static fromPlainDateTime(plainDateTime: Temporal.PlainDateTime): TimeValue {
+    const parts: TimeParts = {
+      hour: plainDateTime.hour,
+      minute: plainDateTime.minute,
+      second: plainDateTime.second,
+      nanosecond: plainDateTime.nanosecond
+    };
+    const dtv = new TimeValue();
+    dtv.parts = parts;
+    return dtv;
+  }
+
+  private static fromZonedDateTime(zonedDateTime: Temporal.ZonedDateTime): TimeValue {
+    const parts: TimeParts = {
+      hour: zonedDateTime.hour,
+      minute: zonedDateTime.minute,
+      second: zonedDateTime.second,
+      nanosecond: zonedDateTime.nanosecond
+    };
+    const dtv = new TimeValue();
+    dtv.parts = parts;
+    return dtv;
+  }
+
+  private static fromInstant(instant: Temporal.Instant): TimeValue {
+    // Convert to UTC time
+    const utcDateTime = instant.toZonedDateTimeISO('UTC');
+    const parts: TimeParts = {
+      hour: utcDateTime.hour,
+      minute: utcDateTime.minute,
+      second: utcDateTime.second,
+      nanosecond: utcDateTime.nanosecond
+    };
+    const dtv = new TimeValue();
+    dtv.parts = parts;
+    return dtv;
+  }
+
   set(parts: TimeParts) {
-    validateNormalizedValue({...this.parts, ...parts});
-    Object.assign(this.parts, parts);
+    const newInstance = new TimeValue();
+    newInstance._set({ ...this.parts, ...parts });
+    return newInstance;
   }
 
   toParts(): TimeParts {
@@ -224,5 +268,26 @@ export class TimeValue implements TimeParts {
     const millisecond = parts.nanosecond ? Math.floor(parts.nanosecond / 1_000_000) : 0;
 
     return new Date(Date.UTC(1970, 0, 1, hour, minute, second, millisecond));
+  }
+
+  private _set(parts: TimeParts) {
+    // Only assign known TimeParts properties
+    if (parts.hour !== undefined) this.parts.hour = parts.hour;
+    if (parts.minute !== undefined) this.parts.minute = parts.minute;
+    if (parts.second !== undefined) this.parts.second = parts.second;
+    if (parts.nanosecond !== undefined) this.parts.nanosecond = parts.nanosecond;
+  }
+
+  fill(fillOptions: FillOptions) {
+    const { strategy, ...explicitValues } = fillOptions;
+    const parts = this.toParts();
+
+    // First apply explicit values
+    const partsWithExplicit = { ...parts, ...explicitValues };
+
+    // Then use strategy to fill remaining missing values
+    const filledParts = this._fill(partsWithExplicit, strategy, ['hour', 'minute', 'second', 'nanosecond']);
+
+    return new TimeValue(filledParts);
   }
 }

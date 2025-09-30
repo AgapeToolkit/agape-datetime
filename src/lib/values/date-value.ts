@@ -9,12 +9,12 @@ import { validateNormalizedValue } from './util/validation';
 import { ToPlainDateOptions } from '../types/to-plain-date-options';
 import { ToPlainYearMonthOptions } from '../types/to-plain-year-month-options';
 import { ToPlainMonthDayOptions } from '../types/to-plain-month-day-options';
+import { BaseValue } from './base-value';
+import { FillStrategy } from '../types/fill-strategy';
+import { FillOptions } from '../types/fill-datetime-parts';
+import { DateTimeValue } from './datetime-value';
 
-export class DateValue implements DateParts {
-
-  private parts: DateParts = {};
-  private resolvedParts?: ResolvedDateTimeParts;
-  private parsedParts?: ParsedDateTimeParts;
+export class DateValue extends BaseValue implements DateParts {
 
   get year(): number | undefined {
     return this.parts.year;
@@ -37,22 +37,20 @@ export class DateValue implements DateParts {
     if (!isNil(this.resolvedParts?.era)) return this.resolvedParts.era;
   }
 
-  constructor(parts?: DateParts | DateValue) {
+  constructor(parts?: DateParts) {
+    super();
     if (!parts) return;
 
-    if (parts instanceof DateValue) {
-      this.parts = parts.parts;
-      this.resolvedParts = parts.resolvedParts;
-      this.parsedParts = parts.parsedParts;
-      return;
-    }
-
-    this.set(parts);
+    this._set(parts);
   }
 
-  static from(input: any): DateValue {
+  static from(input: Date | Temporal.PlainDate | Temporal.PlainYearMonth | Temporal.PlainMonthDay | Temporal.PlainDateTime | Temporal.ZonedDateTime | Temporal.Instant | DateValue | DateTimeValue | DateParts | string): DateValue {
     if (input instanceof DateValue) {
-      return new DateValue(input);
+      return new DateValue(input.toParts());
+    }
+
+    if (input instanceof DateTimeValue) {
+      return new DateValue(input.toParts());
     }
 
     if (typeof input === 'string') {
@@ -64,16 +62,23 @@ export class DateValue implements DateParts {
     }
 
     // Handle Temporal objects
-    if (typeof Temporal !== 'undefined') {
-      if (input instanceof Temporal.PlainDate) {
-        return DateValue.fromPlainDate(input);
-      }
-      if (input instanceof Temporal.PlainYearMonth) {
-        return DateValue.fromPlainYearMonth(input);
-      }
-      if (input instanceof Temporal.PlainMonthDay) {
-        return DateValue.fromPlainMonthDay(input);
-      }
+    if (input instanceof Temporal.PlainDate) {
+      return DateValue.fromPlainDate(input);
+    }
+    if (input instanceof Temporal.PlainYearMonth) {
+      return DateValue.fromPlainYearMonth(input);
+    }
+    if (input instanceof Temporal.PlainMonthDay) {
+      return DateValue.fromPlainMonthDay(input);
+    }
+    if (input instanceof Temporal.PlainDateTime) {
+      return DateValue.fromPlainDateTime(input);
+    }
+    if (input instanceof Temporal.ZonedDateTime) {
+      return DateValue.fromZonedDateTime(input);
+    }
+    if (input instanceof Temporal.Instant) {
+      return DateValue.fromInstant(input);
     }
 
     // Handle DateParts object
@@ -165,9 +170,45 @@ export class DateValue implements DateParts {
     return dtv;
   }
 
+  private static fromPlainDateTime(plainDateTime: Temporal.PlainDateTime): DateValue {
+    const parts: DateParts = {
+      year: plainDateTime.year,
+      month: plainDateTime.month,
+      day: plainDateTime.day
+    };
+    const dtv = new DateValue();
+    dtv.parts = parts;
+    return dtv;
+  }
+
+  private static fromZonedDateTime(zonedDateTime: Temporal.ZonedDateTime): DateValue {
+    const parts: DateParts = {
+      year: zonedDateTime.year,
+      month: zonedDateTime.month,
+      day: zonedDateTime.day
+    };
+    const dtv = new DateValue();
+    dtv.parts = parts;
+    return dtv;
+  }
+
+  private static fromInstant(instant: Temporal.Instant): DateValue {
+    // Convert to UTC date
+    const utcDateTime = instant.toZonedDateTimeISO('UTC');
+    const parts: DateParts = {
+      year: utcDateTime.year,
+      month: utcDateTime.month,
+      day: utcDateTime.day
+    };
+    const dtv = new DateValue();
+    dtv.parts = parts;
+    return dtv;
+  }
+
   set(parts: DateParts) {
-    validateNormalizedValue({...this.parts, ...parts});
-    Object.assign(this.parts, parts);
+    const newInstance = new DateValue();
+    newInstance._set({ ...this.parts, ...parts });
+    return newInstance;
   }
 
   toParts(): DateParts {
@@ -255,5 +296,26 @@ export class DateValue implements DateParts {
     const day = parts.day!;
 
     return new Date(Date.UTC(year, month, day));
+  }
+
+  private _set(parts: DateParts) {
+    // Only assign known DateParts properties
+    if (parts.year !== undefined) this.parts.year = parts.year;
+    if (parts.month !== undefined) this.parts.month = parts.month;
+    if (parts.day !== undefined) this.parts.day = parts.day;
+    if (parts.weekday !== undefined) this.parts.weekday = parts.weekday;
+  }
+
+  fill(fillOptions: FillOptions) {
+    const { strategy, ...explicitValues } = fillOptions;
+    const parts = this.toParts();
+
+    // First apply explicit values
+    const partsWithExplicit = { ...parts, ...explicitValues };
+
+    // Then use strategy to fill remaining missing values
+    const filledParts = this._fill(partsWithExplicit, strategy, ['year', 'month', 'day', 'weekday']);
+
+    return new DateValue(filledParts);
   }
 }

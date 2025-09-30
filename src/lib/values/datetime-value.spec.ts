@@ -155,20 +155,20 @@ describe('DateTimeValue', () => {
         nanosecondsTimestamp: BigInt('1737034245500000000')
       };
 
-      dtv.set(parts);
+      const updatedDtv = dtv.set(parts);
 
-      expect(dtv.year).toBe(2025);
-      expect(dtv.month).toBe(1);
-      expect(dtv.day).toBe(15);
-      expect(dtv.hour).toBe(14);
-      expect(dtv.minute).toBe(30);
-      expect(dtv.second).toBe(45);
-      expect(dtv.nanosecond).toBe(500000000);
-      expect(dtv.timeZone).toBe('America/New_York');
-      expect(dtv.timeZoneOffset).toBe('-05:00');
-      expect(dtv.secondsTimestamp).toBe(1737034245);
-      expect(dtv.millisecondsTimestamp).toBe(1737034245500);
-      expect(dtv.nanosecondsTimestamp).toBe(BigInt('1737034245500000000'));
+      expect(updatedDtv.year).toBe(2025);
+      expect(updatedDtv.month).toBe(1);
+      expect(updatedDtv.day).toBe(15);
+      expect(updatedDtv.hour).toBe(14);
+      expect(updatedDtv.minute).toBe(30);
+      expect(updatedDtv.second).toBe(45);
+      expect(updatedDtv.nanosecond).toBe(500000000);
+      expect(updatedDtv.timeZone).toBe('America/New_York');
+      expect(updatedDtv.timeZoneOffset).toBe('-05:00');
+      expect(updatedDtv.secondsTimestamp).toBe(1737034245);
+      expect(updatedDtv.millisecondsTimestamp).toBe(1737034245500);
+      expect(updatedDtv.nanosecondsTimestamp).toBe(BigInt('1737034245500000000'));
     });
   });
 
@@ -269,28 +269,28 @@ describe('DateTimeValue', () => {
         day: 15
       };
 
-      dtv.set(parts);
-      expect(dtv.year).toBe(2025);
-      expect(dtv.month).toBe(1);
-      expect(dtv.day).toBe(15);
+      const updatedDtv = dtv.set(parts);
+      expect(updatedDtv.year).toBe(2025);
+      expect(updatedDtv.month).toBe(1);
+      expect(updatedDtv.day).toBe(15);
     });
 
     it('should merge with existing parts', () => {
-      dtv.set({ year: 2025, month: 1 });
-      dtv.set({ day: 15, hour: 14 });
+      let updatedDtv = dtv.set({ year: 2025, month: 1 });
+      updatedDtv = updatedDtv.set({ day: 15, hour: 14 });
 
-      expect(dtv.year).toBe(2025);
-      expect(dtv.month).toBe(1);
-      expect(dtv.day).toBe(15);
-      expect(dtv.hour).toBe(14);
+      expect(updatedDtv.year).toBe(2025);
+      expect(updatedDtv.month).toBe(1);
+      expect(updatedDtv.day).toBe(15);
+      expect(updatedDtv.hour).toBe(14);
     });
 
     it('should overwrite existing parts', () => {
-      dtv.set({ year: 2025, month: 1 });
-      dtv.set({ year: 2026 });
+      let updatedDtv = dtv.set({ year: 2025, month: 1 });
+      updatedDtv = updatedDtv.set({ year: 2026 });
 
-      expect(dtv.year).toBe(2026);
-      expect(dtv.month).toBe(1);
+      expect(updatedDtv.year).toBe(2026);
+      expect(updatedDtv.month).toBe(1);
     });
 
     it('should throw InvalidDayOfMonth for invalid day', () => {

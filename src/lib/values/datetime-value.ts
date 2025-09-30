@@ -8,8 +8,11 @@ import { resolveDateTimeParts } from './util/resolve';
 import { normalizeDateTimeParts } from './util/normalize';
 import { PopulatedDateTimePatternOptions } from '../pattern/types/populated-datetime-pattern-options';
 import { validateNormalizedValue } from './util/validation';
-import { FillDateTimeParts } from '../types/fill-datetime-parts';
+import { FillDateTimeParts, FillOptions } from '../types/fill-datetime-parts';
 import { FillStrategy } from '../types/fill-strategy';
+import { BaseValue } from './base-value';
+import { TimeValue } from './time-value';
+import { DateValue } from './date-value';
 
 import { ToPlainDateOptions } from '../types/to-plain-date-options';
 import { ToPlainTimeOptions } from '../types/to-plain-time-options';
@@ -30,11 +33,7 @@ const DEFAULT_PARTS_TO_FILL: Array<keyof DateTimeParts> = ['year', 'month', 'day
 
 
 
-export class DateTimeValue implements DateTimeParts {
-
-  private parts: DateTimeParts = {};
-  private resolvedParts?: ResolvedDateTimeParts;
-  private parsedParts?: ParsedDateTimeParts;
+export class DateTimeValue extends BaseValue implements DateTimeParts {
 
   get year(): number | undefined {
     return this.parts.year;
@@ -108,6 +107,7 @@ export class DateTimeValue implements DateTimeParts {
   }
 
   constructor(parts?: DateTimeParts | DateTimeValue) {
+    super();
     if (!parts) return;
 
     if (parts instanceof DateTimeValue) {
@@ -117,12 +117,20 @@ export class DateTimeValue implements DateTimeParts {
       return;
     }
 
-    this.set(parts);
+    this._set(parts);
   }
 
   static from(input: any): DateTimeValue {
     if (input instanceof DateTimeValue) {
       return new DateTimeValue(input);
+    }
+
+    if (input instanceof TimeValue) {
+      return new DateTimeValue(input.toParts());
+    }
+
+    if (input instanceof DateValue) {
+      return new DateTimeValue(input.toParts());
     }
 
     if (typeof input === 'string') {
@@ -155,7 +163,6 @@ export class DateTimeValue implements DateTimeParts {
     if (input instanceof Temporal.PlainMonthDay) {
       return DateTimeValue.fromPlainMonthDay(input);
     }
-
 
     // Handle DateTimeParts object
     if (input && typeof input === 'object') {
@@ -242,6 +249,8 @@ export class DateTimeValue implements DateTimeParts {
       throw new Error(`Cannot parse datetime string: ${input}`);
     }
 
+    // Validate the parsed parts before creating DateTimeValue
+    validateNormalizedValue(parts);
     return new DateTimeValue(parts);
   }
 
@@ -345,9 +354,44 @@ export class DateTimeValue implements DateTimeParts {
     return dtv;
   }
 
+  private _set(parts: DateTimeParts) {
+    // Only assign known DateTimeParts properties
+    if (parts.year !== undefined) this.parts.year = parts.year;
+    if (parts.month !== undefined) this.parts.month = parts.month;
+    if (parts.day !== undefined) this.parts.day = parts.day;
+    if (parts.hour !== undefined) this.parts.hour = parts.hour;
+    if (parts.minute !== undefined) this.parts.minute = parts.minute;
+    if (parts.second !== undefined) this.parts.second = parts.second;
+    if (parts.nanosecond !== undefined) this.parts.nanosecond = parts.nanosecond;
+    if (parts.weekday !== undefined) this.parts.weekday = parts.weekday;
+    if (parts.timeZone !== undefined) this.parts.timeZone = parts.timeZone;
+    if (parts.timeZoneOffset !== undefined) this.parts.timeZoneOffset = parts.timeZoneOffset;
+    if (parts.secondsTimestamp !== undefined) this.parts.secondsTimestamp = parts.secondsTimestamp;
+    if (parts.millisecondsTimestamp !== undefined) this.parts.millisecondsTimestamp = parts.millisecondsTimestamp;
+    if (parts.nanosecondsTimestamp !== undefined) this.parts.nanosecondsTimestamp = parts.nanosecondsTimestamp;
+  }
+
   set(parts: DateTimeParts) {
-    validateNormalizedValue({...this.parts, ...parts});
-    Object.assign(this.parts, parts);
+    // Validate the merged parts before creating new instance
+    const mergedParts = { ...this.parts, ...parts };
+    validateNormalizedValue(mergedParts);
+    
+    const newInstance = new DateTimeValue();
+    newInstance._set(mergedParts);
+    return newInstance;
+  }
+
+  fill(fillOptions: FillOptions) {
+    const { strategy, ...explicitValues } = fillOptions;
+    const parts = this.toParts();
+
+    // First apply explicit values
+    const partsWithExplicit = { ...parts, ...explicitValues };
+
+    // Then use strategy to fill remaining missing values
+    const filledParts = this._fill(partsWithExplicit, strategy, DEFAULT_PARTS_TO_FILL);
+
+    return new DateTimeValue(filledParts);
   }
 
   toParts(): DateTimeParts {
