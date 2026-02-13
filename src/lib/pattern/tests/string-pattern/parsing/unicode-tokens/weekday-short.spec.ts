@@ -1,0 +1,350 @@
+import { DateTimePattern } from '../../../../datetime-pattern';
+
+describe('DateTimePattern - weekdayShort', () => {
+  describe('en-US locale', () => {
+    it('should parse Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-US', unicode: true });
+      const value = pattern.parse('Sun');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (uppercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-US', case: 'uppercase', unicode: true });
+      const value = pattern.parse('SUN');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (lowercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-US', case: 'lowercase', unicode: true });
+      const value = pattern.parse('sun');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (case insensitive)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-US', case: 'insensitive', unicode: true });
+      const value = pattern.parse('sUn');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Saturday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-US', unicode: true });
+      const value = pattern.parse('Sat');
+      expect(value.weekday).toBe(6);
+    });
+    it('should fail incorrect weekday', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-US', unicode: true });
+      expect(() => pattern.parse('Invalid')).toThrow();
+    });
+    it('should fail lowercase Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-US', unicode: true });
+      expect(() => pattern.parse('sun')).toThrow();
+    });
+    it('should fail uppercase Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-US', unicode: true });
+      expect(() => pattern.parse('SUN')).toThrow();
+    });
+    it('should be part of a valid date', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'en-US', unicode: true });
+      const value = pattern.parse('Sun, Jan 05, 2025');
+      expect(value.weekday).toBe(7);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
+    });
+    it('should normalize the weekday', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'en-US', unicode: true });
+      const value = pattern.parse('Sun, Jan 05, 2025');
+      expect(value.weekday).toBe(7);
+    });
+  });
+
+  describe('es-US locale', () => {
+    it('should parse Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'es-US', unicode: true });
+      const value = pattern.parse('dom');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (uppercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'es-US', case: 'uppercase', unicode: true });
+      const value = pattern.parse('DOM');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (lowercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'es-US', case: 'lowercase', unicode: true });
+      const value = pattern.parse('dom');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (case insensitive)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'es-US', case: 'insensitive', unicode: true });
+      const value = pattern.parse('DoM');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Saturday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'es-US', unicode: true });
+      const value = pattern.parse('sáb');
+      expect(value.weekday).toBe(6);
+    });
+    it('should fail incorrect weekday', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'es-US', unicode: true });
+      expect(() => pattern.parse('Invalid')).toThrow();
+    });
+    it('should fail uppercase Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'es-US', unicode: true });
+      expect(() => pattern.parse('DOM')).toThrow();
+    });
+    it('should be part of a valid date', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'es-US', unicode: true });
+      const value = pattern.parse('dom, ene 05, 2025');
+      expect(value.weekday).toBe(7);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
+    });
+    it('should normalize the weekday', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'es-US', unicode: true });
+      const value = pattern.parse('dom, ene 05, 2025');
+      expect(value.weekday).toBe(7);
+    });
+  });
+
+  describe('en-UK locale', () => {
+    it('should parse Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-UK', unicode: true });
+      const value = pattern.parse('Sun');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (uppercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-UK', case: 'uppercase', unicode: true });
+      const value = pattern.parse('SUN');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (lowercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-UK', case: 'lowercase', unicode: true });
+      const value = pattern.parse('sun');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (case insensitive)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-UK', case: 'insensitive', unicode: true });
+      const value = pattern.parse('sUn');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Saturday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-UK', unicode: true });
+      const value = pattern.parse('Sat');
+      expect(value.weekday).toBe(6);
+    });
+    it('should fail incorrect weekday', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-UK', unicode: true });
+      expect(() => pattern.parse('Invalid')).toThrow();
+    });
+    it('should fail lowercase Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-UK', unicode: true });
+      expect(() => pattern.parse('sun')).toThrow();
+    });
+    it('should fail uppercase Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'en-UK', unicode: true });
+      expect(() => pattern.parse('SUN')).toThrow();
+    });
+    it('should be part of a valid date', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'en-UK', unicode: true });
+      const value = pattern.parse('Sun, Jan 05, 2025');
+      expect(value.weekday).toBe(7);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
+    });
+    it('should normalize the weekday', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'en-UK', unicode: true });
+      const value = pattern.parse('Sun, Jan 05, 2025');
+      expect(value.weekday).toBe(7);
+    });
+  });
+
+  describe('ru-RU locale', () => {
+    it('should parse Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ru-RU', unicode: true });
+      const value = pattern.parse('вс');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (uppercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ru-RU', case: 'uppercase', unicode: true });
+      const value = pattern.parse('ВС');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (lowercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ru-RU', case: 'lowercase', unicode: true });
+      const value = pattern.parse('вс');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (case insensitive)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ru-RU', case: 'insensitive', unicode: true });
+      const value = pattern.parse('Вс');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Saturday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ru-RU', unicode: true });
+      const value = pattern.parse('сб');
+      expect(value.weekday).toBe(6);
+    });
+    it('should fail incorrect weekday', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ru-RU', unicode: true });
+      expect(() => pattern.parse('Invalid')).toThrow();
+    });
+    it('should fail uppercase Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ru-RU', unicode: true });
+      expect(() => pattern.parse('ВС')).toThrow();
+    });
+    it('should be part of a valid date', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'ru-RU', unicode: true });
+      const value = pattern.parse('вс, янв. 05, 2025');
+      expect(value.weekday).toBe(7);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
+    });
+    it('should normalize the weekday', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'ru-RU', unicode: true });
+      const value = pattern.parse('вс, янв. 05, 2025');
+      expect(value.weekday).toBe(7);
+    });
+  });
+
+  describe('ja-JP locale', () => {
+    it('should parse Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ja-JP', unicode: true });
+      const value = pattern.parse('日');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (uppercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ja-JP', case: 'uppercase', unicode: true });
+      const value = pattern.parse('日');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (lowercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ja-JP', case: 'lowercase', unicode: true });
+      const value = pattern.parse('日');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (case insensitive)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ja-JP', case: 'insensitive', unicode: true });
+      const value = pattern.parse('日');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Saturday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ja-JP', unicode: true });
+      const value = pattern.parse('土');
+      expect(value.weekday).toBe(6);
+    });
+    it('should fail incorrect weekday', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'ja-JP', unicode: true });
+      expect(() => pattern.parse('Invalid')).toThrow();
+    });
+    it('should be part of a valid date', () => {
+      const pattern = new DateTimePattern('EEE, MMM月 dd, yyyy', { locale: 'ja-JP', unicode: true });
+      const value = pattern.parse('日, 1月 05, 2025');
+      expect(value.weekday).toBe(7);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
+    });
+    it('should normalize the weekday', () => {
+      const pattern = new DateTimePattern('EEE, MMM月 dd, yyyy', { locale: 'ja-JP', unicode: true });
+      const value = pattern.parse('日, 1月 05, 2025');
+      expect(value.weekday).toBe(7);
+    });
+  });
+
+  describe('de-DE locale', () => {
+    it('should parse Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'de-DE', unicode: true });
+      const value = pattern.parse('So.');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (uppercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'de-DE', case: 'uppercase', unicode: true });
+      const value = pattern.parse('SO.');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (lowercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'de-DE', case: 'lowercase', unicode: true });
+      const value = pattern.parse('so.');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (case insensitive)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'de-DE', case: 'insensitive', unicode: true });
+      const value = pattern.parse('sO.');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Saturday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'de-DE', unicode: true });
+      const value = pattern.parse('Sa.');
+      expect(value.weekday).toBe(6);
+    });
+    it('should fail incorrect weekday', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'de-DE', unicode: true });
+      expect(() => pattern.parse('Invalid')).toThrow();
+    });
+    it('should fail uppercase Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'de-DE', unicode: true });
+      expect(() => pattern.parse('SO')).toThrow();
+    });
+    it('should be part of a valid date', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'de-DE', unicode: true });
+      const value = pattern.parse('So., Jan. 05, 2025');
+      expect(value.weekday).toBe(7);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
+    });
+    it('should normalize the weekday', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'de-DE', unicode: true });
+      const value = pattern.parse('So., Jan. 05, 2025');
+      expect(value.weekday).toBe(7);
+    });
+  });
+
+  describe('fr-FR locale', () => {
+    it('should parse Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'fr-FR', unicode: true });
+      const value = pattern.parse('dim.');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (uppercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'fr-FR', case: 'uppercase', unicode: true });
+      const value = pattern.parse('DIM.');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (lowercase)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'fr-FR', case: 'lowercase', unicode: true });
+      const value = pattern.parse('dim.');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Sunday (case insensitive)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'fr-FR', case: 'insensitive', unicode: true });
+      const value = pattern.parse('DiM.');
+      expect(value.weekday).toBe(7);
+    });
+    it('should parse Saturday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'fr-FR', unicode: true });
+      const value = pattern.parse('sam.');
+      expect(value.weekday).toBe(6);
+    });
+    it('should fail incorrect weekday', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'fr-FR', unicode: true });
+      expect(() => pattern.parse('Invalid')).toThrow();
+    });
+    it('should fail uppercase Sunday (default case)', () => {
+      const pattern = new DateTimePattern('EEE', { locale: 'fr-FR', unicode: true });
+      expect(() => pattern.parse('DIM')).toThrow();
+    });
+    it('should be part of a valid date', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'fr-FR', unicode: true });
+      const value = pattern.parse('dim., janv. 05, 2025');
+      expect(value.weekday).toBe(7);
+      expect(value.month).toBe(1);
+      expect(value.day).toBe(5);
+      expect(value.year).toBe(2025);
+    });
+    it('should normalize the weekday', () => {
+      const pattern = new DateTimePattern('EEE, MMM dd, yyyy', { locale: 'fr-FR', unicode: true });
+      const value = pattern.parse('dim., janv. 05, 2025');
+      expect(value.weekday).toBe(7);
+    });
+  });
+});
